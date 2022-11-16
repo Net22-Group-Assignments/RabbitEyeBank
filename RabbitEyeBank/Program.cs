@@ -9,6 +9,8 @@ namespace RabbitEyeBank
         public static void Main(string[] args)
         {
             Console.WriteLine("Hello Classic Template!");
+
+            Console.WriteLine("Initiz");
         }
     }
 }
