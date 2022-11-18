@@ -6,15 +6,18 @@ using System.Threading.Tasks;
 
 namespace RabbitEyeBank
 {
-    internal class BankServices
+
+    public class BankServices
     {
-        //create login
-        static void Login(string username = "admin", string password = "password")
+
+       
+        public static void Login(string userName = "admin", string password = "password")
         {
-            //ta input
             //kontrollera mot variabel
             //om fel, avbryt
             //om rätt, fråga om lösen
+
+            //skapa List string username
             
 
         }

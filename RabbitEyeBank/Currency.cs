@@ -1,12 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace RabbitEyeBank
 {
-    internal class Currency
+    public class Currency
     {
+        public static Dictionary<CurrencyType, string> currenctyDict;
+        
+        public CurrencyType CurrencyType { get;}
+        public string Symbol { get; }
+
+        public Currency(CurrencyType currencyType, string symbol)
+        {
+            this.CurrencyType = CurrencyType;
+            this.Symbol= symbol;
+        }
+    }
+
+    public enum CurrencyType
+    {
+        USD,
+        EUR,
+        THB,
+        SEK
     }
 }

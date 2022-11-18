@@ -1,4 +1,5 @@
 ﻿using Spectre.Console;
+using RabbitEyeBank;
 
 namespace LoginDemo.UI
 {
@@ -50,7 +51,7 @@ namespace LoginDemo.UI
                 new TextPrompt<string>("[green]Enter password?[/]").PromptStyle("green")
             ); //.Secret()
 
-            // BankServices.login(username, password)
+            BankServices.Login(username, password);
 
             // Old shit
             //if (choice == "admin")
