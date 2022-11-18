@@ -13,6 +13,7 @@ namespace RabbitEyeBank
         {
             this.CurrencyType = CurrencyType;
             this.Symbol= symbol;
+            //Hundtext
         }
     }
 
