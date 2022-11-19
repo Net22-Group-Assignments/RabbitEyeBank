@@ -8,10 +8,10 @@ namespace RabbitEyeBank.Money
     /// </summary>
     public readonly struct Currency
     {
-        private static readonly string[] CultureName = { "en-US", "FR-fr", "th-TH", "sv-SE" };
+        private static readonly string[] cultureNames = { "en-US", "FR-fr", "th-TH", "sv-SE" };
 
         // TODO Should the dictionary be stored somewhere else, like BankService?
-        public static Dictionary<CurrencyType, string> CurrencySymbolDictionary;
+        public static readonly Dictionary<CurrencyISO, Currency> CurrencyDictionary;
 
         /// <summary>
         /// Initializes the dictionary by connecting the currency type
@@ -19,29 +19,30 @@ namespace RabbitEyeBank.Money
         /// </summary>
         static Currency()
         {
-            var currencyTypesAndCultures = Enum.GetValues<CurrencyType>()
+            var currencyISOAndCurrency = Enum.GetValues<CurrencyISO>()
                 .Zip(
-                    CultureName,
+                    cultureNames,
                     (first, second) =>
-                        new KeyValuePair<CurrencyType, string>(
+                        new KeyValuePair<CurrencyISO, Currency>(
                             first,
-                            CultureInfo.GetCultureInfo(second).NumberFormat.CurrencySymbol
+                            new Currency(
+                                first,
+                                CultureInfo.GetCultureInfo(second).NumberFormat.CurrencySymbol
+                            )
                         )
                 );
-            CurrencySymbolDictionary = new Dictionary<CurrencyType, string>(
-                currencyTypesAndCultures
-            );
+            CurrencyDictionary = new Dictionary<CurrencyISO, Currency>(currencyISOAndCurrency);
 
             // Correct to the _real_ SEK symbol:
-            CurrencySymbolDictionary[CurrencyType.SEK] = "♕";
+            CurrencyDictionary[CurrencyISO.SEK] = new Currency(CurrencyISO.SEK, "♕");
         }
 
-        public CurrencyType CurrencyType { get; }
+        public CurrencyISO CurrencyISO { get; }
         public string Symbol { get; }
 
-        public Currency(CurrencyType currencyType, string symbol)
+        public Currency(CurrencyISO currencyISO, string symbol)
         {
-            CurrencyType = currencyType;
+            CurrencyISO = currencyISO;
             Symbol = symbol;
             //Hundtext
         }
@@ -49,11 +50,11 @@ namespace RabbitEyeBank.Money
         /// <inheritdoc />
         public override string ToString()
         {
-            return $"{nameof(CurrencyType)}: {CurrencyType}, {nameof(Symbol)}: {Symbol}";
+            return $"{nameof(CurrencyISO)}: {CurrencyISO}, {nameof(Symbol)}: {Symbol}";
         }
     }
 
-    public enum CurrencyType
+    public enum CurrencyISO
     {
         USD,
         EUR,

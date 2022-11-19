@@ -6,13 +6,11 @@ namespace ClassTests
     {
         public static void Main(string[] args)
         {
-            // Create all available currencies in the dictionary.
-            List<Currency> currencies = new List<Currency>();
-            foreach (var keyValuePair in Currency.CurrencySymbolDictionary)
+            Console.WriteLine("All available currencies");
+            foreach (var currency in Currency.CurrencyDictionary.Values)
             {
-                currencies.Add(new Currency(keyValuePair.Key, keyValuePair.Value));
+                Console.WriteLine(currency);
             }
-            currencies.ForEach(cur => Console.WriteLine(cur));
         }
     }
 }
