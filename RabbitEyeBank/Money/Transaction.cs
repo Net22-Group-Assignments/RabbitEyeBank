@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RabbitEyeBank.Money
 {
-    internal class Transaction
+    public class Transaction
     {
         //List för att lagra objekt!!!
     }

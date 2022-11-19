@@ -8,8 +8,8 @@ namespace RabbitEyeBank
 {
     internal class UI
     {
-
-        public static string logotyp = @$"
+        public static string logotyp =
+            @$"
   _______________________________       |                            {DateTime.Now}
   \______   \_   _____/\______   \      |   
    |       _/|    __)_  |    |  _/      |   

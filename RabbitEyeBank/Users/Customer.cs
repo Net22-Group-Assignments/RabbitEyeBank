@@ -1,4 +1,4 @@
 ﻿namespace RabbitEyeBank.User_Management
 {
-    internal class Customer { }
+    public class Customer { }
 }
