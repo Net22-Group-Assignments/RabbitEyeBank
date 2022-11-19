@@ -16,10 +16,18 @@ namespace LoginDemo.UI
             }
         }
 
+        /// <summary>
+        /// Switches to another IWindow. The 'from' window is put on the stack,
+        /// so when the show method in IWindow returns, it will pop and you will be in
+        /// this window.
+        /// </summary>
+        /// <param name="from">The IWindow you are in now.</param>
+        /// <param name="to">The IWindow you will jump to.</param>
         public static void Navigate(IWindow from, IWindow to)
         {
             _windowStack.Push(from);
             to?.Show();
+            // show method return here.
             _windowStack.Pop()?.Show();
         }
     }
@@ -35,14 +43,6 @@ namespace LoginDemo.UI
             //var font = FigletFont.Parse("coinstak");
             AnsiConsole.Write(new FigletText("R.E.B").LeftAligned().Color(Color.Green));
 
-            // Old shit
-            //AnsiConsole.WriteLine("Login screen here:");
-            //var choice = AnsiConsole.Prompt(
-            //    new SelectionPrompt<string>()
-            //        .Title("Did the user log in as admin or customer?")
-            //        .AddChoices("admin", "customer", "exit")
-            //);
-
             string username = AnsiConsole.Prompt(
                 new TextPrompt<string>("[green]Enter username?[/]").PromptStyle("green")
             );
@@ -52,6 +52,15 @@ namespace LoginDemo.UI
             ); //.Secret()
 
             BankServices.Login(username, password);
+
+            // TODO Remove commented lines in future.
+            // Old shit this was used before we added the prototype login ui above.
+            //AnsiConsole.WriteLine("Login screen here:");
+            //var choice = AnsiConsole.Prompt(
+            //    new SelectionPrompt<string>()
+            //        .Title("Did the user log in as admin or customer?")
+            //        .AddChoices("admin", "customer", "exit")
+            //);
 
             // Old shit
             //if (choice == "admin")
