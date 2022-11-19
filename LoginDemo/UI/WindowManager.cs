@@ -81,7 +81,7 @@ namespace LoginDemo.UI
             AnsiConsole.Clear();
             WindowManager.showWindowStack();
             AnsiConsole.WriteLine($"Level {WindowManager.Level}");
-            AnsiConsole.WriteLine("User creation screen here:");
+            AnsiConsole.WriteLine("Customer creation screen here:");
             AnsiConsole.WriteLine("Press a key to go back. In real app Admin would choose exit.");
             Console.ReadKey();
         }

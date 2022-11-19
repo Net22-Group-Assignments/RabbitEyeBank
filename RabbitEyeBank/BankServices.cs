@@ -12,7 +12,7 @@ namespace RabbitEyeBank
         /// <summary>
         /// Stores all users/customers in the bank.
         /// </summary>
-        public static List<User> UserList { get; } = new();
+        public static List<Customer> UserList { get; } = new();
 
         // TODO the login method should return a value to the caller so the ui can give the right message to the user.
         // TODO change return type to your response.

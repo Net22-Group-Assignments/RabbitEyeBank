@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LoginDemo.UI;
+﻿using LoginDemo.UI;
+using RabbitEyeBank;
+using Serilog;
+using Spectre.Console;
 
 namespace LoginDemo
 {
@@ -11,6 +9,9 @@ namespace LoginDemo
     {
         public void Run()
         {
+            BankServices.UserList.ForEach(customer => Log.Information("{customer}", customer));
+            AnsiConsole.WriteLine("Press a key to continue.");
+            Console.ReadKey();
             do
             {
                 WindowManager.Navigate(null, new LoginWindow());
