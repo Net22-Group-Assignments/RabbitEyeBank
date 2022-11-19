@@ -1,35 +1,41 @@
-﻿namespace RabbitEyeBank.Users
+﻿using RabbitEyeBank.Money;
+
+namespace RabbitEyeBank.Users
 {
-    internal class User
+    /// TODO Should this be named customer instead? Or should this be user and customer inherits this + gets the bankaccount?
+    /// <summary>
+    /// Represents a user/customer.
+    /// </summary>
+    public class User
     {
         //private string id; //variable camelCase
         private int loginAttempts;
 
+        //public Guid  { get; set; }
         public string FirstName { get; set; } // property PascalCase
         public string LastName { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
 
         public bool IsActive { get; set; }
+
+        /// <summary>
+        /// Can make the user inactive if failed.
+        /// Usually used with incrementation.
+        /// </summary>
         public int LoginAttempts
         {
-            get { return loginAttempts; }
+            get => loginAttempts;
             set
             {
-                loginAttempts++;
+                loginAttempts = value;
                 if (loginAttempts >= 3)
                 {
                     IsActive = false;
                 }
             }
-
-            //Can make the user inactive if failed.
-
-
-
-            //public Guid  { get; set; }
-
-            // public List<BankAccount> bankAccountList;
         }
+
+        public List<BankAccount> BankAccountList = new();
     }
 }
