@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Serilog.Sinks.SpectreConsole" Version="0.3.3" />
     <PackageReference Include="Spectre.Console" Version="0.45.0" />
     <PackageReference Include="Spectre.Console.Analyzer" Version="0.45.0">
       <PrivateAssets>all</PrivateAssets>

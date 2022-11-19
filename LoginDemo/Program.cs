@@ -1,13 +1,14 @@
 ﻿using LoginDemo;
-using Spectre.Console;
+using RabbitEyeBank.Shared;
+using Serilog;
+using Serilog.Sinks.SpectreConsole;
 
+using var log = new LoggerConfiguration().MinimumLevel
+    .Debug()
+    .WriteTo.Debug()
+    .WriteTo.SpectreConsole()
+    .CreateLogger();
+Log.Logger = log;
+Log.Information("Bank console starting.");
+BogusSetup.InitData(5, 5);
 new Application().Run();
-//string password = AnsiConsole.Prompt(
-//    new TextPrompt<string>("[green]Enter password?[/]").PromptStyle("green").Secret()
-//);
-//var panel = new Panel(
-//    AnsiConsole.Prompt(new TextPrompt<string>("[green]Enter username?[/]").PromptStyle("green"))
-//);
-
-////AnsiConsole.MarkupLineInterpolated($"[green]Username: {username}[/]");
-//AnsiConsole.MarkupLineInterpolated($"[green]Password: {password}[/]");
