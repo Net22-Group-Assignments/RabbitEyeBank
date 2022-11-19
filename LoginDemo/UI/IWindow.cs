@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RabbitEyeBank
+namespace LoginDemo.UI
 {
-    internal class Customer
+    internal interface IWindow
     {
+        public void Show();
     }
 }

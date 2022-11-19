@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RabbitEyeBank
+namespace RabbitEyeBank.Money
 {
-    internal class Admin
+    public class Transaction
     {
+        //List för att lagra objekt!!!
     }
 }
