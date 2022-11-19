@@ -36,6 +36,27 @@ namespace RabbitEyeBank.Users
             }
         }
 
-        public List<BankAccount> BankAccountList = new();
+        public List<BankAccount> BankAccountList { get; } = new();
+
+        public Customer(
+            string firstName,
+            string lastName,
+            string username,
+            string password,
+            bool isActive
+        )
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Username = username;
+            Password = password;
+            IsActive = isActive;
+        }
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return $"{nameof(FirstName)}: {FirstName}, {nameof(LastName)}: {LastName}, {nameof(Username)}: {Username}, {nameof(Password)}: {Password}, {nameof(IsActive)}: {IsActive}, {nameof(LoginAttempts)}: {LoginAttempts}, Bank accounts: {BankAccountList.Count}";
+        }
     }
 }
