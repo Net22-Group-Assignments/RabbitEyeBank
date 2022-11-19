@@ -20,8 +20,16 @@ namespace RabbitEyeBank.Shared
             // UserService.Admin = admin;
             Customer customer = new Customer("John", "Doe", "username", "password", true);
             BankServices.UserList.Add(customer);
-            BankAccount b1 = new BankAccount(10000m, BankData.CurrencyDictionary[CurrencyISO.SEK]);
-            BankAccount b2 = new BankAccount(1000, BankData.CurrencyDictionary[CurrencyISO.USD]);
+            BankAccount b1 = new BankAccount(
+                "Savings",
+                10000m,
+                BankData.CurrencyDictionary[CurrencyISO.SEK]
+            );
+            BankAccount b2 = new BankAccount(
+                "Wages",
+                1000,
+                BankData.CurrencyDictionary[CurrencyISO.USD]
+            );
             customer.BankAccountList.Add(b1);
             customer.BankAccountList.Add(b2);
 
