@@ -23,5 +23,14 @@ namespace RabbitEyeBank
 
             //skapa List string username
         }
+
+        // Just a suggestion.
+        //public static void AdminCreateUser()
+        //{
+        //    if (CurrentUser.IsAdmin == false)
+        //    {
+        //        throw new Exception()
+        //    }
+        //}
     }
 }

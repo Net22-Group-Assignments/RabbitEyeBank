@@ -1,4 +1,4 @@
-﻿using RabbitEyeBank.Money;
+﻿using RabbitEyeBank;
 
 namespace ClassTests
 {
@@ -7,7 +7,7 @@ namespace ClassTests
         public static void Main(string[] args)
         {
             Console.WriteLine("All available currencies");
-            foreach (var currency in Currency.CurrencyDictionary.Values)
+            foreach (var currency in BankData.CurrencyDictionary.Values)
             {
                 Console.WriteLine(currency);
             }
