@@ -32,48 +32,6 @@ namespace LoginDemo.UI
         }
     }
 
-    public class LoginWindow : IWindow
-    {
-        public void Show()
-        {
-            AnsiConsole.Clear();
-            WindowManager.showWindowStack();
-            AnsiConsole.WriteLine($"Level {WindowManager.Level}");
-
-            //var font = FigletFont.Parse("coinstak");
-            AnsiConsole.Write(new FigletText("R.E.B").LeftAligned().Color(Color.Green));
-
-            string username = AnsiConsole.Prompt(
-                new TextPrompt<string>("[green]Enter username?[/]").PromptStyle("green")
-            );
-
-            string password = AnsiConsole.Prompt(
-                new TextPrompt<string>("[green]Enter password?[/]").PromptStyle("green")
-            ); //.Secret()
-
-            BankServices.Login(username, password);
-
-            // TODO Remove commented lines in future.
-            // Old shit this was used before we added the prototype login ui above.
-            //AnsiConsole.WriteLine("Login screen here:");
-            //var choice = AnsiConsole.Prompt(
-            //    new SelectionPrompt<string>()
-            //        .Title("Did the user log in as admin or customer?")
-            //        .AddChoices("admin", "customer", "exit")
-            //);
-
-            // Old shit
-            //if (choice == "admin")
-            //{
-            //    WindowManager.Navigate(this, new AdminWindow());
-            //}
-            //else if (choice == "customer")
-            //{
-            //    WindowManager.Navigate(this, new CustomerWindow());
-            //}
-        }
-    }
-
     public class AdminWindow : IWindow
     {
         public void Show()
