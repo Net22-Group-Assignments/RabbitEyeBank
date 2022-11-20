@@ -14,7 +14,6 @@ namespace RabbitEyeBank
         /// </summary>
         public static List<Customer?> CustomerList { get; } = new();
 
-        //
         public static Customer? LoggedInCustomer;
 
         // TODO the login method should return a value to the caller so the ui can give the right message to the user.
@@ -60,6 +59,16 @@ namespace RabbitEyeBank
 
             // return response code //
             return "ELK"; // successfull login code.
+        }
+
+        public static void LogOut()
+        {
+            if (LoggedInCustomer is null)
+            {
+                throw new InvalidOperationException("No logged in customer.");
+            }
+
+            LoggedInCustomer = null;
         }
 
         public static Customer? GetCustomer(string userName)

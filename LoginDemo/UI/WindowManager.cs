@@ -62,7 +62,7 @@ namespace LoginDemo.UI
                         1 => "see bank accounts",
                         2 => "create new account",
                         3 => "transfer money",
-                        4 => "exit"
+                        4 => "logout"
                     };
                 }
             );
@@ -85,6 +85,10 @@ namespace LoginDemo.UI
             {
                 WindowManager.Navigate(this, window);
             }
+            AnsiConsole.Clear();
+            AnsiConsole.WriteLine("You are now logged out of the system.");
+            Console.ReadKey();
+            BankServices.LogOut();
         }
     }
 
