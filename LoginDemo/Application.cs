@@ -9,7 +9,8 @@ namespace LoginDemo
     {
         public void Run()
         {
-            BankServices.UserList.ForEach(customer => Log.Information("{customer}", customer));
+            AnsiConsole.WriteLine("These users are pregenerated for testing use.");
+            BankServices.CustomerList.ForEach(customer => Log.Information("{customer}", customer));
             AnsiConsole.WriteLine("Press a key to continue.");
             Console.ReadKey();
             do
