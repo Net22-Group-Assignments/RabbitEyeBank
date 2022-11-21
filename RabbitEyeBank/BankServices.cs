@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RabbitEyeBank.Users;
+using Serilog;
 
 namespace RabbitEyeBank
 {
@@ -67,7 +68,7 @@ namespace RabbitEyeBank
             {
                 throw new InvalidOperationException("No logged in customer.");
             }
-
+            Log.Debug("User with username: {username} logged out", LoggedInCustomer.Username);
             LoggedInCustomer = null;
         }
 
