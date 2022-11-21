@@ -1,28 +1,33 @@
 ﻿using System.Collections.ObjectModel;
-using Spectre.Console;
-using RabbitEyeBank;
 
 namespace LoginDemo.UI
 {
     internal static class WindowManager
     {
         private static Stack<IWindow> _windowStack = new();
-        private static readonly Dictionary<string, IWindow> windowDictionary = new();
+        private static readonly Dictionary<WindowName, IWindow> windowDictionary = new();
         public static int Level => _windowStack.Count;
 
-        public static ReadOnlyDictionary<string, IWindow> WindowDictionary;
+        public static ReadOnlyDictionary<WindowName, IWindow> WindowDictionary;
 
+        /// <summary>
+        /// Keeps all windows that the application will use.
+        /// </summary>
         static WindowManager()
         {
-            windowDictionary.Add("login", new LoginWindow());
-            windowDictionary.Add("admin", new AdminWindow());
-            windowDictionary.Add("customer", new CustomerWindow());
-            windowDictionary.Add("bankaccount", new BankAccountWindow());
-            windowDictionary.Add("transfer", new MoneyTransferWindow());
-            windowDictionary.Add("createbankaccount", new CreateAccountWindow());
-            WindowDictionary = new ReadOnlyDictionary<string, IWindow>(windowDictionary);
+            windowDictionary.Add(WindowName.Login, new LoginWindow());
+            windowDictionary.Add(WindowName.Admin, new AdminWindow());
+            windowDictionary.Add(WindowName.Customer, new CustomerWindow());
+            windowDictionary.Add(WindowName.BankAccount, new BankAccountWindow());
+            windowDictionary.Add(WindowName.MoneyTransfer, new MoneyTransferWindow());
+            windowDictionary.Add(WindowName.CreateAccount, new CreateAccountWindow());
+            WindowDictionary = new ReadOnlyDictionary<WindowName, IWindow>(windowDictionary);
         }
 
+        /// <summary>
+        /// Method used for debugging purposes.
+        /// Shows the windows layered on each other from top to bottom.
+        /// </summary>
         public static void showWindowStack()
         {
             foreach (var window in _windowStack)
@@ -44,96 +49,6 @@ namespace LoginDemo.UI
             to?.Show();
             // show method return here.
             _windowStack.Pop()?.Show();
-        }
-    }
-
-    public class AdminWindow : IWindow
-    {
-        public void Show()
-        {
-            AnsiConsole.Clear();
-            WindowManager.showWindowStack();
-            AnsiConsole.WriteLine($"Level {WindowManager.Level}");
-            AnsiConsole.WriteLine("Customer creation screen here:");
-            AnsiConsole.WriteLine("Press a key to go back. In real app Admin would choose exit.");
-            Console.ReadKey();
-        }
-    }
-
-    //"see bank accounts", "create new account", "transfer money"
-    public class CustomerWindow : IWindow
-    {
-        private readonly SelectionPrompt<int> selection = new SelectionPrompt<int>()
-            .Title("Where to go?")
-            .AddChoices(1, 2, 3, 4);
-
-        public void Show()
-        {
-            selection.Converter = (
-                i =>
-                {
-                    return i switch
-                    {
-                        1 => "see bank accounts",
-                        2 => "create new account",
-                        3 => "transfer money",
-                        4 => "logout"
-                    };
-                }
-            );
-
-            AnsiConsole.Clear();
-            WindowManager.showWindowStack();
-            AnsiConsole.WriteLine($"Level {WindowManager.Level}");
-            AnsiConsole.WriteLine("Customers Landing screen here:");
-
-            int choice = AnsiConsole.Prompt(selection);
-            IWindow? window = choice switch
-            {
-                1 => new BankAccountWindow(),
-                2 => new CreateAccountWindow(),
-                3 => new MoneyTransferWindow(),
-                _ => null
-            };
-
-            if (window is not null)
-            {
-                WindowManager.Navigate(this, window);
-            }
-            AnsiConsole.Clear();
-            AnsiConsole.WriteLine("You are now logged out of the system.");
-            Console.ReadKey();
-            BankServices.LogOut();
-        }
-    }
-
-    public class MoneyTransferWindow : IWindow
-    {
-        public void Show()
-        {
-            AnsiConsole.Clear();
-            WindowManager.showWindowStack();
-            AnsiConsole.WriteLine($"Level {WindowManager.Level}");
-            AnsiConsole.WriteLine("Customers money transaction screen here:");
-            AnsiConsole.WriteLine(
-                "Press a key to go back. In real app Customer would choose exit."
-            );
-            Console.ReadKey();
-        }
-    }
-
-    public class CreateAccountWindow : IWindow
-    {
-        public void Show()
-        {
-            AnsiConsole.Clear();
-            WindowManager.showWindowStack();
-            AnsiConsole.WriteLine($"Level {WindowManager.Level}");
-            AnsiConsole.WriteLine("Customers account creation screen here:");
-            AnsiConsole.WriteLine(
-                "Press a key to go back. In real app Customer would choose exit."
-            );
-            Console.ReadKey();
         }
     }
 }
