@@ -16,12 +16,15 @@ namespace RabbitEyeBank
 
         public static Customer? LoggedInCustomer;
 
+        private static bool adminMode = false;
+
         // TODO the login method should return a value to the caller so the ui can give the right message to the user.
         // TODO change return type to your response.
         public static string Login(string userName, string password)
         {
             if (userName == "admin" && password == "admin")
             {
+                adminMode = true;
                 return "KNG"; // admin response code
             }
 
@@ -67,7 +70,6 @@ namespace RabbitEyeBank
             {
                 throw new InvalidOperationException("No logged in customer.");
             }
-
             LoggedInCustomer = null;
         }
 
@@ -83,13 +85,21 @@ namespace RabbitEyeBank
             // If a customer not found, return null.
             return null;
         }
-        // Just a suggestion.
-        //public static void AdminCreateUser()
-        //{
-        //    if (CurrentUser.IsAdmin == false)
-        //    {
-        //        throw new Exception()
-        //    }
-        //}
+
+        public static bool UserNameExists(string userName)
+        {
+            // check if username already exists.
+            return false;
+        }
+
+        public static void AdminCreateUser(
+            string firstName,
+            string lastName,
+            string username,
+            string password
+        )
+        {
+            // Create a user and save it.
+        }
     }
 }
