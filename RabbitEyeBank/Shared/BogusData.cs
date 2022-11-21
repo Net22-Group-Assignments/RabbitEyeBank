@@ -19,9 +19,9 @@ namespace BankClassLib.Helpers
         /// Generates a random instance of <c>Customer</c>.
         /// </summary>
         /// <returns>A random <c>Customer</c>.</returns>
-        public static Customer Customer()
+        public static Customer? Customer()
         {
-            Customer customer = new Customer(
+            Customer? customer = new Customer(
                 faker.Name.FirstName(),
                 faker.Name.LastName(),
                 faker.Internet.UserName(),

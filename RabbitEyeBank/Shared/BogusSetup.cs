@@ -33,16 +33,18 @@ namespace RabbitEyeBank.Shared
             customer.BankAccountList.Add(b1);
             customer.BankAccountList.Add(b2);
 
+            customer = new Customer("Jane", "Doe", "jade", "flower", false);
+            BankServices.CustomerList.Add(customer);
             // Random entities.
             for (int i = 0; i < nCustomers; i++)
             {
-                Customer c = BogusData.Customer();
+                Customer? c = BogusData.Customer();
                 for (int j = 0; j < Random.Shared.Next(maxAccounts + 1); j++)
                 {
                     var acc = BogusData.BankAccount();
                     c.BankAccountList.Add(acc);
                 }
-                BankServices.UserList.Add(c);
+                BankServices.CustomerList.Add(c);
             }
         }
     }

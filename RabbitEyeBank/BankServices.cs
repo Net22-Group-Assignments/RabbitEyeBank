@@ -12,21 +12,77 @@ namespace RabbitEyeBank
         /// <summary>
         /// Stores all users/customers in the bank.
         /// </summary>
-        public static List<Customer> UserList { get; } = new();
+        public static List<Customer?> CustomerList { get; } = new();
+
+        public static Customer? LoggedInCustomer;
 
         // TODO the login method should return a value to the caller so the ui can give the right message to the user.
         // TODO change return type to your response.
-        public static void Login(string userName = "admin", string password = "password")
+        public static string Login(string userName, string password)
         {
-            // Ok to use console writeline when debug.
-            //kontrollera mot variabel
-            //om fel, avbryt
-            //om rätt, fråga om lösen
+            if (userName == "admin" && password == "admin")
+            {
+                return "KNG"; // admin response code
+            }
 
-            //skapa List string username
+            // kolla om username existerar
+            // om inte returnera felkod
+            // om den finns:
+            // Check password
+            // if wrong, increase logintries++ return errormessage
+            // if right login success.
+            Customer? foundCustomer = GetCustomer(userName);
+
+            if (foundCustomer == null)
+            {
+                return "SBS"; // username not found code.
+            }
+
+            if (foundCustomer.IsActive == false)
+            {
+                return "RIP"; // user deactivated code.
+            }
+
+            if (foundCustomer.Password != password)
+            {
+                foundCustomer.LoginAttempts++; // If loginattempts gets to 3 the customer is deactivated.
+                if (foundCustomer.IsActive == false)
+                {
+                    return "RED"; // password error and past limit.
+                }
+                return "SBK"; // password error code.
+            }
+
+            // Reset after successful login
+            foundCustomer.LoginAttempts = 0;
+            LoggedInCustomer = foundCustomer;
+
             // return response code //
+            return "ELK"; // successfull login code.
         }
 
+        public static void LogOut()
+        {
+            if (LoggedInCustomer is null)
+            {
+                throw new InvalidOperationException("No logged in customer.");
+            }
+
+            LoggedInCustomer = null;
+        }
+
+        public static Customer? GetCustomer(string userName)
+        {
+            foreach (Customer? customer in CustomerList)
+            {
+                if (customer?.Username == userName)
+                {
+                    return customer;
+                }
+            }
+            // If a customer not found, return null.
+            return null;
+        }
         // Just a suggestion.
         //public static void AdminCreateUser()
         //{
