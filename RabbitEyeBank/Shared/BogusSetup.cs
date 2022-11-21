@@ -19,7 +19,7 @@ namespace RabbitEyeBank.Shared
             // Admin? admin = new Admin("admin", "password", true);
             // UserService.Admin = admin;
             Customer customer = new Customer("John", "Doe", "username", "password", true);
-            BankServices.UserList.Add(customer);
+            BankServices.CustomerList.Add(customer);
             BankAccount b1 = new BankAccount(
                 "Savings",
                 10000m,
