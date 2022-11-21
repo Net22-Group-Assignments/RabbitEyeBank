@@ -2,6 +2,17 @@
 
 namespace LoginDemo.UI
 {
+    internal enum WindowName
+    {
+        Login,
+        Admin,
+        Customer,
+        BankAccount,
+        MoneyTransfer,
+        CreateAccount,
+        Logout
+    }
+
     internal static class WindowManager
     {
         private static Stack<IWindow> _windowStack = new();

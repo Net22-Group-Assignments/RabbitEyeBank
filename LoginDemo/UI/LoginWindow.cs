@@ -66,11 +66,11 @@ namespace LoginDemo.UI
 
             if (isAdmin)
             {
-                WindowManager.Navigate(this, new AdminWindow());
+                WindowManager.Navigate(this, WindowManager.WindowDictionary[WindowName.Admin]);
             }
             else
             {
-                WindowManager.Navigate(this, new CustomerWindow());
+                WindowManager.Navigate(this, WindowManager.WindowDictionary[WindowName.Customer]);
             }
         }
     }
