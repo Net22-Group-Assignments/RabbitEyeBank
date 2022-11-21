@@ -1,4 +1,5 @@
-﻿using Spectre.Console;
+﻿using System.Collections.ObjectModel;
+using Spectre.Console;
 using RabbitEyeBank;
 
 namespace LoginDemo.UI
@@ -6,7 +7,21 @@ namespace LoginDemo.UI
     internal static class WindowManager
     {
         private static Stack<IWindow> _windowStack = new();
+        private static readonly Dictionary<string, IWindow> windowDictionary = new();
         public static int Level => _windowStack.Count;
+
+        public static ReadOnlyDictionary<string, IWindow> WindowDictionary;
+
+        static WindowManager()
+        {
+            windowDictionary.Add("login", new LoginWindow());
+            windowDictionary.Add("admin", new AdminWindow());
+            windowDictionary.Add("customer", new CustomerWindow());
+            windowDictionary.Add("bankaccount", new BankAccountWindow());
+            windowDictionary.Add("transfer", new MoneyTransferWindow());
+            windowDictionary.Add("createbankaccount", new CreateAccountWindow());
+            WindowDictionary = new ReadOnlyDictionary<string, IWindow>(windowDictionary);
+        }
 
         public static void showWindowStack()
         {
