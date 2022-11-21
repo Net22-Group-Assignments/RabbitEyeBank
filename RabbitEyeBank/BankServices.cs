@@ -20,9 +20,9 @@ namespace RabbitEyeBank
 
         // TODO the login method should return a value to the caller so the ui can give the right message to the user.
         // TODO change return type to your response.
-        public static string Login(string userName, string password)
+        public static string Login(string username, string password)
         {
-            if (userName == "admin" && password == "admin")
+            if (username == "admin" && password == "admin")
             {
                 adminMode = true;
                 return "KNG"; // admin response code
@@ -34,7 +34,7 @@ namespace RabbitEyeBank
             // Check password
             // if wrong, increase logintries++ return errormessage
             // if right login success.
-            Customer? foundCustomer = GetCustomer(userName);
+            Customer? foundCustomer = GetCustomer(username);
 
             if (foundCustomer == null)
             {
@@ -73,23 +73,37 @@ namespace RabbitEyeBank
             LoggedInCustomer = null;
         }
 
-        public static Customer? GetCustomer(string userName)
+        public static Customer? GetCustomer(string username)
         {
             foreach (Customer? customer in CustomerList)
             {
-                if (customer?.Username == userName)
+                if (customer?.Username == username)
                 {
                     return customer;
                 }
             }
             // If a customer not found, return null.
-            return null;
+            return null; 
         }
 
-        public static bool UserNameExists(string userName)
+        public static bool UserNameExists(string username)
         {
+            if (username == "admin")
+            {
+                return true;
+            }
+            
+            foreach (Customer customer in CustomerList)
+            {
+                if (customer.Username == username.ToLower())
+                {
+                    Console.WriteLine("That username is already taken");
+                    return true;
+                }
+            }
+
             // check if username already exists.
-            return false;
+            return false;  //false is placeholder
         }
 
         public static void AdminCreateUser(
