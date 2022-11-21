@@ -16,27 +16,24 @@ public class BankAccountWindow : IWindow
         AnsiConsole.WriteLine("Customers Account and balance screen here:");
 
         var table = new Table();
-        table.AddColumns(
-            new TableColumn("Account Name"),
-            new TableColumn("Balance"),
-            new TableColumn("Currency")
-        );
-
-        foreach (Customer c in BankServices.UserList)
+        table.AddColumns(new TableColumn("Account Name"), new TableColumn("Balance"));
+        foreach (var bankAccount in BankServices.LoggedInCustomer.BankAccountList)
         {
-            foreach (BankAccount ba in c.BankAccountList)
-            {
-                // ba.Name, ba.AccBalance, ba.Currency.Symbol
-                table.AddRow(
-                    new Markup(ba.Name),
-                    new Markup(ba.AccBalance.ToString(CultureInfo.InvariantCulture)),
-                    new Markup(ba.Currency.Symbol)
-                );
-            }
+            table.AddRow(
+                new Markup(bankAccount.Name),
+                new Markup(
+                    string.Format(
+                        "{0} {1}",
+                        bankAccount.AccBalance.ToString(CultureInfo.InvariantCulture),
+                        bankAccount.Currency.Symbol
+                    )
+                )
+            );
         }
+
         AnsiConsole.Write(table);
 
-        AnsiConsole.WriteLine("Press a key to go back. In real app Customer would choose exit.");
+        AnsiConsole.WriteLine("Press a key to go back.");
         Console.ReadKey();
     }
 }
