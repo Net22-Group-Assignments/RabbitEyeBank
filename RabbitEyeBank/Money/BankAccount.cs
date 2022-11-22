@@ -11,11 +11,13 @@ namespace RabbitEyeBank.Money
     /// </summary>
     public class BankAccount
     {
+        public string Name { get; set; }
         public decimal AccBalance { get; set; }
         public Currency Currency { get; set; }
 
-        public BankAccount(decimal accBalance, Currency currency)
+        public BankAccount(string name, decimal accBalance, Currency currency)
         {
+            Name = name;
             AccBalance = accBalance;
             Currency = currency;
         }

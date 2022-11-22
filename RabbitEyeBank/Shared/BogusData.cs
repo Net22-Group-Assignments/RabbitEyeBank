@@ -39,6 +39,7 @@ namespace BankClassLib.Helpers
         public static BankAccount BankAccount()
         {
             return new BankAccount(
+                faker.Finance.AccountName(),
                 faker.Finance.Amount(),
                 faker.Random.CollectionItem(BankData.CurrencyDictionary.Values)
             );
