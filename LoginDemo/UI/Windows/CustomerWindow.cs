@@ -1,7 +1,7 @@
 ﻿using RabbitEyeBank;
 using Spectre.Console;
 
-namespace LoginDemo.UI;
+namespace LoginDemo.UI.Windows;
 
 public class CustomerWindow : IWindow
 {
@@ -25,9 +25,7 @@ public class CustomerWindow : IWindow
 
     public CustomerWindow()
     {
-        selection = new SelectionPrompt<WindowName>()
-            .Title("Where to go?")
-            .AddChoices(windowNames);
+        selection = new SelectionPrompt<WindowName>().Title("Where to go?").AddChoices(windowNames);
         selection.Converter = Helpers.SelectionConverter(windowNames, selectionStrings);
     }
 

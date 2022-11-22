@@ -1,6 +1,6 @@
 ﻿using Spectre.Console;
 
-namespace LoginDemo.UI;
+namespace LoginDemo.UI.Windows;
 
 public class MoneyTransferWindow : IWindow
 {
@@ -10,9 +10,7 @@ public class MoneyTransferWindow : IWindow
         WindowManager.showWindowStack();
         AnsiConsole.WriteLine($"Level {WindowManager.Level}");
         AnsiConsole.WriteLine("Customers money transaction screen here:");
-        AnsiConsole.WriteLine(
-            "Press a key to go back. In real app Customer would choose exit."
-        );
+        AnsiConsole.WriteLine("Press a key to go back. In real app Customer would choose exit.");
         Console.ReadKey();
     }
 }

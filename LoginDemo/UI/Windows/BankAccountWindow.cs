@@ -4,7 +4,7 @@ using RabbitEyeBank.Money;
 using RabbitEyeBank.Users;
 using Spectre.Console;
 
-namespace LoginDemo.UI;
+namespace LoginDemo.UI.Windows;
 
 public class BankAccountWindow : IWindow
 {
