@@ -13,10 +13,9 @@ namespace LoginDemo
             BankServices.CustomerList.ForEach(customer => Log.Information("{customer}", customer));
             AnsiConsole.WriteLine("Press a key to continue.");
             Console.ReadKey();
-            WindowManager.Navigate(null, new BankAccountWindow());
             do
             {
-                WindowManager.Navigate(null, new LoginWindow());
+                WindowManager.Navigate(null, WindowManager.WindowDictionary[WindowName.Login]);
             } while (WindowManager.Level > 0);
         }
     }
