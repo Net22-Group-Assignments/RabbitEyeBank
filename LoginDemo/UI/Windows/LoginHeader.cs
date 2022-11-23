@@ -1,31 +1,25 @@
 ﻿using RabbitEyeBank;
 using Spectre.Console;
+using LoginDemo.UI;
 
 namespace REB.UI
 {
-    public class LoginWindow : IWindow
+    internal class LoginWindow : CustomerWindow
     {
-        public void Show()
+        public override void Show()
         {
-            AnsiConsole.Clear();
-            WindowManager.showWindowStack();
-            AnsiConsole.WriteLine($"Level {WindowManager.Level}");
-
-            //var font = FigletFont.Parse("coinstak");
-            AnsiConsole.Write(new FigletText("R.E.B").LeftAligned().Color(Color.Green));
-            string username;
-            string password;
+            base.Show();
             bool loggedIn = false;
-            bool isAdmin = false;
+            var isAdmin = false;
             do
             {
-                username = AnsiConsole.Prompt(
+                var username = AnsiConsole.Prompt(
                     new TextPrompt<string>("Enter username?").PromptStyle("green")
                 );
 
-                password = AnsiConsole.Prompt(
+                var password = AnsiConsole.Prompt(
                     new TextPrompt<string>("Enter password?").PromptStyle("green")
-                ); //.Secret()
+                );
 
                 string loginStatus = BankServices.Login(username, password);
 
@@ -66,11 +60,11 @@ namespace REB.UI
 
             if (isAdmin)
             {
-                WindowManager.Navigate(this, new AdminWindow());
+                WindowManager.Navigate(this, WindowManager.WindowDictionary[WindowName.Admin]);
             }
             else
             {
-                WindowManager.Navigate(this, new CustomerWindow());
+                WindowManager.Navigate(this, WindowManager.WindowDictionary[WindowName.Customer]);
             }
         }
     }

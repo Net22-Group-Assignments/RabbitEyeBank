@@ -15,7 +15,7 @@ namespace REB
             Console.ReadKey();
             do
             {
-                WindowManager.Navigate(null, new LoginWindow());
+                WindowManager.Navigate(null, WindowManager.WindowDictionary[WindowName.Login]);
             } while (WindowManager.Level > 0);
         }
     }

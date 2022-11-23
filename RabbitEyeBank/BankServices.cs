@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RabbitEyeBank.Users;
+using Serilog;
 using Spectre.Console;
 
 namespace RabbitEyeBank
@@ -69,6 +70,7 @@ namespace RabbitEyeBank
             {
                 throw new InvalidOperationException("No logged in customer.");
             }
+            Log.Debug("User with username: {username} logged out", LoggedInCustomer.Username);
             LoggedInCustomer = null;
         }
 
@@ -102,12 +104,23 @@ namespace RabbitEyeBank
             }
 
             // check if username already exists.
-            return false;  //false is placeholder
+            return false; //false is placeholder
         }
 
-        public static void AdminCreateUser(string firstName, string lastName,string username,string password)
+        public static void AdminCreateUser(
+            string firstName,
+            string lastName,
+            string username,
+            string password
+        )
         {
-            Customer customer = new Customer(firstName, lastName, username.ToLower(), password, true);
+            Customer customer = new Customer(
+                firstName,
+                lastName,
+                username.ToLower(),
+                password,
+                true
+            );
 
             if (UserNameExists(username))
             {
@@ -116,8 +129,7 @@ namespace RabbitEyeBank
             CustomerList.Add(customer);
             CustomerList.ForEach(c => AnsiConsole.WriteLine(c.ToString()));
         }
-        
-            // Create a user and save it.
-        
+
+        // Create a user and save it.
     }
 }
