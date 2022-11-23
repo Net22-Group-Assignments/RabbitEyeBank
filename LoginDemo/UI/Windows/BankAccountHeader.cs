@@ -6,14 +6,11 @@ using Spectre.Console;
 
 namespace LoginDemo.UI.Windows;
 
-public class BankAccountWindow : IWindow
+public class BankAccountWindow : CustomerWindow
 {
-    public void Show()
+    public override void Show()
     {
-        AnsiConsole.Clear();
-        WindowManager.showWindowStack();
-        AnsiConsole.WriteLine($"Level {WindowManager.Level}");
-        AnsiConsole.WriteLine("Customers Account and balance screen here:");
+        base.Show();
 
         var table = new Table();
         table.AddColumns(new TableColumn("Account Name"), new TableColumn("Balance"));

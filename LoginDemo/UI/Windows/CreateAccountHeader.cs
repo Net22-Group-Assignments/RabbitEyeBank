@@ -2,13 +2,11 @@
 
 namespace LoginDemo.UI.Windows;
 
-public class CreateAccountWindow : IWindow
+public class CreateAccountWindow : CustomerWindow
 {
-    public void Show()
+    public override void Show()
     {
-        AnsiConsole.Clear();
-        WindowManager.showWindowStack();
-        AnsiConsole.WriteLine($"Level {WindowManager.Level}");
+        base.Show();
         AnsiConsole.WriteLine("Customers account creation screen here:");
         AnsiConsole.WriteLine("Press a key to go back. In real app Customer would choose exit.");
         Console.ReadKey();

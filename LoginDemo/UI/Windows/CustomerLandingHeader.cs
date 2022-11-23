@@ -3,9 +3,9 @@ using Spectre.Console;
 
 namespace LoginDemo.UI.Windows;
 
-public class CustomerWindow : IWindow
+public class CustomerLandingWindow : CustomerWindow
 {
-    private WindowName[] windowNames =
+    private readonly WindowName[] windowNames =
     {
         WindowName.BankAccount,
         WindowName.CreateAccount,
@@ -13,7 +13,7 @@ public class CustomerWindow : IWindow
         WindowName.Logout
     };
 
-    private string[] selectionStrings =
+    private readonly string[] selectionStrings =
     {
         "see bank accounts",
         "create new account",
@@ -23,19 +23,15 @@ public class CustomerWindow : IWindow
 
     private readonly SelectionPrompt<WindowName> selection;
 
-    public CustomerWindow()
+    public CustomerLandingWindow()
     {
         selection = new SelectionPrompt<WindowName>().Title("Where to go?").AddChoices(windowNames);
         selection.Converter = Helpers.SelectionConverter(windowNames, selectionStrings);
     }
 
-    public void Show()
+    public override void Show()
     {
-        AnsiConsole.Clear();
-        WindowManager.showWindowStack();
-        AnsiConsole.WriteLine($"Level {WindowManager.Level}");
-        AnsiConsole.WriteLine("Customers Landing screen here:");
-
+        base.Show();
         WindowName choice = AnsiConsole.Prompt(selection);
         if (choice == WindowName.Logout)
         {
