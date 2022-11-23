@@ -2,7 +2,7 @@
 
 namespace LoginDemo.UI.Windows;
 
-public class CreateAccountWindow : CustomerWindow
+public class CreateAccountWindow : CustomerHeader
 {
     public override void Show()
     {
