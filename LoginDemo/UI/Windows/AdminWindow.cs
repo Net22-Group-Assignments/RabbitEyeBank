@@ -1,6 +1,6 @@
 ﻿using Spectre.Console;
 
-namespace LoginDemo.UI;
+namespace LoginDemo.UI.Windows;
 
 public class AdminWindow : IWindow
 {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using LoginDemo.UI.Windows;
 
 namespace LoginDemo.UI
 {
@@ -28,7 +29,7 @@ namespace LoginDemo.UI
         {
             windowDictionary.Add(WindowName.Login, new LoginWindow());
             windowDictionary.Add(WindowName.Admin, new AdminWindow());
-            windowDictionary.Add(WindowName.Customer, new CustomerWindow());
+            windowDictionary.Add(WindowName.Customer, new CustomerLandingWindow());
             windowDictionary.Add(WindowName.BankAccount, new BankAccountWindow());
             windowDictionary.Add(WindowName.MoneyTransfer, new MoneyTransferWindow());
             windowDictionary.Add(WindowName.CreateAccount, new CreateAccountWindow());
