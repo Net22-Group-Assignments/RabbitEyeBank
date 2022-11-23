@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LoginDemo.UI
+namespace REB.UI
 {
     internal interface IWindow
     {

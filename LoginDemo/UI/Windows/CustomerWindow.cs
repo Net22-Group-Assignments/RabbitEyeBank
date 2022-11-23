@@ -1,4 +1,5 @@
-﻿using Spectre.Console;
+﻿using REB.UI;
+using Spectre.Console;
 
 namespace LoginDemo.UI.Windows
 {

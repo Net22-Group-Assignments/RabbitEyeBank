@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RabbitEyeBank.Users;
 using Serilog;
+using Spectre.Console;
 
 namespace RabbitEyeBank
 {
@@ -17,12 +18,13 @@ namespace RabbitEyeBank
 
         public static Customer? LoggedInCustomer;
 
-        // TODO the login method should return a value to the caller so the ui can give the right message to the user.
-        // TODO change return type to your response.
-        public static string Login(string userName, string password)
+        private static bool adminMode = false;
+
+        public static string Login(string username, string password)
         {
-            if (userName == "admin" && password == "admin")
+            if (username == "admin" && password == "admin")
             {
+                adminMode = true;
                 return "KNG"; // admin response code
             }
 
@@ -32,7 +34,7 @@ namespace RabbitEyeBank
             // Check password
             // if wrong, increase logintries++ return errormessage
             // if right login success.
-            Customer? foundCustomer = GetCustomer(userName);
+            Customer? foundCustomer = GetCustomer(username);
 
             if (foundCustomer == null)
             {
@@ -72,11 +74,11 @@ namespace RabbitEyeBank
             LoggedInCustomer = null;
         }
 
-        public static Customer? GetCustomer(string userName)
+        public static Customer? GetCustomer(string username)
         {
             foreach (Customer? customer in CustomerList)
             {
-                if (customer?.Username == userName)
+                if (customer?.Username == username)
                 {
                     return customer;
                 }
@@ -84,13 +86,50 @@ namespace RabbitEyeBank
             // If a customer not found, return null.
             return null;
         }
-        // Just a suggestion.
-        //public static void AdminCreateUser()
-        //{
-        //    if (CurrentUser.IsAdmin == false)
-        //    {
-        //        throw new Exception()
-        //    }
-        //}
+
+        public static bool UserNameExists(string username)
+        {
+            if (username == "admin")
+            {
+                return true;
+            }
+
+            foreach (Customer customer in CustomerList)
+            {
+                if (customer.Username == username.ToLower())
+                {
+                    Console.WriteLine("That username is already taken");
+                    return true;
+                }
+            }
+
+            // check if username already exists.
+            return false; //false is placeholder
+        }
+
+        public static void AdminCreateUser(
+            string firstName,
+            string lastName,
+            string username,
+            string password
+        )
+        {
+            Customer customer = new Customer(
+                firstName,
+                lastName,
+                username.ToLower(),
+                password,
+                true
+            );
+
+            if (UserNameExists(username))
+            {
+                throw new Exception("Username already exists");
+            }
+            CustomerList.Add(customer);
+            CustomerList.ForEach(c => AnsiConsole.WriteLine(c.ToString()));
+        }
+
+        // Create a user and save it.
     }
 }

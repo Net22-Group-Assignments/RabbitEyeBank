@@ -1,8 +1,9 @@
 ﻿using RabbitEyeBank;
 using Spectre.Console;
 using LoginDemo.UI;
+using LoginDemo.UI.Windows;
 
-namespace LoginDemo.UI.Windows
+namespace REB.UI
 {
     internal class LoginWindow : CustomerWindow
     {
@@ -27,7 +28,7 @@ namespace LoginDemo.UI.Windows
                 switch (loginStatus)
                 {
                     case "KNG":
-                        textResponse = "WELCOME MASTER";
+                        textResponse = "\nWELCOME MASTER";
                         isAdmin = true;
                         loggedIn = true;
                         break;

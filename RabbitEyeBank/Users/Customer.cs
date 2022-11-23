@@ -43,7 +43,7 @@ namespace RabbitEyeBank.Users
             string lastName,
             string username,
             string password,
-            bool isActive
+            bool isActive = false
         )
         {
             FirstName = firstName;
