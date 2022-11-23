@@ -1,9 +1,9 @@
-﻿using LoginDemo.UI;
+﻿using REB.UI;
 using RabbitEyeBank;
 using Serilog;
 using Spectre.Console;
 
-namespace LoginDemo
+namespace REB
 {
     internal class Application
     {

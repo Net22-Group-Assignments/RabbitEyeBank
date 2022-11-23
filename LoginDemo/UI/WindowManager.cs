@@ -1,7 +1,7 @@
 ﻿using Spectre.Console;
 using RabbitEyeBank;
 
-namespace LoginDemo.UI
+namespace REB.UI
 {
     internal static class WindowManager
     {

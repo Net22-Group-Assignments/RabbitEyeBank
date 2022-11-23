@@ -1,9 +1,10 @@
 ﻿using Bogus.DataSets;
 using RabbitEyeBank;
+using RabbitEyeBank.Users;
 using Spectre.Console;
 using System.Collections.Generic;
 
-namespace LoginDemo.UI;
+namespace REB.UI;
 //TODO Abracadabra logindemo to actual rabbiteyebank
 
 public class AdminWindow : IWindow
@@ -43,22 +44,21 @@ public class AdminWindow : IWindow
                 new TextPrompt<string>("Enter password?").PromptStyle("green")
             );
 
-            string password2;
+            string passwordCheck;
             do
             {
-                password2 = AnsiConsole.Prompt(
+                passwordCheck = AnsiConsole.Prompt(
            new TextPrompt<string>("Enter password again?").PromptStyle("green")
            );
-            } while (password2 != password);
+            } while (passwordCheck != password);
 
-            // password strenght?
-            // TODO proffesional password handling.
+
+
+
+            //BankServices.AdminCreateUser(firstName, lastName, username, password, true);
+            BankServices.AdminCreateUser(firstName, lastName, username, password);
 
             successfulCreation = true;
-
-
-            //This is where I stopped for the evening, don't know how to check if the user got added.
-        BankServices.AdminCreateUser(firstName,lastName,username,password);
             Console.ReadKey();
         } while (successfulCreation == false);
 

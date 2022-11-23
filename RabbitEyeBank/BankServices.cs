@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RabbitEyeBank.Users;
+using Spectre.Console;
 
 namespace RabbitEyeBank
 {
@@ -18,8 +19,6 @@ namespace RabbitEyeBank
 
         private static bool adminMode = false;
 
-        // TODO the login method should return a value to the caller so the ui can give the right message to the user.
-        // TODO change return type to your response.
         public static string Login(string username, string password)
         {
             if (username == "admin" && password == "admin")
@@ -83,7 +82,7 @@ namespace RabbitEyeBank
                 }
             }
             // If a customer not found, return null.
-            return null; 
+            return null;
         }
 
         public static bool UserNameExists(string username)
@@ -92,7 +91,7 @@ namespace RabbitEyeBank
             {
                 return true;
             }
-            
+
             foreach (Customer customer in CustomerList)
             {
                 if (customer.Username == username.ToLower())
@@ -106,14 +105,19 @@ namespace RabbitEyeBank
             return false;  //false is placeholder
         }
 
-        public static void AdminCreateUser(
-            string firstName,
-            string lastName,
-            string username,
-            string password
-        )
+        public static void AdminCreateUser(string firstName, string lastName,string username,string password)
         {
-            // Create a user and save it.
+            Customer customer = new Customer(firstName, lastName, username.ToLower(), password, true);
+
+            if (UserNameExists(username))
+            {
+                throw new Exception("Username already exists");
+            }
+            CustomerList.Add(customer);
+            CustomerList.ForEach(c => AnsiConsole.WriteLine(c.ToString()));
         }
+        
+            // Create a user and save it.
+        
     }
 }
