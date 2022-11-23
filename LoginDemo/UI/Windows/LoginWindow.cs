@@ -1,11 +1,10 @@
 ﻿using RabbitEyeBank;
+using REB.UI;
 using Spectre.Console;
-using LoginDemo.UI;
-using LoginDemo.UI.Windows;
 
-namespace REB.UI
+namespace LoginDemo.UI.Windows
 {
-    internal class LoginWindow : CustomerWindow
+    internal class LoginWindow : CustomerHeader
     {
         public override void Show()
         {

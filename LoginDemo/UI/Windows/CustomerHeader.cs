@@ -3,11 +3,11 @@ using Spectre.Console;
 
 namespace LoginDemo.UI.Windows
 {
-    public abstract class CustomerWindow : IWindow
+    public abstract class CustomerHeader : IWindow
     {
         private readonly Grid grid;
 
-        protected CustomerWindow()
+        protected CustomerHeader()
         {
             grid = new Grid();
             grid.AddColumns(2);

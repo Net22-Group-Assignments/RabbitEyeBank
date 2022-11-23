@@ -4,7 +4,7 @@ using Spectre.Console;
 
 namespace LoginDemo.UI.Windows;
 
-public class CustomerLandingWindow : CustomerWindow
+public class CustomerLandingWindow : CustomerHeader
 {
     private readonly WindowName[] windowNames =
     {

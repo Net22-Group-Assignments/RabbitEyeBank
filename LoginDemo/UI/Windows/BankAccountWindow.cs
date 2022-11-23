@@ -6,12 +6,11 @@ using Spectre.Console;
 
 namespace LoginDemo.UI.Windows;
 
-public class BankAccountWindow : CustomerWindow
+public class BankAccountWindow : CustomerHeader
 {
     public override void Show()
     {
         base.Show();
-
         var table = new Table();
         table.AddColumns(new TableColumn("Account Name"), new TableColumn("Balance"));
         foreach (var bankAccount in BankServices.LoggedInCustomer.BankAccountList)

@@ -2,7 +2,7 @@
 
 namespace LoginDemo.UI.Windows;
 
-public class MoneyTransferWindow : CustomerWindow
+public class MoneyTransferWindow : CustomerHeader
 {
     public override void Show()
     {
