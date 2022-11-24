@@ -14,7 +14,9 @@ namespace RabbitEyeBank.Services
         /// <summary>
         /// Stores all users/customers in the bank.
         /// </summary>
-        public static List<Customer?> CustomerList { get; } = new();
+        private static readonly List<Customer> customerList = new();
+
+        public static IReadOnlyList<Customer> CustomerList => customerList;
 
         public static Customer? LoggedInCustomer;
 
@@ -76,7 +78,7 @@ namespace RabbitEyeBank.Services
 
         public static Customer? GetCustomer(string username)
         {
-            foreach (Customer? customer in CustomerList)
+            foreach (Customer? customer in customerList)
             {
                 if (customer?.Username == username)
                 {
@@ -94,7 +96,7 @@ namespace RabbitEyeBank.Services
                 return true;
             }
 
-            foreach (Customer customer in CustomerList)
+            foreach (Customer customer in customerList)
             {
                 if (customer.Username == username.ToLower())
                 {
@@ -124,9 +126,18 @@ namespace RabbitEyeBank.Services
 
             if (UserNameExists(username))
             {
-                throw new Exception("Username already exists");
+                throw new InvalidOperationException("Username already exists.");
             }
-            CustomerList.Add(customer);
+            customerList.Add(customer);
+        }
+
+        public static void AddCustomer(Customer customer)
+        {
+            if (customerList.Contains(customer))
+            {
+                throw new InvalidOperationException("Username already exists.");
+            }
+            customerList.Add(customer);
         }
     }
 }
