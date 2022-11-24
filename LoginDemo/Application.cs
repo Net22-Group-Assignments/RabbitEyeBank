@@ -9,8 +9,11 @@ namespace REB
     {
         public void Run()
         {
-            AnsiConsole.WriteLine("These users are pregenerated for testing use.");
-            BankServices.CustomerList.ForEach(customer => Log.Information("{customer}", customer));
+            AnsiConsole.WriteLine("These users are pre-generated for testing use.");
+            foreach (var customer in BankServices.CustomerList)
+            {
+                Log.Information("{customer}", customer);
+            }
             AnsiConsole.WriteLine("Press a key to continue.");
             Console.ReadKey();
             do
