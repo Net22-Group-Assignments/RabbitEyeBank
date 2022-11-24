@@ -20,34 +20,36 @@ namespace RabbitEyeBank.Shared
             // Admin? admin = new Admin("admin", "password", true);
             // UserService.Admin = admin;
             Customer customer = new Customer("John", "Doe", "username", "password", true);
-            BankServices.CustomerList.Add(customer);
+            BankServices.AddCustomer(customer);
             BankAccount b1 = new BankAccount(
                 BankData.GenerateAccountNumber(),
                 "Savings",
                 10000m,
-                BankData.CurrencyDictionary[CurrencyISO.SEK]
+                BankData.CurrencyDictionary[CurrencyISO.SEK],
+                customer
             );
             BankAccount b2 = new BankAccount(
                 BankData.GenerateAccountNumber(),
                 "Wages",
                 1000,
-                BankData.CurrencyDictionary[CurrencyISO.USD]
+                BankData.CurrencyDictionary[CurrencyISO.USD],
+                customer
             );
-            customer.BankAccountList.Add(b1);
-            customer.BankAccountList.Add(b2);
+            AccountService.AddBankAccount(b1);
+            AccountService.AddBankAccount(b2);
 
             customer = new Customer("Jane", "Doe", "jade", "flower", false);
-            BankServices.CustomerList.Add(customer);
+            BankServices.AddCustomer(customer);
             // Random entities.
             for (int i = 0; i < nCustomers; i++)
             {
                 Customer? c = BogusData.Customer();
                 for (int j = 0; j < Random.Shared.Next(maxAccounts + 1); j++)
                 {
-                    var acc = BogusData.BankAccount();
-                    c.BankAccountList.Add(acc);
+                    var acc = BogusData.BankAccount(c);
+                    AccountService.AddBankAccount(acc);
                 }
-                BankServices.CustomerList.Add(c);
+                BankServices.AddCustomer(c);
             }
         }
     }

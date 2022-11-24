@@ -36,13 +36,14 @@ namespace BankClassLib.Helpers
         /// </summary>
         /// <param name="customer">An instance of <c>Customer</c>.</param>
         /// <returns>A random <c>BankAccount</c>.</returns>
-        public static BankAccount BankAccount()
+        public static BankAccount BankAccount(Customer owner)
         {
             return new BankAccount(
                 BankData.GenerateAccountNumber(),
                 faker.Finance.AccountName(),
                 faker.Finance.Amount(),
-                faker.Random.CollectionItem(BankData.CurrencyDictionary.Values)
+                faker.Random.CollectionItem(BankData.CurrencyDictionary.Values),
+                owner
             );
         }
     }
