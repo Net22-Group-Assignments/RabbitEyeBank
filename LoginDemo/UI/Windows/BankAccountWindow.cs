@@ -12,15 +12,20 @@ public class BankAccountWindow : CustomerHeader
     {
         base.Show();
         var table = new Table();
-        table.AddColumns(new TableColumn("Account Name"), new TableColumn("Balance"));
+        table.AddColumns(
+            new TableColumn("Account number"),
+            new TableColumn("Account Name"),
+            new TableColumn("Balance")
+        );
         foreach (var bankAccount in BankServices.LoggedInCustomer.BankAccountList)
         {
             table.AddRow(
+                new Markup(bankAccount.AccountNumber),
                 new Markup(bankAccount.Name),
                 new Markup(
                     string.Format(
                         "{0} {1}",
-                        bankAccount.AccBalance.ToString(CultureInfo.InvariantCulture),
+                        bankAccount.Balance.ToString(CultureInfo.InvariantCulture),
                         bankAccount.Currency.Symbol
                     )
                 )

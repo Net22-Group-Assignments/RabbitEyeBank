@@ -21,11 +21,13 @@ namespace RabbitEyeBank.Shared
             Customer customer = new Customer("John", "Doe", "username", "password", true);
             BankServices.CustomerList.Add(customer);
             BankAccount b1 = new BankAccount(
+                BankData.GenerateAccountNumber(),
                 "Savings",
                 10000m,
                 BankData.CurrencyDictionary[CurrencyISO.SEK]
             );
             BankAccount b2 = new BankAccount(
+                BankData.GenerateAccountNumber(),
                 "Wages",
                 1000,
                 BankData.CurrencyDictionary[CurrencyISO.USD]
