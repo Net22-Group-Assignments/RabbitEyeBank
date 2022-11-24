@@ -1,5 +1,4 @@
 using RabbitEyeBank;
-using Xunit.Sdk;
 
 namespace RabbitEyeTests
 {
