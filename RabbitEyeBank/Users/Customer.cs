@@ -1,4 +1,5 @@
 ﻿using RabbitEyeBank.Money;
+using RabbitEyeBank.Services;
 
 namespace RabbitEyeBank.Users
 {
@@ -14,7 +15,7 @@ namespace RabbitEyeBank.Users
         //public Guid  { get; set; }
         public string FirstName { get; set; } // property PascalCase
         public string LastName { get; set; }
-        public string Username { get; set; }
+        public string Username { get; init; }
         public string Password { get; set; }
 
         public bool IsActive { get; set; }
@@ -36,7 +37,7 @@ namespace RabbitEyeBank.Users
             }
         }
 
-        public List<BankAccount> BankAccountList { get; } = new();
+        public IReadOnlyList<BankAccount> BankAccountList => AccountService.BankAccountsByCustomer(this);
 
         public Customer(
             string firstName,
@@ -51,6 +52,34 @@ namespace RabbitEyeBank.Users
             Username = username;
             Password = password;
             IsActive = isActive;
+        }
+
+        protected bool Equals(Customer other)
+        {
+            return Username == other.Username;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Customer)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return Username.GetHashCode();
+        }
+
+        public static bool operator ==(Customer? left, Customer? right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(Customer? left, Customer? right)
+        {
+            return !Equals(left, right);
         }
 
         /// <inheritdoc />
