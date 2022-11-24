@@ -13,16 +13,21 @@ public static class AccountService
         return accountList.FindAll(account => account.Owner == customer);
     }
 
+    public static BankAccount? BankAccountByAccountNumber(string accountNumber)
+    {
+        return accountList.Find(acc => acc.AccountNumber == accountNumber);
+    }
+
     public static void AddBankAccount(BankAccount bankAccount)
     {
         if (accountList.Contains(bankAccount))
         {
-            throw new InvalidOperationException("Duplicate bankaccount.");
+            throw new InvalidOperationException("Duplicate bankaccount");
         }
 
         if (bankAccount.Owner is null)
         {
-            throw new ArgumentException("Bankaccount must have owner.");
+            throw new ArgumentException("Bankaccount must have owner");
         }
         accountList.Add(bankAccount);
     }
