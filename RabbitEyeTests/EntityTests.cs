@@ -27,6 +27,12 @@ public class EntityTests
     }
 
     [Fact]
+    public void WithdrawalWhenAmountTooLittle_ThrowsException()
+    {
+        Assert.Throws<InvalidOperationException>(() => bankAccount1.Withdraw(101m));
+    }
+
+    [Fact]
     public void CustomersBankAccountPropertyShouldFindOwnAccounts()
     {
         IReadOnlyList<BankAccount> accounts = AccountService.BankAccountsByCustomer(customer1);

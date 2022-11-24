@@ -1,22 +1,43 @@
 ﻿using RabbitEyeBank.Money;
+using RabbitEyeBank.Services;
 using RabbitEyeBank.Users;
 
 namespace RabbitEyeTests;
 
 public class MoneyTransferTests
 {
-    private readonly Customer customer;
-    private readonly BankAccount bankAccount;
+    private readonly Customer customer1;
+    private readonly Customer customer2;
+    private readonly BankAccount bankAccount1;
+    private readonly BankAccount bankAccount2;
+    private readonly BankAccount bankAccount3;
 
     public MoneyTransferTests()
     {
-        customer = new Customer("User", "Name", "username", "password", true);
-        bankAccount = new("1", "A", 0m, new Currency(), customer);
+        customer1 = new Customer("Alice", "Allison", "alice", "alice", true);
+        customer2 = new Customer("Bob", "Roberts", "bob", "bob", true);
+        BankServices.AddCustomer(customer1);
+        BankServices.AddCustomer(customer2);
+        bankAccount1 = new BankAccount("1234", "savings", 100m, new Currency(), customer1);
+        bankAccount2 = new BankAccount("5678", "loan", 200m, new Currency(), customer1);
+        bankAccount3 = new BankAccount("9012", "slush-fund", 300m, new Currency(), customer2);
+        AccountService.AddBankAccount(bankAccount1);
+        AccountService.AddBankAccount(bankAccount2);
+        AccountService.AddBankAccount(bankAccount3);
     }
 
     [Fact]
-    public void WithdrawalWhenAmountTooLittle_ThrowsException()
+    public void TransferBetweenTwoOwnAccounts()
     {
-        Assert.Throws<InvalidOperationException>(() => bankAccount.Withdraw(1m));
+        var transfer = MoneyTransferService.CreateTransfer(
+            bankAccount1,
+            bankAccount2,
+            100m,
+            new Currency()
+        );
+        MoneyTransferService.RegisterTransfer(transfer);
+        MoneyTransferService.CompleteTransfer();
+        Assert.Equal(0m, bankAccount1.Balance);
+        Assert.Equal(300m, bankAccount2.Balance);
     }
 }
