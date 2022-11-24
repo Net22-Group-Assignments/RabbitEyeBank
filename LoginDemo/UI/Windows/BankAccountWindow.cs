@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
-using RabbitEyeBank;
 using RabbitEyeBank.Money;
+using RabbitEyeBank.Services;
 using RabbitEyeBank.Users;
 using Spectre.Console;
 

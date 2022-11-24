@@ -7,7 +7,7 @@ using RabbitEyeBank.Users;
 using Serilog;
 using Spectre.Console;
 
-namespace RabbitEyeBank
+namespace RabbitEyeBank.Services
 {
     public static class BankServices
     {
@@ -127,9 +127,6 @@ namespace RabbitEyeBank
                 throw new Exception("Username already exists");
             }
             CustomerList.Add(customer);
-            CustomerList.ForEach(c => AnsiConsole.WriteLine(c.ToString()));
         }
-
-        // Create a user and save it.
     }
 }

@@ -1,4 +1,4 @@
-﻿using RabbitEyeBank;
+﻿using RabbitEyeBank.Services;
 using REB.UI;
 using Spectre.Console;
 

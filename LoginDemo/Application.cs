@@ -1,7 +1,7 @@
 ﻿using REB.UI;
-using RabbitEyeBank;
 using Serilog;
 using Spectre.Console;
+using RabbitEyeBank.Services;
 
 namespace REB
 {

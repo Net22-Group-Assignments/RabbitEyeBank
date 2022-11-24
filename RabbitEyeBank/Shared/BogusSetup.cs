@@ -1,5 +1,6 @@
 ﻿using BankClassLib.Helpers;
 using RabbitEyeBank.Money;
+using RabbitEyeBank.Services;
 using RabbitEyeBank.Users;
 
 namespace RabbitEyeBank.Shared

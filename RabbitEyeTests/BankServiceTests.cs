@@ -1,4 +1,4 @@
-using RabbitEyeBank;
+using RabbitEyeBank.Services;
 
 namespace RabbitEyeTests
 {
