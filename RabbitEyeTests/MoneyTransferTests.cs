@@ -1,42 +1,28 @@
 ﻿using RabbitEyeBank.Money;
-using RabbitEyeBank.Services;
-using RabbitEyeBank.Users;
 
 namespace RabbitEyeTests;
 
-public class MoneyTransferTests
+public class MoneyTransferTests : IClassFixture<Fixture>
 {
-    private readonly Customer customer1;
-    private readonly Customer customer2;
-    private readonly BankAccount bankAccount1;
-    private readonly BankAccount bankAccount2;
-    private readonly BankAccount bankAccount3;
+    private readonly Fixture fixture;
 
-    public MoneyTransferTests()
+    public MoneyTransferTests(Fixture fixture)
     {
-        customer1 = new Customer("Alice", "Allison", "alice", "alice", true);
-        customer2 = new Customer("Bob", "Roberts", "bob", "bob", true);
-        bankAccount1 = new BankAccount("1234", "savings", 100m, new Currency(), customer1);
-        bankAccount2 = new BankAccount("5678", "loan", 200m, new Currency(), customer1);
-        bankAccount3 = new BankAccount("9012", "slush-fund", 300m, new Currency(), customer2);
+        this.fixture = fixture;
     }
 
     [Fact]
     public void TransferBetweenTwoOwnAccounts()
     {
-        var accountService = AccountService.Instance;
-        accountService.AddBankAccount(bankAccount1);
-        accountService.AddBankAccount(bankAccount2);
-        var moneyTransferService = MoneyTransferService.Instance;
-        var transfer = moneyTransferService.CreateTransfer(
-            bankAccount1,
-            bankAccount2,
+        var transfer = fixture.MoneyTransferService.CreateTransfer(
+            fixture.BankAccount1,
+            fixture.BankAccount2,
             100m,
             new Currency()
         );
-        moneyTransferService.RegisterTransfer(transfer);
-        moneyTransferService.CompleteTransfer();
-        Assert.Equal(0m, bankAccount1.Balance);
-        Assert.Equal(300m, bankAccount2.Balance);
+        fixture.MoneyTransferService.RegisterTransfer(transfer);
+        fixture.MoneyTransferService.CompleteTransfer();
+        Assert.Equal(0m, fixture.BankAccount1.Balance);
+        Assert.Equal(300m, fixture.BankAccount2.Balance);
     }
 }
