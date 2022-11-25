@@ -6,13 +6,10 @@ namespace RabbitEyeBank.Services;
 public class AccountService
 {
     private readonly List<BankAccount> accountList = new();
-    private static readonly Lazy<AccountService> _instance = new(() => new AccountService());
 
     public IReadOnlyList<BankAccount> AccountList => accountList;
 
-    public static AccountService Instance => _instance.Value;
-
-    protected AccountService() { }
+    public AccountService() { }
 
     public IReadOnlyList<BankAccount> BankAccountsByCustomer(Customer customer)
     {
