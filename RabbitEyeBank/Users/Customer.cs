@@ -1,9 +1,9 @@
 ﻿using RabbitEyeBank.Money;
 using RabbitEyeBank.Services;
+using RabbitEyeBank.Shared;
 
 namespace RabbitEyeBank.Users
 {
-    /// TODO Should this be named customer instead? Or should this be user and customer inherits this + gets the bankaccount?
     /// <summary>
     /// Represents a user/customer.
     /// </summary>
@@ -11,6 +11,8 @@ namespace RabbitEyeBank.Users
     {
         //private string id; //variable camelCase
         private int loginAttempts;
+
+        private readonly BankServiceAdapter adapter;
 
         //public Guid  { get; set; }
         public string FirstName { get; set; } // property PascalCase
@@ -37,7 +39,7 @@ namespace RabbitEyeBank.Users
             }
         }
 
-        public IReadOnlyList<BankAccount> BankAccountList => AccountService.BankAccountsByCustomer(this);
+        public IReadOnlyList<BankAccount> BankAccountList => adapter.BankAccountsByCustomer(this);
 
         public Customer(
             string firstName,
@@ -52,6 +54,7 @@ namespace RabbitEyeBank.Users
             Username = username;
             Password = password;
             IsActive = isActive;
+            adapter = BankServiceAdapter.Instance;
         }
 
         protected bool Equals(Customer other)
@@ -61,9 +64,12 @@ namespace RabbitEyeBank.Users
 
         public override bool Equals(object? obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
+            if (ReferenceEquals(null, obj))
+                return false;
+            if (ReferenceEquals(this, obj))
+                return true;
+            if (obj.GetType() != this.GetType())
+                return false;
             return Equals((Customer)obj);
         }
 
@@ -85,7 +91,7 @@ namespace RabbitEyeBank.Users
         /// <inheritdoc />
         public override string ToString()
         {
-            return $"{nameof(FirstName)}: {FirstName}, {nameof(LastName)}: {LastName}, {nameof(Username)}: {Username}, {nameof(Password)}: {Password}, {nameof(IsActive)}: {IsActive}, {nameof(LoginAttempts)}: {LoginAttempts}, Bank accounts: {BankAccountList.Count}";
+            return $"{nameof(FirstName)}: {FirstName}, {nameof(LastName)}: {LastName}, {nameof(Username)}: {Username}, {nameof(Password)}: {Password}, {nameof(IsActive)}: {IsActive}, {nameof(LoginAttempts)}: {LoginAttempts}, Bank accounts: BankAccountList.Count";
         }
     }
 }
