@@ -12,8 +12,6 @@ namespace RabbitEyeBank.Users
         //private string id; //variable camelCase
         private int loginAttempts;
 
-        private readonly BankServiceAdapter adapter;
-
         //public Guid  { get; set; }
         public string FirstName { get; set; } // property PascalCase
         public string LastName { get; set; }
@@ -39,7 +37,7 @@ namespace RabbitEyeBank.Users
             }
         }
 
-        public IReadOnlyList<BankAccount> BankAccountList => adapter.BankAccountsByCustomer(this);
+        //public IReadOnlyList<BankAccount> BankAccountList => adapter.BankAccountsByCustomer(this);
 
         public Customer(
             string firstName,
@@ -54,7 +52,6 @@ namespace RabbitEyeBank.Users
             Username = username;
             Password = password;
             IsActive = isActive;
-            adapter = BankServiceAdapter.Instance;
         }
 
         protected bool Equals(Customer other)
