@@ -12,31 +12,32 @@ public class MoneyTransferTests
     private readonly BankAccount bankAccount2;
     private readonly BankAccount bankAccount3;
 
-    public MoneyTransferTests()
+    public MoneyTransferTests() : this(BankService.Instance) { }
+
+    private MoneyTransferTests(IBankService bankService)
     {
         customer1 = new Customer("Alice", "Allison", "alice", "alice", true);
         customer2 = new Customer("Bob", "Roberts", "bob", "bob", true);
-        BankServices.AddCustomer(customer1);
-        BankServices.AddCustomer(customer2);
         bankAccount1 = new BankAccount("1234", "savings", 100m, new Currency(), customer1);
         bankAccount2 = new BankAccount("5678", "loan", 200m, new Currency(), customer1);
         bankAccount3 = new BankAccount("9012", "slush-fund", 300m, new Currency(), customer2);
-        AccountService.AddBankAccount(bankAccount1);
-        AccountService.AddBankAccount(bankAccount2);
-        AccountService.AddBankAccount(bankAccount3);
     }
 
     [Fact]
     public void TransferBetweenTwoOwnAccounts()
     {
-        var transfer = MoneyTransferService.CreateTransfer(
+        var accountService = AccountService.Instance;
+        accountService.AddBankAccount(bankAccount1);
+        accountService.AddBankAccount(bankAccount2);
+        var moneyTransferService = MoneyTransferService.Instance;
+        var transfer = moneyTransferService.CreateTransfer(
             bankAccount1,
             bankAccount2,
             100m,
             new Currency()
         );
-        MoneyTransferService.RegisterTransfer(transfer);
-        MoneyTransferService.CompleteTransfer();
+        moneyTransferService.RegisterTransfer(transfer);
+        moneyTransferService.CompleteTransfer();
         Assert.Equal(0m, bankAccount1.Balance);
         Assert.Equal(300m, bankAccount2.Balance);
     }
