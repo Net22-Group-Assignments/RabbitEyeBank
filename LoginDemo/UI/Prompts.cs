@@ -58,4 +58,16 @@ public class Prompts
 
         return accountSelection;
     }
+
+    public static TextPrompt<decimal> AmountPrompt(BankAccount bankAccount)
+    {
+        return new TextPrompt<decimal>("Transfer amount?")
+            .ValidationErrorMessage("Insufficient Funds")
+            .Validate(
+                amount =>
+                    amount > bankAccount.Balance || amount < 0
+                        ? ValidationResult.Error()
+                        : ValidationResult.Success()
+            );
+    }
 }

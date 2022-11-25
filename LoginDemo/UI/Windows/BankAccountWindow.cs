@@ -43,20 +43,11 @@ public class BankAccountWindow : CustomerHeader
                 Prompts.BankAccountSelector("From Account", bankAccounts)
             );
 
-            decimal amount = AnsiConsole.Prompt(
-                new TextPrompt<decimal>("Transfer amount?")
-                    .ValidationErrorMessage("Insufficient Funds")
-                    .Validate(
-                        amount =>
-                            amount > choiceFrom.Balance || amount < 0
-                                ? ValidationResult.Error()
-                                : ValidationResult.Success()
-                    )
-            );
-
             BankAccount choiceTo = AnsiConsole.Prompt(
                 Prompts.BankAccountSelector("To Account", bankAccounts, choiceFrom)
             );
+
+            decimal amount = AnsiConsole.Prompt(Prompts.AmountPrompt(choiceFrom));
 
             moneyTransferService.RegisterTransfer(
                 moneyTransferService.CreateTransfer(choiceFrom, choiceTo, amount, choiceTo.Currency)
