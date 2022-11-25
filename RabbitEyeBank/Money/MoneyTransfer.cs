@@ -63,6 +63,12 @@
         {
             return !Equals(left, right);
         }
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return $"From: {FromAccount.AccountNumber} To: {ToAccount.AccountNumber} {nameof(Amount)}: {Amount} {FromAccount.Currency}";
+        }
     }
 
     public enum TransferStatus
