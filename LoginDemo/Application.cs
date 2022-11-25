@@ -10,7 +10,7 @@ namespace REB
         public void Run()
         {
             AnsiConsole.WriteLine("These users are pre-generated for testing use.");
-            foreach (var customer in BankServices.CustomerList)
+            foreach (var customer in BankService.Instance.CustomerList)
             {
                 Log.Information("{customer}", customer);
             }

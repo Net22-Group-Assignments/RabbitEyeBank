@@ -37,7 +37,7 @@ public class CustomerLandingWindow : CustomerHeader
         if (choice == WindowName.Logout)
         {
             AnsiConsole.Clear();
-            BankServices.LogOut();
+            bankService.LogOut();
             AnsiConsole.WriteLine("You are now logged out of the system.");
             Console.ReadKey();
             return;

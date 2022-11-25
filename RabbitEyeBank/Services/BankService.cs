@@ -1,28 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RabbitEyeBank.Users;
+﻿using RabbitEyeBank.Users;
 using Serilog;
-using Spectre.Console;
 
 namespace RabbitEyeBank.Services
 {
-    public static class BankServices
+    public class BankService
     {
+        private static readonly Lazy<BankService> _instance = new(() => new BankService());
+
+        public static BankService Instance => _instance.Value;
+
         /// <summary>
         /// Stores all users/customers in the bank.
         /// </summary>
-        private static readonly List<Customer> customerList = new();
+        private readonly List<Customer> customerList = new();
 
-        public static IReadOnlyList<Customer> CustomerList => customerList;
+        public IReadOnlyList<Customer> CustomerList => customerList;
 
-        public static Customer? LoggedInCustomer;
+        public Customer? LoggedInCustomer;
 
-        private static bool adminMode = false;
+        private bool adminMode = false;
 
-        public static string Login(string username, string password)
+        protected BankService() { }
+
+        public string Login(string username, string password)
         {
             if (username == "admin" && password == "admin")
             {
@@ -66,7 +66,7 @@ namespace RabbitEyeBank.Services
             return "ELK"; // successfull login code.
         }
 
-        public static void LogOut()
+        public void LogOut()
         {
             if (LoggedInCustomer is null)
             {
@@ -76,7 +76,7 @@ namespace RabbitEyeBank.Services
             LoggedInCustomer = null;
         }
 
-        public static Customer? GetCustomer(string username)
+        public Customer? GetCustomer(string username)
         {
             foreach (Customer? customer in customerList)
             {
@@ -89,7 +89,7 @@ namespace RabbitEyeBank.Services
             return null;
         }
 
-        public static bool UserNameExists(string username)
+        public bool UserNameExists(string username)
         {
             if (username == "admin")
             {
@@ -109,7 +109,7 @@ namespace RabbitEyeBank.Services
             return false; //false is placeholder
         }
 
-        public static void AdminCreateUser(
+        public void AdminCreateUser(
             string firstName,
             string lastName,
             string username,
@@ -131,13 +131,18 @@ namespace RabbitEyeBank.Services
             customerList.Add(customer);
         }
 
-        public static void AddCustomer(Customer customer)
+        public void AddCustomer(Customer customer)
         {
             if (customerList.Contains(customer))
             {
                 throw new InvalidOperationException("Username already exists.");
             }
             customerList.Add(customer);
+        }
+
+        public void DeleteAllCustomers()
+        {
+            customerList.Clear();
         }
     }
 }

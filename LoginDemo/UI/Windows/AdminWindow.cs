@@ -7,6 +7,13 @@ namespace LoginDemo.UI.Windows;
 
 public class AdminWindow : CustomerHeader
 {
+    /// <inheritdoc />
+    //public AdminWindow(
+    //    BankService bankService,
+    //    AccountService accountService,
+    //    MoneyTransferService moneyTransferService
+    //) : base(bankService, accountService, moneyTransferService) { }
+
     public override void Show()
     {
         base.Show();
@@ -30,7 +37,7 @@ public class AdminWindow : CustomerHeader
                 username = AnsiConsole.Prompt(
                     new TextPrompt<string>("Enter username?").PromptStyle("green")
                 );
-                usernameExists = BankServices.UserNameExists(username);
+                usernameExists = bankService.UserNameExists(username);
                 if (usernameExists)
                 {
                     AnsiConsole.MarkupLineInterpolated($"[blink]Username: {username} taken[/]");
@@ -48,8 +55,8 @@ public class AdminWindow : CustomerHeader
                 );
             } while (passwordCheck != password);
 
-            //BankServices.AdminCreateUser(firstName, lastName, username, password, true);
-            BankServices.AdminCreateUser(firstName, lastName, username, password);
+            //BankService.AdminCreateUser(firstName, lastName, username, password, true);
+            bankService.AdminCreateUser(firstName, lastName, username, password);
 
             successfulCreation = true;
             Console.ReadKey();

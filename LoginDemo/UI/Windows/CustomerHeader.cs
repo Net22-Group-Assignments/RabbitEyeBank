@@ -1,14 +1,27 @@
-﻿using REB.UI;
+﻿using RabbitEyeBank.Services;
+using REB.UI;
 using Spectre.Console;
 
 namespace LoginDemo.UI.Windows
 {
     public abstract class CustomerHeader : IWindow
     {
+        protected BankService bankService;
+        protected AccountService accountService;
+        protected MoneyTransferService moneyTransferService;
+
         private readonly Grid grid;
 
-        protected CustomerHeader()
+        protected CustomerHeader(
+            BankService bankService,
+            AccountService accountService,
+            MoneyTransferService moneyTransferService
+        )
         {
+            this.bankService = bankService;
+            this.accountService = accountService;
+            this.moneyTransferService = moneyTransferService;
+
             grid = new Grid();
             grid.AddColumns(2);
             grid.AddRow(
@@ -16,6 +29,9 @@ namespace LoginDemo.UI.Windows
                 Markup.FromInterpolated($"{DateOnly.FromDateTime(DateTime.Now)}")
             );
         }
+
+        protected CustomerHeader()
+            : this(BankService.Instance, AccountService.Instance, MoneyTransferService.Instance) { }
 
         /// <inheritdoc />
         public virtual void Show()
