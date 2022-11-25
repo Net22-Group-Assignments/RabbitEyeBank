@@ -7,8 +7,8 @@ namespace RabbitEyeBank.Shared
 {
     public static class BogusSetup
     {
-        private static readonly AccountService accountService = AccountService.Instance;
-        private static readonly BankService bankService = BankService.Instance;
+        private static readonly AccountService accountService = ServiceContainer.accountService;
+        private static readonly BankService bankService = ServiceContainer.bankService;
 
         /// <summary>
         /// Populates the bank service classes with randomly generated instances.

@@ -31,7 +31,11 @@ namespace LoginDemo.UI.Windows
         }
 
         protected CustomerHeader()
-            : this(BankService.Instance, AccountService.Instance, MoneyTransferService.Instance) { }
+            : this(
+                ServiceContainer.bankService,
+                ServiceContainer.accountService,
+                ServiceContainer.MoneyTransferService
+            ) { }
 
         /// <inheritdoc />
         public virtual void Show()
