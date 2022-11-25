@@ -1,4 +1,4 @@
-﻿using REB;
+﻿using LoginDemo;
 using RabbitEyeBank.Shared;
 using Serilog;
 using Serilog.Sinks.SpectreConsole;

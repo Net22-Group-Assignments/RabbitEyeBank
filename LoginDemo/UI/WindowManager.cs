@@ -1,7 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using LoginDemo.UI.Windows;
+using REB.UI;
 
-namespace REB.UI
+namespace LoginDemo.UI
 {
     internal enum WindowName
     {
@@ -16,7 +17,7 @@ namespace REB.UI
 
     internal static class WindowManager
     {
-        private static Stack<IWindow> _windowStack = new();
+        private static Stack<IWindow?> _windowStack = new();
         private static readonly Dictionary<WindowName, IWindow> windowDictionary = new();
         public static int Level => _windowStack.Count;
 
@@ -55,7 +56,7 @@ namespace REB.UI
         /// </summary>
         /// <param name="from">The IWindow you are in now.</param>
         /// <param name="to">The IWindow you will jump to.</param>
-        public static void Navigate(IWindow from, IWindow to)
+        public static void Navigate(IWindow? from, IWindow to)
         {
             _windowStack.Push(from);
             to?.Show();

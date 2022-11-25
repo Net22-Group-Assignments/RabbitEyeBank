@@ -1,14 +1,20 @@
-using RabbitEyeBank;
-using Xunit.Sdk;
+using RabbitEyeBank.Services;
 
 namespace RabbitEyeTests
 {
     public class BankServiceTests
     {
+        readonly BankService bankService;
+
+        public BankServiceTests()
+        {
+            bankService = new BankService();
+        }
+
         [Fact]
         public void LogOutWhenCurrentCustomerIsNull_ThrowsException()
         {
-            Assert.Throws<InvalidOperationException>(BankServices.LogOut);
+            Assert.Throws<InvalidOperationException>(bankService.LogOut);
         }
     }
 }

@@ -1,11 +1,15 @@
 ﻿using BankClassLib.Helpers;
 using RabbitEyeBank.Money;
+using RabbitEyeBank.Services;
 using RabbitEyeBank.Users;
 
 namespace RabbitEyeBank.Shared
 {
     public static class BogusSetup
     {
+        private static readonly AccountService accountService = ServiceContainer.accountService;
+        private static readonly BankService bankService = ServiceContainer.bankService;
+
         /// <summary>
         /// Populates the bank service classes with randomly generated instances.
         /// The admin account and one customer is predefined with known values.
@@ -19,32 +23,36 @@ namespace RabbitEyeBank.Shared
             // Admin? admin = new Admin("admin", "password", true);
             // UserService.Admin = admin;
             Customer customer = new Customer("John", "Doe", "username", "password", true);
-            BankServices.CustomerList.Add(customer);
+            bankService.AddCustomer(customer);
             BankAccount b1 = new BankAccount(
+                BankData.GenerateAccountNumber(),
                 "Savings",
                 10000m,
-                BankData.CurrencyDictionary[CurrencyISO.SEK]
+                BankData.CurrencyDictionary[CurrencyISO.SEK],
+                customer
             );
             BankAccount b2 = new BankAccount(
+                BankData.GenerateAccountNumber(),
                 "Wages",
                 1000,
-                BankData.CurrencyDictionary[CurrencyISO.USD]
+                BankData.CurrencyDictionary[CurrencyISO.USD],
+                customer
             );
-            customer.BankAccountList.Add(b1);
-            customer.BankAccountList.Add(b2);
+            accountService.AddBankAccount(b1);
+            accountService.AddBankAccount(b2);
 
             customer = new Customer("Jane", "Doe", "jade", "flower", false);
-            BankServices.CustomerList.Add(customer);
+            bankService.AddCustomer(customer);
             // Random entities.
             for (int i = 0; i < nCustomers; i++)
             {
                 Customer? c = BogusData.Customer();
                 for (int j = 0; j < Random.Shared.Next(maxAccounts + 1); j++)
                 {
-                    var acc = BogusData.BankAccount();
-                    c.BankAccountList.Add(acc);
+                    var acc = BogusData.BankAccount(c);
+                    accountService.AddBankAccount(acc);
                 }
-                BankServices.CustomerList.Add(c);
+                bankService.AddCustomer(c);
             }
         }
     }

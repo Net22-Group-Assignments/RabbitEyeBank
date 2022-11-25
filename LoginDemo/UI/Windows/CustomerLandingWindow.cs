@@ -1,5 +1,4 @@
-﻿using RabbitEyeBank;
-using REB.UI;
+﻿using REB.UI;
 using Spectre.Console;
 
 namespace LoginDemo.UI.Windows;
@@ -14,7 +13,7 @@ public class CustomerLandingWindow : CustomerHeader
         WindowName.Logout
     };
 
-    private readonly string[] selectionStrings =
+    private readonly string?[] selectionStrings =
     {
         "see bank accounts",
         "create new account",
@@ -27,7 +26,7 @@ public class CustomerLandingWindow : CustomerHeader
     public CustomerLandingWindow()
     {
         selection = new SelectionPrompt<WindowName>().Title("Where to go?").AddChoices(windowNames);
-        selection.Converter = Helpers.SelectionConverter(windowNames, selectionStrings);
+        selection.Converter = Prompts.SelectionConverter(windowNames, selectionStrings);
     }
 
     public override void Show()
@@ -37,7 +36,7 @@ public class CustomerLandingWindow : CustomerHeader
         if (choice == WindowName.Logout)
         {
             AnsiConsole.Clear();
-            BankServices.LogOut();
+            bankService.LogOut();
             AnsiConsole.WriteLine("You are now logged out of the system.");
             Console.ReadKey();
             return;

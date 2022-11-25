@@ -1,8 +1,9 @@
 ﻿using RabbitEyeBank.Money;
+using RabbitEyeBank.Services;
+using RabbitEyeBank.Shared;
 
 namespace RabbitEyeBank.Users
 {
-    /// TODO Should this be named customer instead? Or should this be user and customer inherits this + gets the bankaccount?
     /// <summary>
     /// Represents a user/customer.
     /// </summary>
@@ -14,7 +15,7 @@ namespace RabbitEyeBank.Users
         //public Guid  { get; set; }
         public string FirstName { get; set; } // property PascalCase
         public string LastName { get; set; }
-        public string Username { get; set; }
+        public string Username { get; init; }
         public string Password { get; set; }
 
         public bool IsActive { get; set; }
@@ -36,7 +37,7 @@ namespace RabbitEyeBank.Users
             }
         }
 
-        public List<BankAccount> BankAccountList { get; } = new();
+        //public IReadOnlyList<BankAccount> BankAccountList => adapter.BankAccountsByCustomer(this);
 
         public Customer(
             string firstName,
@@ -53,10 +54,41 @@ namespace RabbitEyeBank.Users
             IsActive = isActive;
         }
 
+        protected bool Equals(Customer other)
+        {
+            return Username == other.Username;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (ReferenceEquals(null, obj))
+                return false;
+            if (ReferenceEquals(this, obj))
+                return true;
+            if (obj.GetType() != this.GetType())
+                return false;
+            return Equals((Customer)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return Username.GetHashCode();
+        }
+
+        public static bool operator ==(Customer? left, Customer? right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(Customer? left, Customer? right)
+        {
+            return !Equals(left, right);
+        }
+
         /// <inheritdoc />
         public override string ToString()
         {
-            return $"{nameof(FirstName)}: {FirstName}, {nameof(LastName)}: {LastName}, {nameof(Username)}: {Username}, {nameof(Password)}: {Password}, {nameof(IsActive)}: {IsActive}, {nameof(LoginAttempts)}: {LoginAttempts}, Bank accounts: {BankAccountList.Count}";
+            return $"{nameof(FirstName)}: {FirstName}, {nameof(LastName)}: {LastName}, {nameof(Username)}: {Username}, {nameof(Password)}: {Password}, {nameof(IsActive)}: {IsActive}, {nameof(LoginAttempts)}: {LoginAttempts}, Bank accounts: BankAccountList.Count";
         }
     }
 }

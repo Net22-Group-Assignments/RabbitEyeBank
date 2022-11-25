@@ -1,26 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RabbitEyeBank.Users;
+﻿using RabbitEyeBank.Users;
 using Serilog;
-using Spectre.Console;
 
-namespace RabbitEyeBank
+namespace RabbitEyeBank.Services
 {
-    public static class BankServices
+    public class BankService
     {
         /// <summary>
         /// Stores all users/customers in the bank.
         /// </summary>
-        public static List<Customer?> CustomerList { get; } = new();
+        private readonly List<Customer> customerList = new();
 
-        public static Customer? LoggedInCustomer;
+        public IReadOnlyList<Customer> CustomerList => customerList;
 
-        private static bool adminMode = false;
+        public Customer? LoggedInCustomer;
 
-        public static string Login(string username, string password)
+        private bool adminMode = false;
+
+        public BankService() { }
+
+        public string Login(string username, string password)
         {
             if (username == "admin" && password == "admin")
             {
@@ -64,7 +62,7 @@ namespace RabbitEyeBank
             return "ELK"; // successfull login code.
         }
 
-        public static void LogOut()
+        public void LogOut()
         {
             if (LoggedInCustomer is null)
             {
@@ -74,9 +72,9 @@ namespace RabbitEyeBank
             LoggedInCustomer = null;
         }
 
-        public static Customer? GetCustomer(string username)
+        public Customer? GetCustomer(string username)
         {
-            foreach (Customer? customer in CustomerList)
+            foreach (Customer? customer in customerList)
             {
                 if (customer?.Username == username)
                 {
@@ -87,14 +85,14 @@ namespace RabbitEyeBank
             return null;
         }
 
-        public static bool UserNameExists(string username)
+        public bool UserNameExists(string username)
         {
             if (username == "admin")
             {
                 return true;
             }
 
-            foreach (Customer customer in CustomerList)
+            foreach (Customer customer in customerList)
             {
                 if (customer.Username == username.ToLower())
                 {
@@ -107,7 +105,7 @@ namespace RabbitEyeBank
             return false; //false is placeholder
         }
 
-        public static void AdminCreateUser(
+        public void AdminCreateUser(
             string firstName,
             string lastName,
             string username,
@@ -124,12 +122,23 @@ namespace RabbitEyeBank
 
             if (UserNameExists(username))
             {
-                throw new Exception("Username already exists");
+                throw new InvalidOperationException("Username already exists.");
             }
-            CustomerList.Add(customer);
-            CustomerList.ForEach(c => AnsiConsole.WriteLine(c.ToString()));
+            customerList.Add(customer);
         }
 
-        // Create a user and save it.
+        public void AddCustomer(Customer customer)
+        {
+            if (customerList.Contains(customer))
+            {
+                throw new InvalidOperationException("Username already exists.");
+            }
+            customerList.Add(customer);
+        }
+
+        public void DeleteAllCustomers()
+        {
+            customerList.Clear();
+        }
     }
 }

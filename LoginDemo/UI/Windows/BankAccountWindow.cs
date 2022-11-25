@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
-using RabbitEyeBank;
 using RabbitEyeBank.Money;
-using RabbitEyeBank.Users;
+using RabbitEyeBank.Services;
 using Spectre.Console;
 
 namespace LoginDemo.UI.Windows;
@@ -11,16 +10,25 @@ public class BankAccountWindow : CustomerHeader
     public override void Show()
     {
         base.Show();
+        IReadOnlyList<BankAccount> bankAccounts = accountService.BankAccountsByCustomer(
+            bankService.LoggedInCustomer
+        );
+
         var table = new Table();
-        table.AddColumns(new TableColumn("Account Name"), new TableColumn("Balance"));
-        foreach (var bankAccount in BankServices.LoggedInCustomer.BankAccountList)
+        table.AddColumns(
+            new TableColumn("Account number"),
+            new TableColumn("Account Name"),
+            new TableColumn("Balance")
+        );
+        foreach (var bankAccount in bankAccounts)
         {
             table.AddRow(
+                new Markup(bankAccount.AccountNumber),
                 new Markup(bankAccount.Name),
                 new Markup(
                     string.Format(
                         "{0} {1}",
-                        bankAccount.AccBalance.ToString(CultureInfo.InvariantCulture),
+                        bankAccount.Balance.ToString(CultureInfo.InvariantCulture),
                         bankAccount.Currency.Symbol
                     )
                 )
@@ -28,6 +36,33 @@ public class BankAccountWindow : CustomerHeader
         }
 
         AnsiConsole.Write(table);
+
+        if (bankAccounts.Count > 1)
+        {
+            BankAccount choiceFrom = AnsiConsole.Prompt(
+                Prompts.BankAccountSelector("From Account", bankAccounts)
+            );
+
+            decimal amount = AnsiConsole.Prompt(
+                new TextPrompt<decimal>("Transfer amount?")
+                    .ValidationErrorMessage("Insufficient Funds")
+                    .Validate(
+                        amount =>
+                            amount > choiceFrom.Balance || amount < 0
+                                ? ValidationResult.Error()
+                                : ValidationResult.Success()
+                    )
+            );
+
+            BankAccount choiceTo = AnsiConsole.Prompt(
+                Prompts.BankAccountSelector("To Account", bankAccounts, choiceFrom)
+            );
+
+            moneyTransferService.RegisterTransfer(
+                moneyTransferService.CreateTransfer(choiceFrom, choiceTo, amount, choiceTo.Currency)
+            );
+            moneyTransferService.CompleteTransfer();
+        }
 
         AnsiConsole.WriteLine("Press a key to go back.");
         Console.ReadKey();
