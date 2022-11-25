@@ -1,14 +1,16 @@
-﻿using REB.UI;
+﻿using LoginDemo.UI;
+using RabbitEyeBank.Services;
 using Serilog;
 using Spectre.Console;
-using RabbitEyeBank.Services;
 
-namespace REB
+namespace LoginDemo
 {
     internal class Application
     {
         public void Run()
         {
+            var devMode = true;
+
             AnsiConsole.WriteLine("These users are pre-generated for testing use.");
             foreach (var customer in BankService.Instance.CustomerList)
             {
@@ -18,7 +20,25 @@ namespace REB
             Console.ReadKey();
             do
             {
-                WindowManager.Navigate(null, WindowManager.WindowDictionary[WindowName.Login]);
+                WindowName destination = WindowName.Login;
+                WindowName start = WindowName.Login;
+                if (devMode)
+                {
+                    if (AnsiConsole.Confirm("Login as admin?"))
+                    {
+                        BankService.Instance.Login("admin", "admin");
+                        destination = WindowName.Admin;
+                    }
+                    else
+                    {
+                        BankService.Instance.Login("username", "password");
+                        destination = WindowName.Customer;
+                    }
+                }
+                WindowManager.Navigate(
+                    WindowManager.WindowDictionary[start],
+                    WindowManager.WindowDictionary[destination]
+                );
             } while (WindowManager.Level > 0);
         }
     }
