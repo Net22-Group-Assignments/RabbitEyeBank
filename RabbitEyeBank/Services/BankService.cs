@@ -5,10 +5,6 @@ namespace RabbitEyeBank.Services
 {
     public class BankService
     {
-        private static readonly Lazy<BankService> _instance = new(() => new BankService());
-
-        public static BankService Instance => _instance.Value;
-
         /// <summary>
         /// Stores all users/customers in the bank.
         /// </summary>
@@ -20,7 +16,7 @@ namespace RabbitEyeBank.Services
 
         private bool adminMode = false;
 
-        protected BankService() { }
+        public BankService() { }
 
         public string Login(string username, string password)
         {

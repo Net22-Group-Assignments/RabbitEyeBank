@@ -12,7 +12,7 @@ namespace LoginDemo
             var devMode = true;
 
             AnsiConsole.WriteLine("These users are pre-generated for testing use.");
-            foreach (var customer in BankService.Instance.CustomerList)
+            foreach (var customer in ServiceContainer.bankService.CustomerList)
             {
                 Log.Information("{customer}", customer);
             }
@@ -26,12 +26,12 @@ namespace LoginDemo
                 {
                     if (AnsiConsole.Confirm("Login as admin?"))
                     {
-                        BankService.Instance.Login("admin", "admin");
+                        ServiceContainer.bankService.Login("admin", "admin");
                         destination = WindowName.Admin;
                     }
                     else
                     {
-                        BankService.Instance.Login("username", "password");
+                        ServiceContainer.bankService.Login("username", "password");
                         destination = WindowName.Customer;
                     }
                 }

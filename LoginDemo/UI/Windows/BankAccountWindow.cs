@@ -7,12 +7,12 @@ namespace LoginDemo.UI.Windows;
 
 public class BankAccountWindow : CustomerHeader
 {
-    private readonly MoneyTransferService mts = MoneyTransferService.Instance;
-
     public override void Show()
     {
         base.Show();
-        IReadOnlyList<BankAccount> bankAccounts = bankService.LoggedInCustomer.BankAccountList;
+        IReadOnlyList<BankAccount> bankAccounts = accountService.BankAccountsByCustomer(
+            bankService.LoggedInCustomer
+        );
 
         var table = new Table();
         table.AddColumns(
@@ -46,22 +46,22 @@ public class BankAccountWindow : CustomerHeader
             decimal amount = AnsiConsole.Prompt(
                 new TextPrompt<decimal>("Transfer amount?")
                     .ValidationErrorMessage("Insufficient Funds")
-                    .Validate(amount =>
-                    {
-                        return amount > choiceFrom.Balance
-                            ? ValidationResult.Error()
-                            : ValidationResult.Success();
-                    })
+                    .Validate(
+                        amount =>
+                            amount > choiceFrom.Balance || amount < 0
+                                ? ValidationResult.Error()
+                                : ValidationResult.Success()
+                    )
             );
 
             BankAccount choiceTo = AnsiConsole.Prompt(
                 Prompts.BankAccountSelector("To Account", bankAccounts, choiceFrom)
             );
 
-            mts.RegisterTransfer(
-                mts.CreateTransfer(choiceFrom, choiceTo, amount, choiceTo.Currency)
+            moneyTransferService.RegisterTransfer(
+                moneyTransferService.CreateTransfer(choiceFrom, choiceTo, amount, choiceTo.Currency)
             );
-            mts.CompleteTransfer();
+            moneyTransferService.CompleteTransfer();
         }
 
         AnsiConsole.WriteLine("Press a key to go back.");

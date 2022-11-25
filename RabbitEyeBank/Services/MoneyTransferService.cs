@@ -6,18 +6,13 @@ namespace RabbitEyeBank.Services;
 
 public class MoneyTransferService
 {
-    private static readonly Lazy<MoneyTransferService> _instance =
-        new(() => new MoneyTransferService());
-
-    public static MoneyTransferService Instance => _instance.Value;
-
     private readonly AccountService accountService;
     private readonly List<MoneyTransfer> TransferLog = new();
     private readonly ConcurrentQueue<MoneyTransfer> TransferQueue = new();
 
-    protected MoneyTransferService()
+    public MoneyTransferService(AccountService accountService)
     {
-        accountService = AccountService.Instance;
+        this.accountService = accountService;
     }
 
     public MoneyTransfer CreateTransfer(
