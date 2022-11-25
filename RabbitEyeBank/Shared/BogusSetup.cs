@@ -7,6 +7,9 @@ namespace RabbitEyeBank.Shared
 {
     public static class BogusSetup
     {
+        private static readonly AccountService accountService = AccountService.Instance;
+        private static readonly BankService bankService = BankService.Instance;
+
         /// <summary>
         /// Populates the bank service classes with randomly generated instances.
         /// The admin account and one customer is predefined with known values.
@@ -20,7 +23,7 @@ namespace RabbitEyeBank.Shared
             // Admin? admin = new Admin("admin", "password", true);
             // UserService.Admin = admin;
             Customer customer = new Customer("John", "Doe", "username", "password", true);
-            BankServices.AddCustomer(customer);
+            bankService.AddCustomer(customer);
             BankAccount b1 = new BankAccount(
                 BankData.GenerateAccountNumber(),
                 "Savings",
@@ -35,11 +38,11 @@ namespace RabbitEyeBank.Shared
                 BankData.CurrencyDictionary[CurrencyISO.USD],
                 customer
             );
-            AccountService.AddBankAccount(b1);
-            AccountService.AddBankAccount(b2);
+            accountService.AddBankAccount(b1);
+            accountService.AddBankAccount(b2);
 
             customer = new Customer("Jane", "Doe", "jade", "flower", false);
-            BankServices.AddCustomer(customer);
+            bankService.AddCustomer(customer);
             // Random entities.
             for (int i = 0; i < nCustomers; i++)
             {
@@ -47,9 +50,9 @@ namespace RabbitEyeBank.Shared
                 for (int j = 0; j < Random.Shared.Next(maxAccounts + 1); j++)
                 {
                     var acc = BogusData.BankAccount(c);
-                    AccountService.AddBankAccount(acc);
+                    accountService.AddBankAccount(acc);
                 }
-                BankServices.AddCustomer(c);
+                bankService.AddCustomer(c);
             }
         }
     }

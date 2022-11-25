@@ -1,13 +1,17 @@
 ﻿using System.Globalization;
-using RabbitEyeBank.Money;
-using RabbitEyeBank.Services;
-using RabbitEyeBank.Users;
 using Spectre.Console;
 
 namespace LoginDemo.UI.Windows;
 
 public class BankAccountWindow : CustomerHeader
 {
+    /// <inheritdoc />
+    //public BankAccountWindow(
+    //    BankService bankService,
+    //    AccountService accountService,
+    //    MoneyTransferService moneyTransferService
+    //) : base(bankService, accountService, moneyTransferService) { }
+
     public override void Show()
     {
         base.Show();
@@ -17,7 +21,7 @@ public class BankAccountWindow : CustomerHeader
             new TableColumn("Account Name"),
             new TableColumn("Balance")
         );
-        foreach (var bankAccount in BankServices.LoggedInCustomer.BankAccountList)
+        foreach (var bankAccount in bankService.LoggedInCustomer.BankAccountList)
         {
             table.AddRow(
                 new Markup(bankAccount.AccountNumber),
