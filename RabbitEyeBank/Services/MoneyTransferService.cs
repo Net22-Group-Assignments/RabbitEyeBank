@@ -4,24 +4,35 @@ using Serilog;
 
 namespace RabbitEyeBank.Services;
 
-public static class MoneyTransferService
+public class MoneyTransferService
 {
-    private static readonly ConcurrentQueue<MoneyTransfer> TransferQueue = new();
-    private static readonly List<MoneyTransfer> TransferLog = new();
+    private static readonly Lazy<MoneyTransferService> _instance =
+        new(() => new MoneyTransferService());
 
-    public static MoneyTransfer CreateTransfer(
+    public static MoneyTransferService Instance => _instance.Value;
+
+    private readonly AccountService accountService;
+    private readonly List<MoneyTransfer> TransferLog = new();
+    private readonly ConcurrentQueue<MoneyTransfer> TransferQueue = new();
+
+    protected MoneyTransferService()
+    {
+        accountService = AccountService.Instance;
+    }
+
+    public MoneyTransfer CreateTransfer(
         BankAccount fromAccount,
         BankAccount toAccount,
         decimal amount,
         Currency toCurrency
     )
     {
-        if (AccountService.AccountList.Contains(fromAccount) == false)
+        if (accountService.AccountList.Contains(fromAccount) == false)
         {
             throw new ArgumentException("Originator account does not exist", nameof(fromAccount));
         }
 
-        if (AccountService.AccountList.Contains(toAccount) == false)
+        if (accountService.AccountList.Contains(toAccount) == false)
         {
             throw new ArgumentException("Destination account does not exist", nameof(toAccount));
         }
@@ -50,7 +61,7 @@ public static class MoneyTransferService
         return new MoneyTransfer(fromAccount, toAccount, amount, toCurrency);
     }
 
-    public static MoneyTransfer CreateTransfer(
+    public MoneyTransfer CreateTransfer(
         string fromAccountNumber,
         string toAccountNumber,
         decimal amount,
@@ -58,13 +69,13 @@ public static class MoneyTransferService
     )
     {
         var fromAccount =
-            AccountService.BankAccountByAccountNumber(fromAccountNumber)
+            accountService.BankAccountByAccountNumber(fromAccountNumber)
             ?? throw new ArgumentException(
                 "Originator bank account number does not exist",
                 nameof(fromAccountNumber)
             );
         var toAccount =
-            AccountService.BankAccountByAccountNumber(toAccountNumber)
+            accountService.BankAccountByAccountNumber(toAccountNumber)
             ?? throw new ArgumentException(
                 "Destination bank account number does not exist",
                 nameof(toAccountNumber)
@@ -73,7 +84,7 @@ public static class MoneyTransferService
         return CreateTransfer(fromAccount, toAccount, amount, toCurrency);
     }
 
-    public static void RegisterTransfer(MoneyTransfer transfer)
+    public void RegisterTransfer(MoneyTransfer transfer)
     {
         transfer.Register();
         TransferQueue.Enqueue(transfer);
@@ -84,7 +95,7 @@ public static class MoneyTransferService
         );
     }
 
-    public static void CompleteTransfer()
+    public void CompleteTransfer()
     {
         MoneyTransfer transfer;
         TransferQueue.TryDequeue(out transfer);

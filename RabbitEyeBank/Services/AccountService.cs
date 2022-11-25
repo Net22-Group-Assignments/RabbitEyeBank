@@ -3,22 +3,28 @@ using RabbitEyeBank.Users;
 
 namespace RabbitEyeBank.Services;
 
-public static class AccountService
+public class AccountService
 {
-    private static readonly List<BankAccount> accountList = new();
-    public static IReadOnlyList<BankAccount> AccountList => accountList;
+    private readonly List<BankAccount> accountList = new();
+    private static readonly Lazy<AccountService> _instance = new(() => new AccountService());
 
-    public static IReadOnlyList<BankAccount> BankAccountsByCustomer(Customer customer)
+    public IReadOnlyList<BankAccount> AccountList => accountList;
+
+    public static AccountService Instance => _instance.Value;
+
+    protected AccountService() { }
+
+    public IReadOnlyList<BankAccount> BankAccountsByCustomer(Customer customer)
     {
         return accountList.FindAll(account => account.Owner == customer);
     }
 
-    public static BankAccount? BankAccountByAccountNumber(string accountNumber)
+    public BankAccount? BankAccountByAccountNumber(string accountNumber)
     {
         return accountList.Find(acc => acc.AccountNumber == accountNumber);
     }
 
-    public static void AddBankAccount(BankAccount bankAccount)
+    public void AddBankAccount(BankAccount bankAccount)
     {
         if (accountList.Contains(bankAccount))
         {
@@ -30,5 +36,10 @@ public static class AccountService
             throw new ArgumentException("Bankaccount must have owner");
         }
         accountList.Add(bankAccount);
+    }
+
+    public void DeleteAllBankAccounts()
+    {
+        accountList.Clear();
     }
 }
