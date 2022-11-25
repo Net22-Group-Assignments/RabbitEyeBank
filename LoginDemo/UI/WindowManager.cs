@@ -1,7 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using LoginDemo.UI.Windows;
+using REB.UI;
 
-namespace REB.UI
+namespace LoginDemo.UI
 {
     internal enum WindowName
     {
