@@ -12,9 +12,7 @@ public class MoneyTransferTests
     private readonly BankAccount bankAccount2;
     private readonly BankAccount bankAccount3;
 
-    public MoneyTransferTests() : this(BankService.Instance) { }
-
-    private MoneyTransferTests(IBankService bankService)
+    public MoneyTransferTests()
     {
         customer1 = new Customer("Alice", "Allison", "alice", "alice", true);
         customer2 = new Customer("Bob", "Roberts", "bob", "bob", true);
