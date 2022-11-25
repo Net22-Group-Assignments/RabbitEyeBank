@@ -25,14 +25,14 @@ namespace RabbitEyeBank.Shared
             Customer customer = new Customer("John", "Doe", "username", "password", true);
             bankService.AddCustomer(customer);
             BankAccount b1 = new BankAccount(
-                BankData.GenerateAccountNumber(),
+                "11111111",
                 "Savings",
                 10000m,
                 BankData.CurrencyDictionary[CurrencyISO.SEK],
                 customer
             );
             BankAccount b2 = new BankAccount(
-                BankData.GenerateAccountNumber(),
+                "22222222",
                 "Wages",
                 1000,
                 BankData.CurrencyDictionary[CurrencyISO.USD],
@@ -43,6 +43,14 @@ namespace RabbitEyeBank.Shared
 
             customer = new Customer("Jane", "Doe", "jade", "flower", false);
             bankService.AddCustomer(customer);
+            BankAccount b3 = new BankAccount(
+                "33333333",
+                "Fun",
+                0,
+                BankData.CurrencyDictionary[CurrencyISO.USD],
+                customer
+            );
+
             // Random entities.
             for (int i = 0; i < nCustomers; i++)
             {
