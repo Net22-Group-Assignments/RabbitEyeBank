@@ -43,16 +43,37 @@ public class BankAccountWindow : CustomerHeader
                 Prompts.BankAccountSelector("From Account", bankAccounts)
             );
 
-            BankAccount choiceTo = AnsiConsole.Prompt(
-                Prompts.BankAccountSelector("To Account", bankAccounts, choiceFrom)
-            );
-
             decimal amount = AnsiConsole.Prompt(Prompts.AmountPrompt(choiceFrom));
 
-            moneyTransferService.RegisterTransfer(
-                moneyTransferService.CreateTransfer(choiceFrom, choiceTo, amount, choiceTo.Currency)
-            );
-            moneyTransferService.CompleteTransfer();
+            if (amount > 0)
+            {
+                BankAccount choiceTo = AnsiConsole.Prompt(
+                    Prompts.BankAccountSelector("To Account", bankAccounts, choiceFrom)
+                );
+
+                var transfer = moneyTransferService.CreateTransfer(
+                    choiceFrom,
+                    choiceTo,
+                    amount,
+                    choiceTo.Currency
+                );
+
+                AnsiConsole.MarkupLineInterpolated($"Transfer {transfer}");
+                if (AnsiConsole.Confirm("Proceed with this transfer:"))
+                {
+                    moneyTransferService.TransferMoney(transfer);
+                    AnsiConsole.MarkupInterpolated(
+                        $"Transfer registered at: {transfer.TimeOfRegistration}"
+                    );
+                }
+                else
+                {
+                    AnsiConsole.Write("Transfer cancelled.");
+                }
+
+                AnsiConsole.WriteLine("Press a key to go back.");
+                Console.ReadKey();
+            }
         }
 
         AnsiConsole.WriteLine("Press a key to go back.");
