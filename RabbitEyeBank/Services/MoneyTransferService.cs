@@ -18,6 +18,8 @@ public class MoneyTransferService
         this.accountService = accountService;
     }
 
+    public IReadOnlyList<MoneyTransfer> TransferLog => transferLog;
+
     public IReadOnlyList<MoneyTransfer> TransfersByAccount(BankAccount bankAccount)
     {
         if (bankAccount == null)
