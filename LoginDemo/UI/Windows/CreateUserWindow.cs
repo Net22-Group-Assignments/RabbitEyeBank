@@ -1,19 +1,11 @@
-﻿using RabbitEyeBank.Services;
-using Spectre.Console;
+﻿using Spectre.Console;
 
 namespace LoginDemo.UI.Windows;
 
 //TODO Abracadabra logindemo to actual rabbiteyebank
 
-public class AdminWindow : CustomerHeader
+public class CreateUserWindow : CustomerHeader
 {
-    /// <inheritdoc />
-    //public AdminWindow(
-    //    UserService userService,
-    //    AccountService accountService,
-    //    MoneyTransferService moneyTransferService
-    //) : base(userService, accountService, moneyTransferService) { }
-
     public override void Show()
     {
         base.Show();

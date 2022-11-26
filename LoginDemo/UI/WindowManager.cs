@@ -28,7 +28,7 @@ namespace LoginDemo.UI
         static WindowManager()
         {
             windowDictionary.Add(Login, new LoginWindow());
-            windowDictionary.Add(Admin, new AdminWindow());
+            windowDictionary.Add(Admin, new CreateUserWindow());
             windowDictionary.Add(BankAccount, new BankAccountWindow());
             windowDictionary.Add(BankAccountDetails, new BankAccountDetailsWindow());
             windowDictionary.Add(TransferMoney, new MoneyTransferWindow());
