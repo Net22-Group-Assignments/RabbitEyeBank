@@ -7,8 +7,8 @@ namespace LoginDemo.UI.Windows
     public abstract class CustomerHeader : IWindow
     {
         protected UserService UserService;
-        protected AccountService accountService;
-        protected MoneyTransferService moneyTransferService;
+        protected AccountService AccountService;
+        protected MoneyTransferService MoneyTransferService;
 
         protected CustomerHeader(
             UserService userService,
@@ -17,8 +17,8 @@ namespace LoginDemo.UI.Windows
         )
         {
             this.UserService = userService;
-            this.accountService = accountService;
-            this.moneyTransferService = moneyTransferService;
+            this.AccountService = accountService;
+            this.MoneyTransferService = moneyTransferService;
         }
 
         protected CustomerHeader()

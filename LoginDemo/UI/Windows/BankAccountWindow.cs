@@ -12,7 +12,7 @@ public class BankAccountWindow : CustomerHeader
     public override void Show()
     {
         base.Show();
-        bankAccounts = accountService.BankAccountsByCustomer(UserService.LoggedInCustomer);
+        bankAccounts = AccountService.BankAccountsByCustomer(UserService.LoggedInCustomer);
 
         AnsiConsole.Write(Widgets.AccountOverViewTable(bankAccounts));
 
