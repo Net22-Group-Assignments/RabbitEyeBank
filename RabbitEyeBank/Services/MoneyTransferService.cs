@@ -107,4 +107,10 @@ public class MoneyTransferService
             transfer.Status
         );
     }
+
+    public void TransferMoney(MoneyTransfer moneyTransfer)
+    {
+        RegisterTransfer(moneyTransfer);
+        CompleteTransfer();
+    }
 }
