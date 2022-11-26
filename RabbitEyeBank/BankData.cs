@@ -14,7 +14,7 @@ namespace RabbitEyeBank
 
         private static int accountNumberPool = 111;
 
-        // TODO Should the dictionary be stored somewhere else, like BankService?
+        // TODO Should the dictionary be stored somewhere else, like UserService?
 
         /// <summary>
         /// Initializes the dictionary by connecting the currency type

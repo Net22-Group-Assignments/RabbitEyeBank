@@ -3,7 +3,7 @@ using Serilog;
 
 namespace RabbitEyeBank.Services
 {
-    public class BankService
+    public class UserService
     {
         /// <summary>
         /// Stores all users/customers in the bank.
@@ -16,7 +16,7 @@ namespace RabbitEyeBank.Services
 
         private bool adminMode = false;
 
-        public BankService() { }
+        public UserService() { }
 
         public string Login(string username, string password)
         {
@@ -103,6 +103,13 @@ namespace RabbitEyeBank.Services
 
             // check if username already exists.
             return false; //false is placeholder
+        }
+
+        public bool CustomerExists(Customer customer)
+        {
+            if (customer == null)
+                throw new ArgumentNullException(nameof(customer));
+            return customerList.Contains(customer);
         }
 
         public void AdminCreateUser(

@@ -1,82 +1,53 @@
-﻿using System.Globalization;
-using RabbitEyeBank.Money;
-using RabbitEyeBank.Services;
+﻿using RabbitEyeBank.Money;
 using Spectre.Console;
 
 namespace LoginDemo.UI.Windows;
 
 public class BankAccountWindow : CustomerHeader
 {
+    private IReadOnlyList<BankAccount>? bankAccounts;
+
+    public BankAccountWindow() { }
+
     public override void Show()
     {
         base.Show();
-        IReadOnlyList<BankAccount> bankAccounts = accountService.BankAccountsByCustomer(
-            bankService.LoggedInCustomer
-        );
+        bankAccounts = accountService.BankAccountsByCustomer(UserService.LoggedInCustomer);
 
-        var table = new Table();
-        table.AddColumns(
-            new TableColumn("Account number"),
-            new TableColumn("Account Name"),
-            new TableColumn("Balance")
-        );
-        foreach (var bankAccount in bankAccounts)
+        AnsiConsole.Write(Widgets.AccountOverViewTable(bankAccounts));
+
+        List<WindowName> windowChoices = new List<WindowName>();
+        List<string> menuItems = new List<string>();
+        if (bankAccounts.Count > 0)
         {
-            table.AddRow(
-                new Markup(bankAccount.AccountNumber),
-                new Markup(bankAccount.Name),
-                new Markup(
-                    string.Format(
-                        "{0} {1}",
-                        bankAccount.Balance.ToString(CultureInfo.InvariantCulture),
-                        bankAccount.Currency.Symbol
-                    )
-                )
-            );
+            windowChoices.Add(BankAccountDetails);
+            menuItems.Add("See Bank Account Details");
+            windowChoices.Add(TransferMoney);
+            menuItems.Add("Transfer Money");
         }
 
-        AnsiConsole.Write(table);
+        windowChoices.Add(CreateAccount);
+        menuItems.Add("Create New Bank Account");
 
-        if (bankAccounts.Count > 1)
+        windowChoices.Add(Logout);
+        menuItems.Add("Log Out");
+
+        WindowName choice = AnsiConsole.Prompt(
+            new SelectionPrompt<WindowName>()
+                .Title("What do you want to do?")
+                .AddChoices(windowChoices)
+                .UseConverter(Prompts.SelectionConverter(windowChoices, menuItems))
+        );
+
+        if (choice == Logout)
         {
-            BankAccount choiceFrom = AnsiConsole.Prompt(
-                Prompts.BankAccountSelector("From Account", bankAccounts)
-            );
-
-            decimal amount = AnsiConsole.Prompt(Prompts.AmountPrompt(choiceFrom));
-
-            if (amount > 0)
-            {
-                BankAccount choiceTo = AnsiConsole.Prompt(
-                    Prompts.BankAccountSelector("To Account", bankAccounts, choiceFrom)
-                );
-
-                var transfer = moneyTransferService.CreateTransfer(
-                    choiceFrom,
-                    choiceTo,
-                    amount,
-                    choiceTo.Currency
-                );
-
-                AnsiConsole.MarkupLineInterpolated($"Transfer {transfer}");
-                if (AnsiConsole.Confirm("Proceed with this transfer:"))
-                {
-                    moneyTransferService.TransferMoney(transfer);
-                    AnsiConsole.MarkupInterpolated(
-                        $"Transfer registered at: {transfer.TimeOfRegistration}"
-                    );
-                }
-                else
-                {
-                    AnsiConsole.Write("Transfer cancelled.");
-                }
-
-                AnsiConsole.WriteLine("Press a key to go back.");
-                Console.ReadKey();
-            }
+            AnsiConsole.Clear();
+            UserService.LogOut();
+            AnsiConsole.WriteLine("You are now logged out of the system.");
+            Console.ReadKey();
+            return;
         }
 
-        AnsiConsole.WriteLine("Press a key to go back.");
-        Console.ReadKey();
+        Navigate(this, WindowManager.Windows[choice]);
     }
 }

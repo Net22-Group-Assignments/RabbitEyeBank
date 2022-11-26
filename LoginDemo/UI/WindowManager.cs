@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using LoginDemo.UI.Windows;
-using REB.UI;
 
 namespace LoginDemo.UI
 {
@@ -8,9 +7,9 @@ namespace LoginDemo.UI
     {
         Login,
         Admin,
-        Customer,
         BankAccount,
-        MoneyTransfer,
+        BankAccountDetails,
+        TransferMoney,
         CreateAccount,
         Logout
     }
@@ -21,20 +20,20 @@ namespace LoginDemo.UI
         private static readonly Dictionary<WindowName, IWindow> windowDictionary = new();
         public static int Level => _windowStack.Count;
 
-        public static ReadOnlyDictionary<WindowName, IWindow> WindowDictionary;
+        public static ReadOnlyDictionary<WindowName, IWindow> Windows;
 
         /// <summary>
         /// Keeps all windows that the application will use.
         /// </summary>
         static WindowManager()
         {
-            windowDictionary.Add(WindowName.Login, new LoginWindow());
-            windowDictionary.Add(WindowName.Admin, new AdminWindow());
-            windowDictionary.Add(WindowName.Customer, new CustomerLandingWindow());
-            windowDictionary.Add(WindowName.BankAccount, new BankAccountWindow());
-            windowDictionary.Add(WindowName.MoneyTransfer, new MoneyTransferWindow());
-            windowDictionary.Add(WindowName.CreateAccount, new CreateAccountWindow());
-            WindowDictionary = new ReadOnlyDictionary<WindowName, IWindow>(windowDictionary);
+            windowDictionary.Add(Login, new LoginWindow());
+            windowDictionary.Add(Admin, new AdminWindow());
+            windowDictionary.Add(BankAccount, new BankAccountWindow());
+            windowDictionary.Add(BankAccountDetails, new BankAccountDetailsWindow());
+            windowDictionary.Add(TransferMoney, new MoneyTransferWindow());
+            windowDictionary.Add(CreateAccount, new CreateAccountWindow());
+            Windows = new ReadOnlyDictionary<WindowName, IWindow>(windowDictionary);
         }
 
         /// <summary>

@@ -1,24 +1,60 @@
 ﻿using System.Collections.Concurrent;
 using RabbitEyeBank.Money;
+using RabbitEyeBank.Users;
 using Serilog;
 
 namespace RabbitEyeBank.Services;
 
 public class MoneyTransferService
 {
+    private readonly UserService userService;
     private readonly AccountService accountService;
-    private readonly List<MoneyTransfer> TransferLog = new();
+    private readonly List<MoneyTransfer> transferLog = new();
     private readonly ConcurrentQueue<MoneyTransfer> TransferQueue = new();
 
-    public MoneyTransferService(AccountService accountService)
+    public MoneyTransferService(UserService userService, AccountService accountService)
     {
+        this.userService = userService;
         this.accountService = accountService;
+    }
+
+    public IReadOnlyList<MoneyTransfer> TransfersByAccount(BankAccount bankAccount)
+    {
+        if (bankAccount == null)
+            throw new ArgumentNullException(nameof(bankAccount));
+
+        if (accountService.BankAccountExists(bankAccount))
+        {
+            throw new ArgumentException("Bank account does not exist", nameof(bankAccount));
+        }
+
+        return transferLog.FindAll(
+            transfer =>
+                transfer.FromAccount.Equals(bankAccount) || transfer.ToAccount.Equals(bankAccount)
+        );
+    }
+
+    public IReadOnlyList<MoneyTransfer> TransfersByCustomer(Customer customer)
+    {
+        if (customer == null)
+            throw new ArgumentNullException(nameof(customer));
+        if (userService.CustomerExists(customer) == false)
+        {
+            throw new ArgumentException("Customer does not exist", nameof(customer));
+        }
+
+        return transferLog.FindAll(
+            transfer =>
+                transfer.FromAccount.Owner.Equals(customer)
+                || transfer.ToAccount.Owner.Equals(customer)
+        );
     }
 
     public MoneyTransfer CreateTransfer(
         BankAccount fromAccount,
         BankAccount toAccount,
         decimal amount,
+        Currency fromCurrency,
         Currency toCurrency
     )
     {
@@ -53,13 +89,14 @@ public class MoneyTransferService
             );
         }
 
-        return new MoneyTransfer(fromAccount, toAccount, amount, toCurrency);
+        return new MoneyTransfer(fromAccount, toAccount, amount, fromCurrency, toCurrency);
     }
 
     public MoneyTransfer CreateTransfer(
         string fromAccountNumber,
         string toAccountNumber,
         decimal amount,
+        Currency fromCurrency,
         Currency toCurrency
     )
     {
@@ -76,13 +113,14 @@ public class MoneyTransferService
                 nameof(toAccountNumber)
             );
 
-        return CreateTransfer(fromAccount, toAccount, amount, toCurrency);
+        return CreateTransfer(fromAccount, toAccount, amount, fromCurrency, toCurrency);
     }
 
     public void RegisterTransfer(MoneyTransfer transfer)
     {
         transfer.Register();
         TransferQueue.Enqueue(transfer);
+        transferLog.Add(transfer);
         Log.Debug(
             "Transfer from {FromAccount} to {ToAccount} in queue",
             transfer.FromAccount,
@@ -93,13 +131,19 @@ public class MoneyTransferService
     public void CompleteTransfer()
     {
         MoneyTransfer transfer;
-        TransferQueue.TryDequeue(out transfer);
-        if (transfer.Status == TransferStatus.Pending)
+        if (TransferQueue.TryDequeue(out transfer))
         {
-            transfer.ToAccount.Deposit(transfer.Amount);
-            transfer.Complete();
+            if (transfer.Status == TransferStatus.Pending)
+            {
+                transfer.ToAccount.Deposit(transfer.Amount);
+                transfer.Complete();
+            }
         }
-        TransferLog.Add(transfer);
+        else
+        {
+            transfer.FromAccount.Deposit(transfer.Amount);
+            transfer.Reject();
+        }
         Log.Debug(
             "Transfer from {FromAccount} to {ToAccount} completed with status {Status}",
             transfer.FromAccount,

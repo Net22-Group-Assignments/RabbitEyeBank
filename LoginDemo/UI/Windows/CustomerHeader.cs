@@ -1,38 +1,57 @@
 ﻿using RabbitEyeBank.Services;
-using REB.UI;
 using Spectre.Console;
 
 namespace LoginDemo.UI.Windows
 {
     public abstract class CustomerHeader : IWindow
     {
-        protected BankService bankService;
+        protected UserService UserService;
         protected AccountService accountService;
         protected MoneyTransferService moneyTransferService;
 
         private readonly Grid grid;
 
         protected CustomerHeader(
-            BankService bankService,
+            UserService userService,
             AccountService accountService,
             MoneyTransferService moneyTransferService
         )
         {
-            this.bankService = bankService;
+            this.UserService = userService;
             this.accountService = accountService;
             this.moneyTransferService = moneyTransferService;
 
             grid = new Grid();
             grid.AddColumns(2);
             grid.AddRow(
-                new FigletText("R.E.B").LeftAligned().Color(Color.Green),
-                Markup.FromInterpolated($"{DateOnly.FromDateTime(DateTime.Now)}")
+                Markup.FromInterpolated(
+                    $@"&&&&@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+&&&@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%/(&@@@@@@@@@@@@@@@@@@%/*%%%@@@@@@@@@@@@@@@@@@@
+&&&@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@(###/*/#&@@@@@@@@@@((*/%%##%@@@@@@@@@@@@@@@@@@@
+&&&@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@##(//#(,,*%@@@@@@(,,*(%#####@@@@@@@@@@@@@@@@@@@
+&&&&@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%((///(/,.,*&@@&(*,*,##(###%@@@@@@@@@@@@@@@@@@@
+&&&&@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&((//((/*(%&&&&&&&&%/(#(#(#%@@@@@@@@@@@@@@@@@@@
+&&@&@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%(/*(%&&&&@@@@@@@@@@&&%##%@@@@@@@@@@@@@@@@@@@@
+&&&@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%%&&&@@@@@@@@@@@@@@@@@@&&@@@@@@@@@@@@@@@@@@@@
+&&&&@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&&&%#&@@@@@@@@@@@@@&&&@@@@@@@@@@@@@@@@@@@@@@
+&&&@&@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&&%//(#&&@@@@@@@@@@&&#&@@@@@@@@@@@@@@@@@@@@@@
+&&&&@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&%/*,.(%&&&&&&&&&&&&&#/(&@@@@@@@@@@@@@@@@@@@@@
+&&&&@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&%#(#*.,#%&&&&&&&&&&&#,/###&@@@@@@@@@@@@@@@@@@@
+&&&&&@@@@@@@@@@@@@@@@@@@@@@@@@@@@&&&&&%%%&&&&&&&&&&@@@&&&&&%%&@@@@@@@@@@@@@@@@@@
+&&&&&@@@@@@@@@@@@@@@@@@@@@@@@@@@@&&&&&&&&&%%%###%%%&&@@@@@@@@@@@@@@@@@@@@@@@@@@@
+&&&&&&@@@@@@@@@@@@@@@@@@@@@@@@&@@&&&&&&&&&&&&%(#%(%&&&@&@@@@@@@@@@@@@@@@@@@@@@@@
+&&&&&&&@@@@@@@@@@@@@@@@@@@@@&&&@&&&&&&&&&&&&&&%##%&&&@@@@@@@@@@@@@@@@@@@@@@@@@@@
+&&&&&&&@@@@@@@@@@@@@@@@@@@@&&&&&&&&&&&&&&&&&&&&&&&&&&&&@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&@@@@@@@@@@@@@@@@@@@@@@@
+"
+                ),
+                Markup.FromInterpolated($"{DateTime.Now}")
             );
         }
 
         protected CustomerHeader()
             : this(
-                ServiceContainer.bankService,
+                ServiceContainer.UserService,
                 ServiceContainer.accountService,
                 ServiceContainer.MoneyTransferService
             ) { }
@@ -41,9 +60,9 @@ namespace LoginDemo.UI.Windows
         public virtual void Show()
         {
             AnsiConsole.Clear();
-            WindowManager.showWindowStack();
-            AnsiConsole.WriteLine($"Level {WindowManager.Level}");
-            AnsiConsole.Write(grid);
+            showWindowStack();
+            AnsiConsole.WriteLine($"Level {Level}");
+            //AnsiConsole.Write(grid);
             AnsiConsole.Write(new Rule());
         }
     }

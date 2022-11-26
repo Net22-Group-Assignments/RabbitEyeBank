@@ -21,6 +21,18 @@ public class AccountService
         return accountList.Find(acc => acc.AccountNumber == accountNumber);
     }
 
+    public bool BankAccountExists(string accountNumber)
+    {
+        return BankAccountByAccountNumber(accountNumber) is not null;
+    }
+
+    public bool BankAccountExists(BankAccount bankAccount)
+    {
+        if (bankAccount == null)
+            throw new ArgumentNullException(nameof(bankAccount));
+        return accountList.Contains(bankAccount);
+    }
+
     public void AddBankAccount(BankAccount bankAccount)
     {
         if (accountList.Contains(bankAccount))

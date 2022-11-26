@@ -1,6 +1,4 @@
-﻿using RabbitEyeBank.Services;
-using REB.UI;
-using Spectre.Console;
+﻿using Spectre.Console;
 
 namespace LoginDemo.UI.Windows
 {
@@ -21,7 +19,7 @@ namespace LoginDemo.UI.Windows
                     new TextPrompt<string>("Enter password?").PromptStyle("green")
                 );
 
-                string loginStatus = bankService.Login(username, password);
+                string loginStatus = UserService.Login(username, password);
 
                 string textResponse = "";
                 switch (loginStatus)
@@ -40,7 +38,7 @@ namespace LoginDemo.UI.Windows
                     case "SBK":
                         textResponse = string.Format(
                             "Wrong password. This is attempt {0} of 3",
-                            bankService.GetCustomer(username)!.LoginAttempts
+                            UserService.GetCustomer(username)!.LoginAttempts
                         );
                         break;
                     case "RED":
@@ -48,7 +46,7 @@ namespace LoginDemo.UI.Windows
                             "You have exceeded the password attempt limit. You are now locked out, please contact administrator.";
                         break;
                     case "ELK":
-                        var customer = bankService.GetCustomer(username);
+                        var customer = UserService.GetCustomer(username);
                         var fullName = $"{customer.FirstName} {customer.LastName}";
                         textResponse = $"Login successful, welcome {fullName}!";
                         loggedIn = true;
@@ -60,11 +58,11 @@ namespace LoginDemo.UI.Windows
 
             if (isAdmin)
             {
-                WindowManager.Navigate(this, WindowManager.WindowDictionary[WindowName.Admin]);
+                Navigate(this, WindowManager.Windows[Admin]);
             }
             else
             {
-                WindowManager.Navigate(this, WindowManager.WindowDictionary[WindowName.Customer]);
+                Navigate(this, WindowManager.Windows[BankAccount]);
             }
         }
     }
