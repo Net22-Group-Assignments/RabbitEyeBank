@@ -20,8 +20,8 @@ public class MoneyTransferTests : IClassFixture<Fixture>
             100m,
             new Currency()
         );
-        fixture.MoneyTransferService.RegisterTransfer(transfer);
-        fixture.MoneyTransferService.CompleteTransfer();
+
+        fixture.MoneyTransferService.TransferMoney(transfer);
         Assert.Equal(0m, fixture.BankAccount1.Balance);
         Assert.Equal(300m, fixture.BankAccount2.Balance);
     }
