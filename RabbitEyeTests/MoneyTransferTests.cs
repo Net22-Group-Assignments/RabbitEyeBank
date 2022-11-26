@@ -18,6 +18,7 @@ public class MoneyTransferTests : IClassFixture<Fixture>
             fixture.BankAccount1,
             fixture.BankAccount2,
             100m,
+            new Currency(),
             new Currency()
         );
 

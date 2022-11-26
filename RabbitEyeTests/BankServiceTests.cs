@@ -4,17 +4,17 @@ namespace RabbitEyeTests
 {
     public class BankServiceTests
     {
-        readonly BankService bankService;
+        readonly UserService userService;
 
         public BankServiceTests()
         {
-            bankService = new BankService();
+            userService = new UserService();
         }
 
         [Fact]
         public void LogOutWhenCurrentCustomerIsNull_ThrowsException()
         {
-            Assert.Throws<InvalidOperationException>(bankService.LogOut);
+            Assert.Throws<InvalidOperationException>(userService.LogOut);
         }
     }
 }
