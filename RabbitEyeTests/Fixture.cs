@@ -6,7 +6,7 @@ namespace RabbitEyeTests;
 
 public class Fixture
 {
-    public BankService BankService;
+    public UserService UserService;
     public AccountService AccountService;
     public MoneyTransferService MoneyTransferService;
 
@@ -19,8 +19,8 @@ public class Fixture
     public Fixture()
     {
         AccountService = new AccountService();
-        BankService = new BankService();
-        MoneyTransferService = new MoneyTransferService(AccountService);
+        UserService = new UserService();
+        MoneyTransferService = new MoneyTransferService(UserService, AccountService);
 
         Customer1 = new Customer("Alice", "Allison", "alice", "alice", true);
         Customer2 = new Customer("Bob", "Roberts", "bob", "bob", true);

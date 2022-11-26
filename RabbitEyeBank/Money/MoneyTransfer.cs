@@ -8,15 +8,24 @@
         public DateTime TimeOfRegistration { get; private set; }
         public DateTime TimeOfCompletion { get; private set; }
         public decimal Amount { get; init; }
+
+        public Currency FromCurrency { get; init; }
         public Currency ToCurrency { get; init; }
         public TransferStatus Status { get; private set; }
 
-        public MoneyTransfer(BankAccount from, BankAccount to, decimal amount, Currency toCurrency)
+        public MoneyTransfer(
+            BankAccount from,
+            BankAccount to,
+            decimal amount,
+            Currency fromCurrency,
+            Currency toCurrency
+        )
         {
             transferId = Guid.NewGuid();
             FromAccount = from;
             ToAccount = to;
             Amount = amount;
+            FromCurrency = fromCurrency;
             ToCurrency = toCurrency;
             Status = TransferStatus.New;
         }
@@ -31,6 +40,12 @@
         {
             TimeOfCompletion = DateTime.Now;
             Status = TransferStatus.Completed;
+        }
+
+        public void Reject()
+        {
+            TimeOfCompletion = DateTime.Now;
+            Status = TransferStatus.Rejected;
         }
 
         protected bool Equals(MoneyTransfer other)
@@ -62,6 +77,12 @@
         public static bool operator !=(MoneyTransfer? left, MoneyTransfer? right)
         {
             return !Equals(left, right);
+        }
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return $"From: {FromAccount.AccountNumber} To: {ToAccount.AccountNumber} {nameof(Amount)}: {Amount} {FromAccount.Currency}";
         }
     }
 

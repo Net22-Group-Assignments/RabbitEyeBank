@@ -12,7 +12,7 @@ namespace LoginDemo
             var devMode = true;
 
             AnsiConsole.WriteLine("These users are pre-generated for testing use.");
-            foreach (var customer in ServiceContainer.bankService.CustomerList)
+            foreach (var customer in ServiceContainer.UserService.CustomerList)
             {
                 Log.Information("{customer}", customer);
             }
@@ -20,26 +20,23 @@ namespace LoginDemo
             Console.ReadKey();
             do
             {
-                WindowName destination = WindowName.Login;
-                WindowName start = WindowName.Login;
+                WindowName destination = Login;
+                WindowName start = Login;
                 if (devMode)
                 {
                     if (AnsiConsole.Confirm("Login as admin?"))
                     {
-                        ServiceContainer.bankService.Login("admin", "admin");
-                        destination = WindowName.Admin;
+                        ServiceContainer.UserService.Login("admin", "admin");
+                        destination = Admin;
                     }
                     else
                     {
-                        ServiceContainer.bankService.Login("username", "password");
-                        destination = WindowName.Customer;
+                        ServiceContainer.UserService.Login("username", "password");
+                        destination = BankAccount;
                     }
                 }
-                WindowManager.Navigate(
-                    WindowManager.WindowDictionary[start],
-                    WindowManager.WindowDictionary[destination]
-                );
-            } while (WindowManager.Level > 0);
+                Navigate(Windows[start], Windows[destination]);
+            } while (Level > 0);
         }
     }
 }

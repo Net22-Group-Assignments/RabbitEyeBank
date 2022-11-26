@@ -20,7 +20,7 @@ namespace RabbitEyeBank.Money
         /// <inheritdoc />
         public override string ToString()
         {
-            return $"{nameof(CurrencyISO)}: {CurrencyISO}, {nameof(Symbol)}: {Symbol}";
+            return $"{Symbol} ({CurrencyISO})";
         }
     }
 }

@@ -88,7 +88,7 @@ namespace RabbitEyeBank.Users
         /// <inheritdoc />
         public override string ToString()
         {
-            return $"{nameof(FirstName)}: {FirstName}, {nameof(LastName)}: {LastName}, {nameof(Username)}: {Username}, {nameof(Password)}: {Password}, {nameof(IsActive)}: {IsActive}, {nameof(LoginAttempts)}: {LoginAttempts}, Bank accounts: BankAccountList.Count";
+            return $"{nameof(FirstName)}: {FirstName}, {nameof(LastName)}: {LastName}, {nameof(Username)}: {Username}, {nameof(Password)}: {Password}, {nameof(IsActive)}: {IsActive}, {nameof(LoginAttempts)}: {LoginAttempts}";
         }
     }
 }

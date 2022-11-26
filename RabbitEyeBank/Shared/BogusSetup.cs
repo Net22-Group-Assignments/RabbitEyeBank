@@ -8,7 +8,7 @@ namespace RabbitEyeBank.Shared
     public static class BogusSetup
     {
         private static readonly AccountService accountService = ServiceContainer.accountService;
-        private static readonly BankService bankService = ServiceContainer.bankService;
+        private static readonly UserService UserService = ServiceContainer.UserService;
 
         /// <summary>
         /// Populates the bank service classes with randomly generated instances.
@@ -23,16 +23,16 @@ namespace RabbitEyeBank.Shared
             // Admin? admin = new Admin("admin", "password", true);
             // UserService.Admin = admin;
             Customer customer = new Customer("John", "Doe", "username", "password", true);
-            bankService.AddCustomer(customer);
+            UserService.AddCustomer(customer);
             BankAccount b1 = new BankAccount(
-                BankData.GenerateAccountNumber(),
+                "11111111",
                 "Savings",
                 10000m,
                 BankData.CurrencyDictionary[CurrencyISO.SEK],
                 customer
             );
             BankAccount b2 = new BankAccount(
-                BankData.GenerateAccountNumber(),
+                "22222222",
                 "Wages",
                 1000,
                 BankData.CurrencyDictionary[CurrencyISO.USD],
@@ -41,8 +41,17 @@ namespace RabbitEyeBank.Shared
             accountService.AddBankAccount(b1);
             accountService.AddBankAccount(b2);
 
-            customer = new Customer("Jane", "Doe", "jade", "flower", false);
-            bankService.AddCustomer(customer);
+            customer = new Customer("Jane", "Doe", "jade", "flower", true);
+            UserService.AddCustomer(customer);
+            BankAccount b3 = new BankAccount(
+                "33333333",
+                "Fun",
+                0,
+                BankData.CurrencyDictionary[CurrencyISO.USD],
+                customer
+            );
+            accountService.AddBankAccount(b3);
+
             // Random entities.
             for (int i = 0; i < nCustomers; i++)
             {
@@ -52,7 +61,7 @@ namespace RabbitEyeBank.Shared
                     var acc = BogusData.BankAccount(c);
                     accountService.AddBankAccount(acc);
                 }
-                bankService.AddCustomer(c);
+                UserService.AddCustomer(c);
             }
         }
     }

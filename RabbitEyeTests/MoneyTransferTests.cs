@@ -18,10 +18,11 @@ public class MoneyTransferTests : IClassFixture<Fixture>
             fixture.BankAccount1,
             fixture.BankAccount2,
             100m,
+            new Currency(),
             new Currency()
         );
-        fixture.MoneyTransferService.RegisterTransfer(transfer);
-        fixture.MoneyTransferService.CompleteTransfer();
+
+        fixture.MoneyTransferService.TransferMoney(transfer);
         Assert.Equal(0m, fixture.BankAccount1.Balance);
         Assert.Equal(300m, fixture.BankAccount2.Balance);
     }

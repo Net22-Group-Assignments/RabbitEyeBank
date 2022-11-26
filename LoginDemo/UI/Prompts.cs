@@ -6,6 +6,13 @@ namespace LoginDemo.UI;
 public class Prompts
 {
     /// <summary>
+    /// This empty bankaccount is used to have a "null" option in the account
+    /// selector menu. Not self explanatory and probably error-prone. This would
+    /// be removed in an actual release.
+    /// </summary>
+    public static BankAccount NullBankAccount = new("0", "", 0, new Currency(), null);
+
+    /// <summary>
     /// Connects the choices with output-strings of your liking.
     /// The items must be lined up with the strings in the correct order.
     /// </summary>
@@ -41,6 +48,7 @@ public class Prompts
     )
     {
         var bankAccountList = bankAccounts.ToList();
+
         if (disabledAccount is not null)
         {
             bankAccountList.Remove(disabledAccount);
@@ -49,13 +57,34 @@ public class Prompts
         List<string?> accountNumbers = new();
         foreach (var bankAccount in bankAccountList)
         {
-            accountNumbers.Add(bankAccount.AccountNumber);
+            accountNumbers.Add(
+                $"{bankAccount.AccountNumber} {bankAccount.Balance} {bankAccount.Currency}"
+            );
         }
+
+        // This is a ugly hack to get a cancel option in the bankaccount list.
+        bankAccountList.Add(NullBankAccount);
+        accountNumbers.Add("Cancel");
         var accountSelection = new SelectionPrompt<BankAccount>()
             .Title(Title)
             .AddChoices(bankAccountList);
         accountSelection.Converter = SelectionConverter(bankAccountList, accountNumbers);
 
         return accountSelection;
+    }
+
+    public static TextPrompt<decimal> AmountPrompt(BankAccount bankAccount)
+    {
+        return new TextPrompt<decimal>("Transfer amount? (Leave blank to cancel)")
+            .AllowEmpty()
+            .DefaultValue(0)
+            .HideDefaultValue()
+            .ValidationErrorMessage("Insufficient Funds")
+            .Validate(
+                amount =>
+                    amount > bankAccount.Balance || amount < 0
+                        ? ValidationResult.Error()
+                        : ValidationResult.Success()
+            );
     }
 }
