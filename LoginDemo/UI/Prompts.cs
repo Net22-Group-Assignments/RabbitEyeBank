@@ -61,7 +61,10 @@ public class Prompts
 
     public static TextPrompt<decimal> AmountPrompt(BankAccount bankAccount)
     {
-        return new TextPrompt<decimal>("Transfer amount?")
+        return new TextPrompt<decimal>("Transfer amount? (Leave blank to cancel)")
+            .AllowEmpty()
+            .DefaultValue(0)
+            .HideDefaultValue()
             .ValidationErrorMessage("Insufficient Funds")
             .Validate(
                 amount =>
