@@ -8,17 +8,32 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\bunnyrabbit2xW.png" />
+    <None Remove="UI\Windows\bunnyrabbit.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Serilog.Sinks.SpectreConsole" Version="0.3.3" />
     <PackageReference Include="Spectre.Console" Version="0.45.0" />
     <PackageReference Include="Spectre.Console.Analyzer" Version="0.45.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Spectre.Console.ImageSharp" Version="0.45.0" />
     <PackageReference Include="Spectre.Console.Testing" Version="0.45.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\RabbitEyeBank\RabbitEyeBank.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\bunnyrabbit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\bunnyrabbit2xW.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
