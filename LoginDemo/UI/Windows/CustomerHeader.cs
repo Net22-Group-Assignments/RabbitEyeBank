@@ -4,34 +4,8 @@ using Spectre.Console;
 
 namespace LoginDemo.UI.Windows
 {
-    public abstract class CustomerHeader : IWindow
+    public abstract class CustomerHeader : Header, IWindow
     {
-        protected UserService UserService;
-        protected AccountService AccountService;
-        protected MoneyTransferService MoneyTransferService;
-        protected CurrencyService CurrencyService;
-
-        protected CustomerHeader(
-            UserService userService,
-            AccountService accountService,
-            MoneyTransferService moneyTransferService,
-            CurrencyService currencyService
-        )
-        {
-            UserService = userService;
-            AccountService = accountService;
-            MoneyTransferService = moneyTransferService;
-            CurrencyService = currencyService;
-        }
-
-        protected CustomerHeader()
-            : this(
-                ServiceContainer.UserService,
-                ServiceContainer.accountService,
-                ServiceContainer.MoneyTransferService,
-                ServiceContainer.CurrencyService
-            ) { }
-
         /// <inheritdoc />
         public virtual void Show()
         {
