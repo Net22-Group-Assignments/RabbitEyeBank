@@ -23,8 +23,8 @@ public class MoneyTransferWindow : CustomerHeader
         while (true)
         {
             base.Show();
-            bankAccounts = accountService.BankAccountsByCustomer(currentCustomer);
-            transfers = moneyTransferService.TransfersByCustomer(currentCustomer);
+            bankAccounts = AccountService.BankAccountsByCustomer(currentCustomer);
+            transfers = MoneyTransferService.TransfersByCustomer(currentCustomer);
             AnsiConsole.Write(Widgets.TransferTable(transfers));
 
             var menuSelect = new SelectionPrompt<MenuChoice>().Title("What do you want to do?");
@@ -86,10 +86,10 @@ public class MoneyTransferWindow : CustomerHeader
                         .ValidationErrorMessage("Bank Account Unavailable")
                         .Validate(accountNumber =>
                         {
-                            if (accountService.BankAccountExists(accountNumber))
+                            if (AccountService.BankAccountExists(accountNumber))
                             {
                                 if (
-                                    accountService.BankAccountByAccountNumber(accountNumber).Owner
+                                    AccountService.BankAccountByAccountNumber(accountNumber).Owner
                                     == currentCustomer
                                 )
                                 {
@@ -107,10 +107,10 @@ public class MoneyTransferWindow : CustomerHeader
                     continue;
                 }
 
-                choiceTo = accountService.BankAccountByAccountNumber(bankAccountNumber);
+                choiceTo = AccountService.BankAccountByAccountNumber(bankAccountNumber);
             }
 
-            var transfer = moneyTransferService.CreateTransfer(
+            var transfer = MoneyTransferService.CreateTransfer(
                 choiceFrom,
                 choiceTo,
                 amount,
@@ -121,7 +121,7 @@ public class MoneyTransferWindow : CustomerHeader
             AnsiConsole.MarkupLineInterpolated($"Transfer {transfer}");
             if (AnsiConsole.Confirm("Proceed with this transfer:"))
             {
-                moneyTransferService.TransferMoney(transfer);
+                MoneyTransferService.TransferMoney(transfer);
                 AnsiConsole.MarkupLineInterpolated(
                     $"Transfer registered at: {transfer.TimeOfRegistration}"
                 );

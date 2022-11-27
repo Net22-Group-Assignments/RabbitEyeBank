@@ -7,11 +7,15 @@ namespace LoginDemo.UI
     {
         Login,
         Admin,
+        CreateCustomer,
+        Currency,
+        TransferControl,
         BankAccount,
         BankAccountDetails,
-        TransferMoney,
+        MoneyTransfer,
         CreateAccount,
-        Logout
+        Logout,
+        Exit
     }
 
     internal static class WindowManager
@@ -29,9 +33,12 @@ namespace LoginDemo.UI
         {
             windowDictionary.Add(Login, new LoginWindow());
             windowDictionary.Add(Admin, new AdminWindow());
+            windowDictionary.Add(CreateCustomer, new CreateCustomerWindow());
+            windowDictionary.Add(Currency, new CurrencyWindow());
+            windowDictionary.Add(TransferControl, new TransferControlWindow());
             windowDictionary.Add(BankAccount, new BankAccountWindow());
             windowDictionary.Add(BankAccountDetails, new BankAccountDetailsWindow());
-            windowDictionary.Add(TransferMoney, new MoneyTransferWindow());
+            windowDictionary.Add(MoneyTransfer, new MoneyTransferWindow());
             windowDictionary.Add(CreateAccount, new CreateAccountWindow());
             Windows = new ReadOnlyDictionary<WindowName, IWindow>(windowDictionary);
         }

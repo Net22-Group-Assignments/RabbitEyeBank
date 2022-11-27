@@ -1,65 +1,54 @@
-﻿using RabbitEyeBank.Services;
+﻿using Serilog;
 using Spectre.Console;
 
 namespace LoginDemo.UI.Windows;
 
-//TODO Abracadabra logindemo to actual rabbiteyebank
-
 public class AdminWindow : CustomerHeader
 {
     /// <inheritdoc />
-    //public AdminWindow(
-    //    UserService userService,
-    //    AccountService accountService,
-    //    MoneyTransferService moneyTransferService
-    //) : base(userService, accountService, moneyTransferService) { }
-
     public override void Show()
     {
         base.Show();
-        string firstName;
-        string lastName;
-        string username;
-        string password;
-        bool usernameExists;
-        bool successfulCreation;
+        var bankDataTable = new Table();
+        bankDataTable
+            .Title("Overview")
+            .AddColumns(
+                new TableColumn("Total Customers"),
+                new TableColumn("Total Accounts"),
+                new TableColumn("Total Transactions")
+            )
+            .AddRow(
+                new Markup(UserService.CustomerList.Count.ToString()),
+                new Markup(AccountService.AccountList.Count.ToString()),
+                new Markup(MoneyTransferService.TransferLog.Count.ToString())
+            );
+        AnsiConsole.Write(bankDataTable);
 
-        do
+        var windowChoices = new[] { CreateCustomer, Currency, TransferControl, Logout };
+        var menuItems = new[]
         {
-            firstName = AnsiConsole.Prompt(
-                new TextPrompt<string>("Enter customers first name?").PromptStyle("green")
-            );
-            lastName = AnsiConsole.Prompt(
-                new TextPrompt<string>("Enter customers last name?").PromptStyle("green")
-            );
-            do
-            {
-                username = AnsiConsole.Prompt(
-                    new TextPrompt<string>("Enter username?").PromptStyle("green")
-                );
-                usernameExists = UserService.UserNameExists(username);
-                if (usernameExists)
-                {
-                    AnsiConsole.MarkupLineInterpolated($"[blink]Username: {username} taken[/]");
-                }
-            } while (usernameExists);
-            password = AnsiConsole.Prompt(
-                new TextPrompt<string>("Enter password?").PromptStyle("green")
-            );
+            "Create new Customer account",
+            "Edit Currency Exchange Values",
+            "Transaction Control",
+            "Log Out"
+        };
 
-            string passwordCheck;
-            do
-            {
-                passwordCheck = AnsiConsole.Prompt(
-                    new TextPrompt<string>("Enter password again?").PromptStyle("green")
-                );
-            } while (passwordCheck != password);
+        WindowName choice = AnsiConsole.Prompt(
+            new SelectionPrompt<WindowName>()
+                .Title("Operation:")
+                .AddChoices(windowChoices)
+                .UseConverter(Prompts.SelectionConverter(windowChoices, menuItems))
+        );
 
-            //UserService.AdminCreateUser(firstName, lastName, username, password, true);
-            UserService.AdminCreateUser(firstName, lastName, username, password);
-
-            successfulCreation = true;
+        if (choice == Logout)
+        {
+            AnsiConsole.Clear();
+            UserService.LogOut();
+            AnsiConsole.WriteLine("You are now logged out of the system.");
             Console.ReadKey();
-        } while (successfulCreation == false);
+            return;
+        }
+
+        Navigate(this, WindowManager.Windows[choice]);
     }
 }

@@ -29,6 +29,7 @@ public static class Widgets
             );
         }
 
+        table.RoundedBorder();
         return table;
     }
 
@@ -58,6 +59,7 @@ public static class Widgets
             table.AddEmptyRow();
         }
 
+        table.RoundedBorder();
         return table;
     }
 }
