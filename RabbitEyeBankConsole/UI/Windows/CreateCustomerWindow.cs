@@ -2,8 +2,6 @@
 
 namespace RabbitEyeBankConsole.UI.Windows;
 
-//TODO Abracadabra logindemo to actual rabbiteyebank
-
 public class CreateCustomerWindow : AdminHeader
 {
     public override void Show()
