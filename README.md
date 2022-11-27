@@ -7,7 +7,9 @@
 
 ## RabbitEyeBank-Project
 
-The library is built around a much simplified adaptation of the _Controller-Service-Repository_ pattern. Following this pattern means you have _Repository_ classes that stores and fetches one kind of entity. A UserRepository would handle User classes and only that. A _Service_ class manages the business logic, that is the creation and manipulation of the data classes and communicates with the outside world via controller classes. A service class might be wired into one or more repository classes depending on purpose. An EmailService could use a UserRepository and a AddressRepository for example. A _Controller_ would be the interface between the service classes and the outside world.
+The library is built around a much simplified adaptation of the _Controller-Service-Repository_ pattern. Following this pattern means you have _Repository_ classes that stores and fetches one kind of entity. A UserRepository would handle User classes and only that. A _Service_ class manages the business logic, that is the creation and manipulation of the data classes and communicates with the outside world via controller classes. A service class might be wired into one or more repository classes depending on purpose. 
+
+For example: EmailService could use a UserRepository and a AddressRepository for example. A _Controller_ would be the interface between the service classes and the outside world.
 In this project the service classes acts as both service, repository and controller at the same time.
 
 UserService and CurrencyService are quite straightforward. UserService handles customer creation and login verification/validation and authorization. CurrencyService stores the available currencies and their exchange rates. Exchange calculation is executed here when transferring money or changing currency on a bank account (Not yet implemented).
