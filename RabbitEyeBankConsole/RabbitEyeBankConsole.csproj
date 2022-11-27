@@ -1,12 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
   <ItemGroup>
     <None Remove="Assets\bluebunny2xW.png" />
     <None Remove="Assets\bunnyrabbit2xW.png" />
@@ -15,7 +13,6 @@
     <None Remove="Assets\Greenbunny.png" />
     <None Remove="UI\Windows\bunnyrabbit.png" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Serilog.Sinks.SpectreConsole" Version="0.3.3" />
     <PackageReference Include="Spectre.Console" Version="0.45.0" />
@@ -26,11 +23,9 @@
     <PackageReference Include="Spectre.Console.ImageSharp" Version="0.45.0" />
     <PackageReference Include="Spectre.Console.Testing" Version="0.45.0" />
   </ItemGroup>
-
   <ItemGroup>
-    <ProjectReference Include="..\RabbitEyeBank\RabbitEyeBank.csproj" />
+    <ProjectReference Include="../RabbitEyeBankLibrary/RabbitEyeBankLibrary.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Content Include="Assets\bluebunny2xW.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -51,5 +46,4 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-
 </Project>
