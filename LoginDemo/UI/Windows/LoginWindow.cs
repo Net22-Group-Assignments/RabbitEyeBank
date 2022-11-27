@@ -12,11 +12,11 @@ namespace LoginDemo.UI.Windows
             do
             {
                 var username = AnsiConsole.Prompt(
-                    new TextPrompt<string>("Enter username?").PromptStyle("green")
+                    new TextPrompt<string>("Enter username?").PromptStyle("blue")
                 );
 
                 var password = AnsiConsole.Prompt(
-                    new TextPrompt<string>("Enter password?").PromptStyle("green")
+                    new TextPrompt<string>("Enter password?").PromptStyle("blue")
                 );
 
                 string loginStatus = UserService.Login(username, password);

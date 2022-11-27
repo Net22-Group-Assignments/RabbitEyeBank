@@ -5,7 +5,7 @@ using Spectre.Console;
 
 namespace LoginDemo.UI.Windows;
 
-public class CurrencyWindow : CustomerHeader
+public class CurrencyWindow : AdminHeader
 {
     /// <inheritdoc />
     public override void Show()
@@ -17,6 +17,7 @@ public class CurrencyWindow : CustomerHeader
             var currencyExchangeTable = new Table();
             currencyExchangeTable
                 .Title("Currency Exchange")
+                .BorderColor(Color.Green)
                 .RoundedBorder()
                 .AddColumns(
                     new TableColumn("Curency ISO"),
@@ -46,12 +47,12 @@ public class CurrencyWindow : CustomerHeader
                     .Title("Choose currencies to edit:")
                     .NotRequired()
                     .PageSize(10)
-                    .MoreChoicesText("Move up and down to see more")
+                    .MoreChoicesText("[green]Move up and down to see more[/]")
                     .InstructionsText(
-                        "[grey](Press [blue]<space>[/] to toggle a currency, "
-                            + "[green]<enter>[/] to accept)[/]"
+                        "[green](Press <space> to toggle a currency, " + "<enter> to accept)[/]"
                     )
                     .AddChoices(currencyList)
+                    .HighlightStyle(Style.Parse("green"))
                     .UseConverter(
                         Prompts.SelectionConverter(
                             currencyList,
@@ -63,12 +64,12 @@ public class CurrencyWindow : CustomerHeader
             foreach (var currency in currenciesToEdit)
             {
                 decimal newValue = AnsiConsole.Prompt(
-                    new TextPrompt<decimal>($"{currency.CurrencyISO} Enter new $ value:")
+                    new TextPrompt<decimal>($"[green]{currency.CurrencyISO} Enter new $ value:[/]")
                         .DefaultValue(currency.DollarValue)
                         .Validate(
                             value =>
                                 value <= 0
-                                    ? ValidationResult.Error("Enter a positive value")
+                                    ? ValidationResult.Error("[green]Enter a positive value[/]")
                                     : ValidationResult.Success()
                         )
                 );

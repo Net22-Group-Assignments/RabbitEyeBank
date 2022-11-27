@@ -4,7 +4,7 @@ using Spectre.Console;
 
 namespace LoginDemo.UI.Windows
 {
-    public abstract class CustomerHeader : Header, IWindow
+    public abstract class AdminHeader : Header, IWindow
     {
         /// <inheritdoc />
         public virtual void Show()
@@ -16,7 +16,9 @@ namespace LoginDemo.UI.Windows
             int width = AnsiConsole.Profile.Width;
             showWindowStack();
             AnsiConsole.WriteLine($"Level {Level}");
-            var image = new CanvasImage($"Assets{Path.AltDirectorySeparatorChar}bluebunny2xW.png");
+            var image = new CanvasImage(
+                $"Assets{Path.AltDirectorySeparatorChar}Greenbunny blue eye.png"
+            );
             image.MaxWidth(70);
             image.PixelWidth(1);
             image.Mutate(ctx => ctx.Contrast(1.5f));
@@ -26,9 +28,7 @@ namespace LoginDemo.UI.Windows
             //grid.Alignment(Justify.Left);
             //AnsiConsole.Write(grid);
             AnsiConsole.Write(
-                new Rule("[bold orangered1]Rabbit-Eye Bank[/]")
-                    .LeftAligned()
-                    .RuleStyle(Style.Parse("orangered1"))
+                new Rule("[green]Rabbit-Eye Bank[/]").LeftAligned().RuleStyle(Style.Parse("green"))
             );
         }
     }

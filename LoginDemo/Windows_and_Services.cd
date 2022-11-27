@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="LoginDemo.UI.Windows.AdminHeader" Collapsed="true">
+    <Position X="15.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\Windows\AdminHeader.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Left" Position="0.1" />
+  </Class>
+  <Class Name="LoginDemo.UI.Windows.AdminWindow" Collapsed="true">
+    <Position X="14.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\Windows\AdminWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LoginDemo.UI.Windows.BankAccountWindow" Collapsed="true">
+    <Position X="17.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\Windows\BankAccountWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LoginDemo.UI.Windows.CreateAccountWindow" Collapsed="true">
+    <Position X="18.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\Windows\CreateAccountWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LoginDemo.UI.Windows.CreateCustomerWindow" Collapsed="true">
+    <Position X="14.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\Windows\CreateCustomerWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LoginDemo.UI.Windows.CurrencyWindow" Collapsed="true">
+    <Position X="15.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\Windows\CurrencyWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LoginDemo.UI.Windows.CustomerHeader" Collapsed="true">
+    <Position X="18.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\Windows\CustomerHeader.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Left" Position="0.1" />
+  </Class>
+  <Class Name="LoginDemo.UI.Windows.Header">
+    <Position X="17" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAABAAAAAAgAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>UI\Windows\Header.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="AccountService" />
+      <Field Name="CurrencyService" />
+      <Field Name="MoneyTransferService" />
+      <Field Name="UserService" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="LoginDemo.UI.Windows.LoginWindow" Collapsed="true">
+    <Position X="18.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\Windows\LoginWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LoginDemo.UI.Windows.MoneyTransferWindow" Collapsed="true">
+    <Position X="19.25" Y="6.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="LoginDemo.UI.Windows.MoneyTransferWindow.MenuChoice" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>UI\Windows\MoneyTransferWindow.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAAAEEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\Windows\MoneyTransferWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LoginDemo.UI.Windows.TransferControlWindow" Collapsed="true">
+    <Position X="19.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\Windows\TransferControlWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RabbitEyeBank.Services.AccountService" Collapsed="true">
+    <Position X="14.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="RabbitEyeBank.Services.CurrencyService" Collapsed="true">
+    <Position X="19.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="RabbitEyeBank.Services.UserService" Collapsed="true">
+    <Position X="14.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="RabbitEyeBank.Services.MoneyTransferService" Collapsed="true">
+    <Position X="19.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
