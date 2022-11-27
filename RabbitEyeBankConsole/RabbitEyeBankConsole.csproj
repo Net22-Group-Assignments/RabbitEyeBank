@@ -7,10 +7,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Assets\bluebunny2xW.png" />
-    <None Remove="Assets\bunnyrabbit2xW.png" />
     <None Remove="Assets\Greenbunny blue eye.png" />
-    <None Remove="Assets\Greenbunny blue red.png" />
-    <None Remove="Assets\Greenbunny.png" />
     <None Remove="UI\Windows\bunnyrabbit.png" />
   </ItemGroup>
   <ItemGroup>
@@ -30,19 +27,7 @@
     <Content Include="Assets\bluebunny2xW.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\bunnyrabbit.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\bunnyrabbit2xW.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Assets\Greenbunny blue eye.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Greenbunny blue red.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Greenbunny.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
