@@ -22,7 +22,7 @@ public class BankAccountWindow : CustomerHeader
         {
             windowChoices.Add(BankAccountDetails);
             menuItems.Add("See Bank Account Details");
-            windowChoices.Add(TransferMoney);
+            windowChoices.Add(WindowName.MoneyTransfer);
             menuItems.Add("Transfer Money");
         }
 

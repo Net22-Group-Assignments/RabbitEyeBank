@@ -64,6 +64,13 @@ namespace RabbitEyeBank.Services
 
         public void LogOut()
         {
+            if (adminMode)
+            {
+                adminMode = false;
+                Log.Debug("Admin logged out");
+                return;
+            }
+
             if (LoggedInCustomer is null)
             {
                 throw new InvalidOperationException("No logged in customer.");

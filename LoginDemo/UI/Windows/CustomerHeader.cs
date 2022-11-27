@@ -9,23 +9,27 @@ namespace LoginDemo.UI.Windows
         protected UserService UserService;
         protected AccountService AccountService;
         protected MoneyTransferService MoneyTransferService;
+        protected CurrencyService CurrencyService;
 
         protected CustomerHeader(
             UserService userService,
             AccountService accountService,
-            MoneyTransferService moneyTransferService
+            MoneyTransferService moneyTransferService,
+            CurrencyService currencyService
         )
         {
-            this.UserService = userService;
-            this.AccountService = accountService;
-            this.MoneyTransferService = moneyTransferService;
+            UserService = userService;
+            AccountService = accountService;
+            MoneyTransferService = moneyTransferService;
+            CurrencyService = currencyService;
         }
 
         protected CustomerHeader()
             : this(
                 ServiceContainer.UserService,
                 ServiceContainer.accountService,
-                ServiceContainer.MoneyTransferService
+                ServiceContainer.MoneyTransferService,
+                ServiceContainer.CurrencyService
             ) { }
 
         /// <inheritdoc />
