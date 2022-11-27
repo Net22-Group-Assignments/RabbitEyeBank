@@ -1,7 +1,7 @@
-﻿using RabbitEyeBank.Money;
+﻿using RabbitEyeBankLibrary.Money;
 using Spectre.Console;
 
-namespace LoginDemo.UI.Windows;
+namespace RabbitEyeBankConsole.UI.Windows;
 
 public class BankAccountWindow : CustomerHeader
 {
@@ -20,14 +20,9 @@ public class BankAccountWindow : CustomerHeader
         List<string> menuItems = new List<string>();
         if (bankAccounts.Count > 0)
         {
-            windowChoices.Add(BankAccountDetails);
-            menuItems.Add("See Bank Account Details");
             windowChoices.Add(WindowName.MoneyTransfer);
             menuItems.Add("Transfer Money");
         }
-
-        windowChoices.Add(CreateAccount);
-        menuItems.Add("Create New Bank Account");
 
         windowChoices.Add(Logout);
         menuItems.Add("Log Out");

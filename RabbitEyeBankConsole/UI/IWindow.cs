@@ -1,4 +1,4 @@
-﻿namespace LoginDemo.UI
+﻿namespace RabbitEyeBankConsole.UI
 {
     internal interface IWindow
     {

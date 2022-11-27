@@ -1,8 +1,6 @@
-﻿using RabbitEyeBank.Money;
-using RabbitEyeBank.Services;
-using RabbitEyeBank.Users;
+﻿using RabbitEyeBankLibrary.Money;
 
-namespace RabbitEyeTests;
+namespace RabbitEyeBankLibraryTests;
 
 public class EntityTests : IClassFixture<Fixture>
 {

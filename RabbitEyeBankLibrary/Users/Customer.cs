@@ -1,8 +1,4 @@
-﻿using RabbitEyeBank.Money;
-using RabbitEyeBank.Services;
-using RabbitEyeBank.Shared;
-
-namespace RabbitEyeBank.Users
+﻿namespace RabbitEyeBankLibrary.Users
 {
     /// <summary>
     /// Represents a user/customer.

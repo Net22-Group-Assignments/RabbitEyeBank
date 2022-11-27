@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
-using RabbitEyeBank.Money;
+using RabbitEyeBankLibrary.Money;
 
-namespace RabbitEyeBank.Services;
+namespace RabbitEyeBankLibrary.Services;
 
 public class CurrencyService
 {

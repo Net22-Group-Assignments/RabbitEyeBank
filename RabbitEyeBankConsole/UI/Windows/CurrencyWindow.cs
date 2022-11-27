@@ -1,9 +1,9 @@
 ﻿using System.Globalization;
-using RabbitEyeBank;
-using RabbitEyeBank.Money;
+using RabbitEyeBankLibrary;
+using RabbitEyeBankLibrary.Money;
 using Spectre.Console;
 
-namespace LoginDemo.UI.Windows;
+namespace RabbitEyeBankConsole.UI.Windows;
 
 public class CurrencyWindow : AdminHeader
 {

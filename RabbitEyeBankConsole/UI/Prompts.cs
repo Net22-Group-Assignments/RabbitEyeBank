@@ -1,7 +1,7 @@
-﻿using RabbitEyeBank.Money;
+﻿using RabbitEyeBankLibrary.Money;
 using Spectre.Console;
 
-namespace LoginDemo.UI;
+namespace RabbitEyeBankConsole.UI;
 
 public class Prompts
 {

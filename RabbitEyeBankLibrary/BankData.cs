@@ -1,11 +1,7 @@
 ﻿using System.Globalization;
-using System.Security.Cryptography;
-using System.Text;
-using Bogus;
-using RabbitEyeBank.Money;
-using Serilog;
+using RabbitEyeBankLibrary.Money;
 
-namespace RabbitEyeBank
+namespace RabbitEyeBankLibrary
 {
     public static class BankData
     {

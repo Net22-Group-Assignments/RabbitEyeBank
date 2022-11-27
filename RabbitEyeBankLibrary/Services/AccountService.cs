@@ -1,7 +1,7 @@
-﻿using RabbitEyeBank.Money;
-using RabbitEyeBank.Users;
+﻿using RabbitEyeBankLibrary.Money;
+using RabbitEyeBankLibrary.Users;
 
-namespace RabbitEyeBank.Services;
+namespace RabbitEyeBankLibrary.Services;
 
 public class AccountService
 {

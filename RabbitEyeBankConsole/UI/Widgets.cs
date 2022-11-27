@@ -1,8 +1,8 @@
-﻿using RabbitEyeBank.Money;
+﻿using System.Globalization;
+using RabbitEyeBankLibrary.Money;
 using Spectre.Console;
-using System.Globalization;
 
-namespace LoginDemo.UI;
+namespace RabbitEyeBankConsole.UI;
 
 public static class Widgets
 {

@@ -1,6 +1,6 @@
 ﻿using Spectre.Console;
 
-namespace LoginDemo.UI.Windows
+namespace RabbitEyeBankConsole.UI.Windows
 {
     internal class LoginWindow : CustomerHeader
     {
@@ -16,7 +16,7 @@ namespace LoginDemo.UI.Windows
                 );
 
                 var password = AnsiConsole.Prompt(
-                    new TextPrompt<string>("Enter password?").PromptStyle("blue")
+                    new TextPrompt<string>("Enter password?").PromptStyle("blue").Secret()
                 );
 
                 string loginStatus = UserService.Login(username, password);

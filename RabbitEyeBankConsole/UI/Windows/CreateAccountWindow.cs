@@ -1,6 +1,6 @@
 ﻿using Spectre.Console;
 
-namespace LoginDemo.UI.Windows;
+namespace RabbitEyeBankConsole.UI.Windows;
 
 public class CreateAccountWindow : CustomerHeader
 {

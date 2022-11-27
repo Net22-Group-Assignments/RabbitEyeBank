@@ -1,7 +1,6 @@
-﻿using Serilog;
-using Spectre.Console;
+﻿using Spectre.Console;
 
-namespace LoginDemo.UI.Windows;
+namespace RabbitEyeBankConsole.UI.Windows;
 
 public class AdminWindow : AdminHeader
 {
@@ -26,12 +25,12 @@ public class AdminWindow : AdminHeader
             );
         AnsiConsole.Write(bankDataTable);
 
-        var windowChoices = new[] { CreateCustomer, Currency, TransferControl, Logout };
+        var windowChoices = new[] { CreateCustomer, Currency, Logout };
         var menuItems = new[]
         {
             "Create new Customer account",
             "Edit Currency Exchange Values",
-            "Transaction Control",
+            //"Transaction Control",
             "Log Out"
         };
 

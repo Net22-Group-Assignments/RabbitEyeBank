@@ -1,11 +1,6 @@
-﻿using RabbitEyeBank.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RabbitEyeBankLibrary.Services;
 
-namespace LoginDemo.UI.Windows
+namespace RabbitEyeBankConsole.UI.Windows
 {
     public abstract class Header
     {
