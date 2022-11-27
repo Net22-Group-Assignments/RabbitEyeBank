@@ -4,7 +4,7 @@ namespace LoginDemo.UI.Windows;
 
 //TODO Abracadabra logindemo to actual rabbiteyebank
 
-public class CreateCustomerWindow : CustomerHeader
+public class CreateCustomerWindow : AdminHeader
 {
     public override void Show()
     {
