@@ -4,14 +4,14 @@ using Spectre.Console;
 
 namespace LoginDemo.UI.Windows
 {
-    public abstract class CustomerHeader : IWindow
+    public abstract class AdminHeader : IWindow
     {
         protected UserService UserService;
         protected AccountService AccountService;
         protected MoneyTransferService MoneyTransferService;
         protected CurrencyService CurrencyService;
 
-        protected CustomerHeader(
+        protected AdminHeader(
             UserService userService,
             AccountService accountService,
             MoneyTransferService moneyTransferService,
@@ -24,7 +24,7 @@ namespace LoginDemo.UI.Windows
             CurrencyService = currencyService;
         }
 
-        protected CustomerHeader()
+        protected AdminHeader()
             : this(
                 ServiceContainer.UserService,
                 ServiceContainer.accountService,
@@ -42,7 +42,9 @@ namespace LoginDemo.UI.Windows
             int width = AnsiConsole.Profile.Width;
             showWindowStack();
             AnsiConsole.WriteLine($"Level {Level}");
-            var image = new CanvasImage($"Assets{Path.AltDirectorySeparatorChar}bluebunny2xW.png");
+            var image = new CanvasImage(
+                $"Assets{Path.AltDirectorySeparatorChar}Greenbunny blue eye.png"
+            );
             image.MaxWidth(70);
             image.PixelWidth(1);
             image.Mutate(ctx => ctx.Contrast(1.5f));
@@ -52,9 +54,7 @@ namespace LoginDemo.UI.Windows
             //grid.Alignment(Justify.Left);
             //AnsiConsole.Write(grid);
             AnsiConsole.Write(
-                new Rule("[bold orangered1]Rabbit-Eye Bank[/]")
-                    .LeftAligned()
-                    .RuleStyle(Style.Parse("orangered1"))
+                new Rule("[green]Rabbit-Eye Bank[/]").LeftAligned().RuleStyle(Style.Parse("green"))
             );
         }
     }

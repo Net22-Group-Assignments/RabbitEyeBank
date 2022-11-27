@@ -3,7 +3,7 @@ using Spectre.Console;
 
 namespace LoginDemo.UI.Windows;
 
-public class AdminWindow : CustomerHeader
+public class AdminWindow : AdminHeader
 {
     /// <inheritdoc />
     public override void Show()
@@ -11,7 +11,9 @@ public class AdminWindow : CustomerHeader
         base.Show();
         var bankDataTable = new Table();
         bankDataTable
-            .Title("Overview")
+            .Title("[green]Overview[/]")
+            .RoundedBorder()
+            .BorderColor(Color.Green)
             .AddColumns(
                 new TableColumn("Total Customers"),
                 new TableColumn("Total Accounts"),
@@ -37,6 +39,7 @@ public class AdminWindow : CustomerHeader
             new SelectionPrompt<WindowName>()
                 .Title("Operation:")
                 .AddChoices(windowChoices)
+                .HighlightStyle(Style.Parse("green"))
                 .UseConverter(Prompts.SelectionConverter(windowChoices, menuItems))
         );
 
@@ -44,7 +47,7 @@ public class AdminWindow : CustomerHeader
         {
             AnsiConsole.Clear();
             UserService.LogOut();
-            AnsiConsole.WriteLine("You are now logged out of the system.");
+            AnsiConsole.Markup("[green]You are now logged out of the system.[/]");
             Console.ReadKey();
             return;
         }
