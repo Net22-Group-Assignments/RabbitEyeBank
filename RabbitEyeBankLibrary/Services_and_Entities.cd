@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="RabbitEyeBank.Services.AccountService">
+    <Position X="9.75" Y="11.25" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAgBAAAAAABAAAAAgAAAEQA=</HashCode>
+      <FileName>Services\AccountService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="accountList" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="RabbitEyeBank.Services.CurrencyService">
+    <Position X="14.5" Y="6.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAIAAACAAAAEAAAAAAgAAAAA=</HashCode>
+      <FileName>Services\CurrencyService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="currencyDictionary" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="RabbitEyeBank.Services.MoneyTransferService">
+    <Position X="9.75" Y="6.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAEIAAAAAAAABACAAAQAAAACAAgAAQAAcAAAAAAAAAA=</HashCode>
+      <FileName>Services\MoneyTransferService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="accountService" />
+      <Field Name="userService" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="transferLog" />
+      <Field Name="TransferQueue" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="RabbitEyeBank.Services.UserService">
+    <Position X="10.25" Y="1.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>gAQAAAAAAAAAAAAAggAQAABAECAAAAAAAABQBAABAAA=</HashCode>
+      <FileName>Services\UserService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="customerList" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="RabbitEyeBank.Money.BankAccount">
+    <Position X="6" Y="11.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAEgAgAAAQECAgAAIAAAAAAAAAAAiI=</HashCode>
+      <FileName>Money\BankAccount.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RabbitEyeBank.Money.MoneyTransfer">
+    <Position X="5.5" Y="5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAEAAAgAAIEgAAgBACUAAABAIAAAAAAABAAAqA=</HashCode>
+      <FileName>Money\MoneyTransfer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RabbitEyeBank.Users.Customer">
+    <Position X="14.5" Y="1.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAQAAAAEAEkQAAAAAAAAAAAIACAAAAAAAAAig=</HashCode>
+      <FileName>Users\Customer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="RabbitEyeBank.Money.Currency">
+    <Position X="15" Y="10.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAgAAIAAAACAA=</HashCode>
+      <FileName>Money\Currency.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
