@@ -30,7 +30,9 @@ public class AdminWindow : AdminHeader
         {
             "Create new Customer account",
             "Edit Currency Exchange Values",
-            //"Transaction Control",
+#if DEVMODE
+            "Transaction Control",
+#endif
             "Log Out"
         };
 
