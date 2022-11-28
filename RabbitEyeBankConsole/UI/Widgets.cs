@@ -35,7 +35,38 @@ public static class Widgets
         return table;
     }
 
-    public static Table TransferTable(IEnumerable<MoneyTransfer> transfers)
+    /// <summary>
+    /// Generates a table for single bank account.
+    /// </summary>
+    /// <param name="account">the account to show.</param>
+    /// <returns>A table with the bank account</returns>
+    public static Table SingleAccountTable(BankAccount? account)
+    {
+        var table = new Table()
+            .Title($"Account Number: {(account != null ? account.AccountNumber : "")}")
+            .RoundedBorder()
+            .AddColumns(
+                new TableColumn("Account Name"),
+                new TableColumn("Balance"),
+                new TableColumn("Currency")
+            );
+
+        if (account == null)
+        {
+            table.AddEmptyRow();
+        }
+        else
+        {
+            table.AddRow(
+                new Markup(account.Name),
+                new Markup(account.Balance.ToString(CultureInfo.InvariantCulture)),
+                new Markup(account.Currency.ToString())
+            );
+        }
+        return table;
+    }
+
+    public static Table TransferTable(IEnumerable<MoneyTransfer>? transfers)
     {
         var table = new Table();
         table
@@ -47,6 +78,7 @@ public static class Widgets
                 new TableColumn("Status")
             )
             .Title("Transactions");
+
         foreach (var transfer in transfers)
         {
             table.AddRow(
