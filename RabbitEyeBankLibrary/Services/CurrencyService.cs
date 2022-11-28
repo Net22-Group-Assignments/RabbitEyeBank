@@ -53,4 +53,6 @@ public class CurrencyService
         currency.DollarValue = dollarValue;
         currencyDictionary[iso] = currency;
     }
+
+    public Currency Dollar => currencyDictionary[CurrencyISO.USD];
 }
