@@ -1,6 +1,9 @@
 ﻿using RabbitEyeBankLibrary;
 using RabbitEyeBankLibrary.Money;
 using Spectre.Console;
+using System.Runtime.Intrinsics.X86;
+using RabbitEyeBankLibrary;
+using RabbitEyeBankLibrary.Money;
 
 namespace RabbitEyeBankConsole.UI.Windows;
 
