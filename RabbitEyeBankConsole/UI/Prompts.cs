@@ -87,4 +87,12 @@ public class Prompts
                         : ValidationResult.Success()
             );
     }
+
+    public static SelectionPrompt<Currency> CurrencySelector(IEnumerable<Currency> currencies)
+    {
+        return new SelectionPrompt<Currency>()
+            .Title("Choose a currency:")
+            .MoreChoicesText("Move up and down to see more")
+            .AddChoices(currencies);
+    }
 }

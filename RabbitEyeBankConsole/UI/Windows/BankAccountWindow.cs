@@ -20,10 +20,17 @@ public class BankAccountWindow : CustomerHeader
         List<string> menuItems = new List<string>();
         if (bankAccounts.Count > 0)
         {
+#if DEVMODE
+            windowChoices.Add(BankAccountDetails);
+            menuItems.Add("See Bank Account Details");
+#endif
             windowChoices.Add(WindowName.MoneyTransfer);
             menuItems.Add("Transfer Money");
         }
-
+#if DEVMODE
+        windowChoices.Add(CreateAccount);
+        menuItems.Add("Create New Bank Account");
+#endif
         windowChoices.Add(Logout);
         menuItems.Add("Log Out");
 

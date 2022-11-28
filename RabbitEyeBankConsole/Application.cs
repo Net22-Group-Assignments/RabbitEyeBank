@@ -1,4 +1,4 @@
-﻿using RabbitEyeBankConsole.UI;
+using RabbitEyeBankConsole.UI;
 using RabbitEyeBankLibrary.Services;
 using Serilog;
 using Spectre.Console;
@@ -7,8 +7,6 @@ namespace RabbitEyeBankConsole
 {
     internal class Application
     {
-        public static bool devMode = false;
-
         public void Run()
         {
             AnsiConsole.WriteLine("These users are pre-generated for testing use.");
@@ -26,19 +24,18 @@ namespace RabbitEyeBankConsole
             {
                 WindowName destination = Login;
                 WindowName start = Login;
-                if (devMode)
+#if DEVMODE
+                if (AnsiConsole.Confirm("Login as admin?"))
                 {
-                    if (AnsiConsole.Confirm("Login as admin?"))
-                    {
-                        ServiceContainer.UserService.Login("admin", "admin");
-                        destination = Admin;
-                    }
-                    else
-                    {
-                        ServiceContainer.UserService.Login("username", "password");
-                        destination = BankAccount;
-                    }
+                    ServiceContainer.UserService.Login("admin", "admin");
+                    destination = Admin;
                 }
+                else
+                {
+                    ServiceContainer.UserService.Login("username", "password");
+                    destination = BankAccount;
+                }
+#endif
                 Navigate(Windows[start], Windows[destination]);
             } while (Level > 0);
         }
