@@ -25,7 +25,7 @@ public class MoneyTransferService
         if (bankAccount == null)
             throw new ArgumentNullException(nameof(bankAccount));
 
-        if (accountService.BankAccountExists(bankAccount))
+        if (accountService.BankAccountExists(bankAccount) == false)
         {
             throw new ArgumentException("Bank account does not exist", nameof(bankAccount));
         }

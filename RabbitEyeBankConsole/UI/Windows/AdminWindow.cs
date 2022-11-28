@@ -25,7 +25,7 @@ public class AdminWindow : AdminHeader
             );
         AnsiConsole.Write(bankDataTable);
 
-        var windowChoices = new[] { CreateCustomer, Currency, Logout };
+        var windowChoices = new[] { CreateCustomer, Currency, TransferControl, Logout };
         var menuItems = new[]
         {
             "Create new Customer account",
