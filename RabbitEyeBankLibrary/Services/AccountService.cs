@@ -1,5 +1,6 @@
 ﻿using RabbitEyeBankLibrary.Money;
 using RabbitEyeBankLibrary.Users;
+using Serilog;
 
 namespace RabbitEyeBankLibrary.Services;
 
@@ -45,6 +46,7 @@ public class AccountService
             throw new ArgumentException("Bankaccount must have owner");
         }
         accountList.Add(bankAccount);
+        Log.Debug("Bank account {bankAccount} created", bankAccount);
     }
 
     public void DeleteAllBankAccounts()
