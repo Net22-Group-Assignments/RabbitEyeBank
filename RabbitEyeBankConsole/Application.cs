@@ -1,4 +1,4 @@
-﻿using RabbitEyeBankConsole.UI;
+using RabbitEyeBankConsole.UI;
 using RabbitEyeBankLibrary.Services;
 using Serilog;
 using Spectre.Console;
