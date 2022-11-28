@@ -14,7 +14,7 @@ In this project the service classes acts as both service, repository and control
 
 UserService and CurrencyService are quite straightforward. UserService handles customer creation and login verification/validation and authorization. CurrencyService stores the available currencies and their exchange rates. Exchange calculation is executed here when transferring money or changing currency on a bank account (Not yet implemented).
 
-AccountService takes care of bankaccount storage and bankaccount creation (not implemented yet).
+AccountService takes care of bankaccount storage and bankaccount creation (implemented after deadline).
 All customers are connected with their bank accounts by the `Owner` field in the bank account class, instead of the other way around.
 
 MoneyTransferService manages both kinds of money transfers, intra-customer and between two different customers bank accounts. The transfers are handled in order of registration by a first-come-first served queue. Right now the transfer requests are served immediately but facilities for a timed execution are in place but not implemented.
