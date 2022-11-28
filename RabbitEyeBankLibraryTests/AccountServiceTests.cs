@@ -1,6 +1,6 @@
-﻿using RabbitEyeBank.Services;
+﻿using RabbitEyeBankLibrary.Services;
 
-namespace RabbitEyeTests;
+namespace RabbitEyeBankLibraryTests;
 
 public class AccountServiceTests
 {

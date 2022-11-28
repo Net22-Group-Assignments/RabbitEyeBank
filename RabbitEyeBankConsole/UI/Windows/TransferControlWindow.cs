@@ -1,4 +1,4 @@
-﻿namespace LoginDemo.UI.Windows;
+﻿namespace RabbitEyeBankConsole.UI.Windows;
 
 public class TransferControlWindow : CustomerHeader
 {

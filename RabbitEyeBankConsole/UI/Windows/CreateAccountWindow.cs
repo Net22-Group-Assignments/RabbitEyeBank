@@ -1,14 +1,34 @@
-﻿using Spectre.Console;
+﻿using RabbitEyeBankLibrary;
+using RabbitEyeBankLibrary.Money;
+using Spectre.Console;
+using System.Runtime.Intrinsics.X86;
+using RabbitEyeBankLibrary;
+using RabbitEyeBankLibrary.Money;
 
-namespace LoginDemo.UI.Windows;
+namespace RabbitEyeBankConsole.UI.Windows;
 
 public class CreateAccountWindow : CustomerHeader
 {
     public override void Show()
     {
-        base.Show();
-        AnsiConsole.WriteLine("Customers account creation screen here:");
-        AnsiConsole.WriteLine("Press a key to go back. In real app Customer would choose exit.");
-        Console.ReadKey();
+        string name = string.Empty;
+        Currency currency = CurrencyService.Dollar;
+        if (AnsiConsole.Confirm("Create a new Account?"))
+        {
+            name = AnsiConsole.Ask("Enter name of account", string.Empty);
+            currency = AnsiConsole.Prompt(Prompts.CurrencySelector(CurrencyService.CurrencyList));
+            if (AnsiConsole.Confirm("Create this Account?"))
+            {
+                AccountService.AddBankAccount(
+                    new BankAccount(
+                        BankData.GenerateAccountNumber(),
+                        name,
+                        0m,
+                        currency,
+                        UserService.LoggedInCustomer
+                    )
+                );
+            }
+        }
     }
 }

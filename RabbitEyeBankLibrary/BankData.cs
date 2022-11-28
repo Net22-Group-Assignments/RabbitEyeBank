@@ -1,11 +1,7 @@
 ﻿using System.Globalization;
-using System.Security.Cryptography;
-using System.Text;
-using Bogus;
-using RabbitEyeBank.Money;
-using Serilog;
+using RabbitEyeBankLibrary.Money;
 
-namespace RabbitEyeBank
+namespace RabbitEyeBankLibrary
 {
     public static class BankData
     {
@@ -13,8 +9,6 @@ namespace RabbitEyeBank
         public static readonly Dictionary<CurrencyISO, Currency> CurrencyDictionary;
 
         private static int accountNumberPool = 111;
-
-        // TODO Should the dictionary be stored somewhere else, like UserService?
 
         /// <summary>
         /// Initializes the dictionary by connecting the currency type

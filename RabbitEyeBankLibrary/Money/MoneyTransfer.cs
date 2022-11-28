@@ -1,4 +1,4 @@
-﻿namespace RabbitEyeBank.Money
+﻿namespace RabbitEyeBankLibrary.Money
 {
     public class MoneyTransfer
     {

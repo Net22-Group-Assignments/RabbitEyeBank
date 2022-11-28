@@ -1,5 +1,5 @@
-﻿using LoginDemo;
-using RabbitEyeBank.Shared;
+﻿using RabbitEyeBankConsole;
+using RabbitEyeBankLibrary.Shared;
 using Serilog;
 using Serilog.Sinks.SpectreConsole;
 

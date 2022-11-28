@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
-using LoginDemo.UI.Windows;
+using RabbitEyeBankConsole.UI.Windows;
 
-namespace LoginDemo.UI
+namespace RabbitEyeBankConsole.UI
 {
     internal enum WindowName
     {

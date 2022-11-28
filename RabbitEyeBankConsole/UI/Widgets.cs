@@ -1,19 +1,21 @@
-﻿using RabbitEyeBank.Money;
+﻿using System.Globalization;
+using RabbitEyeBankLibrary.Money;
 using Spectre.Console;
-using System.Globalization;
 
-namespace LoginDemo.UI;
+namespace RabbitEyeBankConsole.UI;
 
 public static class Widgets
 {
     public static Table AccountOverViewTable(IEnumerable<BankAccount> bankAccounts)
     {
         var table = new Table();
-        table.AddColumns(
-            new TableColumn("Account number"),
-            new TableColumn("Account Name"),
-            new TableColumn("Balance")
-        );
+        table
+            .AddColumns(
+                new TableColumn("Account number"),
+                new TableColumn("Account Name"),
+                new TableColumn("Balance")
+            )
+            .Title("Bank Accounts");
         foreach (var bankAccount in bankAccounts)
         {
             table.AddRow(
@@ -36,13 +38,15 @@ public static class Widgets
     public static Table TransferTable(IEnumerable<MoneyTransfer> transfers)
     {
         var table = new Table();
-        table.AddColumns(
-            new TableColumn("Time"),
-            new TableColumn("From"),
-            new TableColumn("To"),
-            new TableColumn("Amount"),
-            new TableColumn("Status")
-        );
+        table
+            .AddColumns(
+                new TableColumn("Time"),
+                new TableColumn("From"),
+                new TableColumn("To"),
+                new TableColumn("Amount"),
+                new TableColumn("Status")
+            )
+            .Title("Transactions");
         foreach (var transfer in transfers)
         {
             table.AddRow(

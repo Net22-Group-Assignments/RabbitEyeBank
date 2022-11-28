@@ -1,9 +1,8 @@
-﻿using BankClassLib.Helpers;
-using RabbitEyeBank.Money;
-using RabbitEyeBank.Services;
-using RabbitEyeBank.Users;
+﻿using RabbitEyeBankLibrary.Money;
+using RabbitEyeBankLibrary.Services;
+using RabbitEyeBankLibrary.Users;
 
-namespace RabbitEyeBank.Shared
+namespace RabbitEyeBankLibrary.Shared
 {
     public static class BogusSetup
     {

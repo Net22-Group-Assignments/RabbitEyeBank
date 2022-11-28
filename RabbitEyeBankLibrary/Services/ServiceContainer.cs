@@ -1,4 +1,4 @@
-﻿namespace RabbitEyeBank.Services;
+﻿namespace RabbitEyeBankLibrary.Services;
 
 public static class ServiceContainer
 {

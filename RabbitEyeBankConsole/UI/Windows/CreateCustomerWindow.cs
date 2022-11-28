@@ -1,8 +1,6 @@
 ﻿using Spectre.Console;
 
-namespace LoginDemo.UI.Windows;
-
-//TODO Abracadabra logindemo to actual rabbiteyebank
+namespace RabbitEyeBankConsole.UI.Windows;
 
 public class CreateCustomerWindow : AdminHeader
 {

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Concurrent;
-using RabbitEyeBank.Money;
-using RabbitEyeBank.Users;
+using RabbitEyeBankLibrary.Money;
+using RabbitEyeBankLibrary.Users;
 using Serilog;
 
-namespace RabbitEyeBank.Services;
+namespace RabbitEyeBankLibrary.Services;
 
 public class MoneyTransferService
 {

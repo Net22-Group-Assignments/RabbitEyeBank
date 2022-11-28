@@ -1,6 +1,6 @@
-﻿using RabbitEyeBank.Money;
+﻿using RabbitEyeBankLibrary.Money;
 
-namespace RabbitEyeTests;
+namespace RabbitEyeBankLibraryTests;
 
 public class MoneyTransferTests : IClassFixture<Fixture>
 {

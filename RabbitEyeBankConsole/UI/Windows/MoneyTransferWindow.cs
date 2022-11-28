@@ -1,9 +1,8 @@
-﻿using System.Reflection.Metadata.Ecma335;
-using RabbitEyeBank.Money;
-using RabbitEyeBank.Users;
+﻿using RabbitEyeBankLibrary.Money;
+using RabbitEyeBankLibrary.Users;
 using Spectre.Console;
 
-namespace LoginDemo.UI.Windows;
+namespace RabbitEyeBankConsole.UI.Windows;
 
 public class MoneyTransferWindow : CustomerHeader
 {

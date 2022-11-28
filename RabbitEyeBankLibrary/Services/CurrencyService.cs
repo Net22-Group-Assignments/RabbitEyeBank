@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
-using RabbitEyeBank.Money;
+using RabbitEyeBankLibrary.Money;
 
-namespace RabbitEyeBank.Services;
+namespace RabbitEyeBankLibrary.Services;
 
 public class CurrencyService
 {
@@ -53,4 +53,6 @@ public class CurrencyService
         currency.DollarValue = dollarValue;
         currencyDictionary[iso] = currency;
     }
+
+    public Currency Dollar => currencyDictionary[CurrencyISO.USD];
 }

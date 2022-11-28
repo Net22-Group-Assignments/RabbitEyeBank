@@ -1,6 +1,6 @@
-﻿using RabbitEyeBank.Users;
+﻿using RabbitEyeBankLibrary.Users;
 
-namespace RabbitEyeBank.Money
+namespace RabbitEyeBankLibrary.Money
 {
     /// <summary>
     /// Represents a customer's bank account.

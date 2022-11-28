@@ -1,7 +1,7 @@
-﻿using RabbitEyeBank.Users;
+﻿using RabbitEyeBankLibrary.Users;
 using Serilog;
 
-namespace RabbitEyeBank.Services
+namespace RabbitEyeBankLibrary.Services
 {
     public class UserService
     {

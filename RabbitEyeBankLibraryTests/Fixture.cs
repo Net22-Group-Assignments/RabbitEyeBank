@@ -1,8 +1,8 @@
-﻿using RabbitEyeBank.Money;
-using RabbitEyeBank.Services;
-using RabbitEyeBank.Users;
+﻿using RabbitEyeBankLibrary.Money;
+using RabbitEyeBankLibrary.Services;
+using RabbitEyeBankLibrary.Users;
 
-namespace RabbitEyeTests;
+namespace RabbitEyeBankLibraryTests;
 
 public class Fixture
 {

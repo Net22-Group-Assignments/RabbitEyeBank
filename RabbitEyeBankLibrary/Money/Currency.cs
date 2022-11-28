@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
-
-namespace RabbitEyeBank.Money
+﻿namespace RabbitEyeBankLibrary.Money
 {
     /// <summary>
     /// Represents a currency. Stores it's type as an enum and it's symbol as a string.
