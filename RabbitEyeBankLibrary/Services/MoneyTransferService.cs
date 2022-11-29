@@ -5,21 +5,38 @@ using Serilog;
 
 namespace RabbitEyeBankLibrary.Services;
 
+/// <summary>
+/// Manages the transferring of money. New Transfers are put on a queue and
+/// the transfer requests are handled in line.
+/// </summary>
 public class MoneyTransferService
 {
     private readonly UserService userService;
     private readonly AccountService accountService;
+    private readonly CurrencyService currencyService;
     private readonly List<MoneyTransfer> transferLog = new();
     private readonly ConcurrentQueue<MoneyTransfer> TransferQueue = new();
 
-    public MoneyTransferService(UserService userService, AccountService accountService)
+    public MoneyTransferService(
+        UserService userService,
+        AccountService accountService,
+        CurrencyService currencyService
+    )
     {
         this.userService = userService;
         this.accountService = accountService;
+        this.currencyService = currencyService;
     }
 
     public IReadOnlyList<MoneyTransfer> TransferLog => transferLog;
 
+    /// <summary>
+    /// Fetches all transfers associated with a specific account.
+    /// </summary>
+    /// <param name="bankAccount">bank account object to search against.</param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException">if bank account parameter is null.</exception>
+    /// <exception cref="ArgumentException">if the provide bank account is not present.</exception>
     public IReadOnlyList<MoneyTransfer> TransfersByAccount(BankAccount bankAccount)
     {
         if (bankAccount == null)
@@ -36,6 +53,13 @@ public class MoneyTransferService
         );
     }
 
+    /// <summary>
+    /// Fetches all transfers associated with a specific customer.
+    /// </summary>
+    /// <param name="customer">customer object to search against.</param>
+    /// <returns>Read only list of transfers.</returns>
+    /// <exception cref="ArgumentNullException">if customer parameter is null</exception>
+    /// <exception cref="ArgumentException">if the provided customer is not present.</exception>
     public IReadOnlyList<MoneyTransfer> TransfersByCustomer(Customer customer)
     {
         if (customer == null)
@@ -52,6 +76,16 @@ public class MoneyTransferService
         );
     }
 
+    /// <summary>
+    /// Creates a new transfer object out of parameters.
+    /// </summary>
+    /// <param name="fromAccount">sender account.</param>
+    /// <param name="toAccount">receiver account</param>
+    /// <param name="amount">amount of money.</param>
+    /// <param name="fromCurrency">sender accounts currency.</param>
+    /// <param name="toCurrency">receiver accounts currency.</param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
     public MoneyTransfer CreateTransfer(
         BankAccount fromAccount,
         BankAccount toAccount,
@@ -118,6 +152,10 @@ public class MoneyTransferService
         return CreateTransfer(fromAccount, toAccount, amount, fromCurrency, toCurrency);
     }
 
+    /// <summary>
+    /// Timestamps and enters the transfer into the queue.
+    /// </summary>
+    /// <param name="transfer">transfer object to process.</param>
     public void RegisterTransfer(MoneyTransfer transfer)
     {
         transfer.Register();
@@ -130,6 +168,12 @@ public class MoneyTransferService
         );
     }
 
+    /// <summary>
+    /// Tries to fulfill the transfer first in the transfer queue.
+    /// If accepted converts the value if needed and deposits the value
+    /// in receivers bank account.
+    /// If it fails, the amount is returned to senders account.
+    /// </summary>
     public void CompleteTransfer()
     {
         MoneyTransfer transfer;
@@ -137,7 +181,20 @@ public class MoneyTransferService
         {
             if (transfer.Status == TransferStatus.Pending)
             {
-                transfer.ToAccount.Deposit(transfer.Amount);
+                if (transfer.FromCurrency != transfer.ToCurrency)
+                {
+                    decimal convertedAmount = currencyService.ConvertCurrency(
+                        transfer.FromCurrency,
+                        transfer.ToCurrency,
+                        transfer.Amount
+                    );
+                    transfer.ToAccount.Deposit(convertedAmount);
+                }
+                else
+                {
+                    transfer.ToAccount.Deposit(transfer.Amount);
+                }
+
                 transfer.Complete();
             }
         }
