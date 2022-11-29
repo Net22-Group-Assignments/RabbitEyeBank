@@ -25,7 +25,7 @@ namespace RabbitEyeBankConsole.UI.Windows
         protected Header()
             : this(
                 ServiceContainer.UserService,
-                ServiceContainer.accountService,
+                ServiceContainer.AccountService,
                 ServiceContainer.MoneyTransferService,
                 ServiceContainer.CurrencyService
             ) { }
