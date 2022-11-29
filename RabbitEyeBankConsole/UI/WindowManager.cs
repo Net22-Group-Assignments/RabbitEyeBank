@@ -8,7 +8,7 @@ namespace RabbitEyeBankConsole.UI
         Login,
         Admin,
         CreateCustomer,
-        Currency,
+        ManageCurrency,
         TransferControl,
         BankAccount,
         BankAccountDetails,
@@ -34,7 +34,7 @@ namespace RabbitEyeBankConsole.UI
             windowDictionary.Add(Login, new LoginWindow());
             windowDictionary.Add(Admin, new AdminWindow());
             windowDictionary.Add(CreateCustomer, new CreateCustomerWindow());
-            windowDictionary.Add(Currency, new CurrencyWindow());
+            windowDictionary.Add(ManageCurrency, new ManageCurrencyWindow());
             windowDictionary.Add(TransferControl, new TransferControlWindow());
             windowDictionary.Add(BankAccount, new BankAccountWindow());
             windowDictionary.Add(BankAccountDetails, new BankAccountDetailsWindow());
