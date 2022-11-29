@@ -1,4 +1,5 @@
 ﻿using RabbitEyeBankLibrary.Money;
+using RabbitEyeBankLibrary.Services;
 
 namespace RabbitEyeBankLibraryTests;
 
@@ -14,15 +15,21 @@ public class EntityTests : IClassFixture<Fixture>
     [Fact]
     public void WithdrawalWhenAmountTooLittle_ThrowsException()
     {
-        Assert.Throws<InvalidOperationException>(() => fixture.BankAccount1.Withdraw(101m));
+        Assert.Throws<InvalidOperationException>(() => fixture.BankAccount1().Withdraw(101m));
     }
 
     [Fact]
     public void CustomersBankAccountPropertyShouldFindOwnAccounts()
     {
-        IReadOnlyList<BankAccount> accounts = fixture.AccountService.BankAccountsByCustomer(
+        var accountService = new AccountService();
+        var b1 = fixture.BankAccount1();
+        var b2 = fixture.BankAccount2();
+        accountService.AddBankAccount(b1);
+        accountService.AddBankAccount(b2);
+
+        IReadOnlyList<BankAccount> accounts = accountService.BankAccountsByCustomer(
             fixture.Customer1
         );
-        Assert.Equal(new[] { fixture.BankAccount1, fixture.BankAccount2 }, accounts);
+        Assert.Equal(new[] { b1, b2 }, accounts);
     }
 }
