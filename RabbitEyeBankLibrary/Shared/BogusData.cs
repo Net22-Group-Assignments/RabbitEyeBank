@@ -1,5 +1,6 @@
 ﻿using Bogus;
 using RabbitEyeBankLibrary.Money;
+using RabbitEyeBankLibrary.Services;
 using RabbitEyeBankLibrary.Users;
 
 namespace RabbitEyeBankLibrary.Shared
@@ -9,6 +10,8 @@ namespace RabbitEyeBankLibrary.Shared
     /// </summary>
     public static class BogusData
     {
+        private static int fakeAccountNumberPool = 10000000;
+
         /// <summary>
         /// A Facade for Bogus.
         /// </summary>
@@ -38,10 +41,10 @@ namespace RabbitEyeBankLibrary.Shared
         public static BankAccount BankAccount(Customer owner)
         {
             return new BankAccount(
-                BankData.GenerateAccountNumber(),
+                fakeAccountNumberPool++.ToString(),
                 faker.Finance.AccountName(),
                 faker.Finance.Amount(),
-                faker.Random.CollectionItem(BankData.CurrencyDictionary.Values),
+                new Currency(CurrencyISO.USD, "$", faker.Random.Decimal(100000)),
                 owner
             );
         }

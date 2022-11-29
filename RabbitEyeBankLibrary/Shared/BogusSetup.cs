@@ -6,8 +6,9 @@ namespace RabbitEyeBankLibrary.Shared
 {
     public static class BogusSetup
     {
-        private static readonly AccountService accountService = ServiceContainer.accountService;
+        private static readonly AccountService AccountService = ServiceContainer.AccountService;
         private static readonly UserService UserService = ServiceContainer.UserService;
+        private static readonly CurrencyService CurrencyService = ServiceContainer.CurrencyService;
 
         /// <summary>
         /// Populates the bank service classes with randomly generated instances.
@@ -27,18 +28,18 @@ namespace RabbitEyeBankLibrary.Shared
                 "11111111",
                 "Savings",
                 10000m,
-                BankData.CurrencyDictionary[CurrencyISO.SEK],
+                CurrencyService.CurrencyFromIso(CurrencyISO.SEK),
                 customer
             );
             BankAccount b2 = new BankAccount(
                 "22222222",
                 "Wages",
                 1000,
-                BankData.CurrencyDictionary[CurrencyISO.USD],
+                CurrencyService.CurrencyFromIso(CurrencyISO.USD),
                 customer
             );
-            accountService.AddBankAccount(b1);
-            accountService.AddBankAccount(b2);
+            AccountService.AddBankAccount(b1);
+            AccountService.AddBankAccount(b2);
 
             customer = new Customer("Jane", "Doe", "jade", "flower", true);
             UserService.AddCustomer(customer);
@@ -46,10 +47,10 @@ namespace RabbitEyeBankLibrary.Shared
                 "33333333",
                 "Fun",
                 0,
-                BankData.CurrencyDictionary[CurrencyISO.USD],
+                CurrencyService.CurrencyFromIso(CurrencyISO.USD),
                 customer
             );
-            accountService.AddBankAccount(b3);
+            AccountService.AddBankAccount(b3);
 
             // Random entities.
             for (int i = 0; i < nCustomers; i++)
@@ -58,7 +59,7 @@ namespace RabbitEyeBankLibrary.Shared
                 for (int j = 0; j < Random.Shared.Next(maxAccounts + 1); j++)
                 {
                     var acc = BogusData.BankAccount(c);
-                    accountService.AddBankAccount(acc);
+                    AccountService.AddBankAccount(acc);
                 }
                 UserService.AddCustomer(c);
             }

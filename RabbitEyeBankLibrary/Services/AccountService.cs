@@ -6,6 +6,8 @@ namespace RabbitEyeBankLibrary.Services;
 
 public class AccountService
 {
+    private static int accountNumberPool = 111;
+
     private readonly List<BankAccount> accountList = new();
 
     public IReadOnlyList<BankAccount> AccountList => accountList;
@@ -47,6 +49,13 @@ public class AccountService
         }
         accountList.Add(bankAccount);
         Log.Debug("Bank account {bankAccount} created", bankAccount);
+    }
+
+    public string? GenerateAccountNumber()
+    {
+        var accountNumberString = Random.Shared.Next(11111, 100000).ToString() + accountNumberPool;
+        accountNumberPool++;
+        return accountNumberString;
     }
 
     public void DeleteAllBankAccounts()
