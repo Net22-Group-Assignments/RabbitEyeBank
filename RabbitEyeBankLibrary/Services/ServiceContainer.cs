@@ -3,7 +3,8 @@
 public static class ServiceContainer
 {
     public static UserService UserService = new();
-    public static AccountService accountService = new();
-    public static MoneyTransferService MoneyTransferService = new(UserService, accountService);
+    public static AccountService AccountService = new();
     public static CurrencyService CurrencyService = new();
+    public static MoneyTransferService MoneyTransferService =
+        new(UserService, AccountService, CurrencyService);
 }

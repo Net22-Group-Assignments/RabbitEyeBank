@@ -1,4 +1,5 @@
 ﻿using RabbitEyeBankLibrary.Money;
+using RabbitEyeBankLibrary.Services;
 using Spectre.Console;
 
 namespace RabbitEyeBankConsole.UI;
@@ -10,7 +11,8 @@ public class Prompts
     /// selector menu. Not self explanatory and probably error-prone. This would
     /// be removed in an actual release.
     /// </summary>
-    public static BankAccount NullBankAccount = new("0", "", 0, new Currency(), null);
+    public static BankAccount NullBankAccount =
+        new("0", "", 0, new Currency(CurrencyISO.USD, "$", 1m), null);
 
     /// <summary>
     /// Connects the choices with output-strings of your liking.

@@ -1,11 +1,11 @@
 ﻿using System.Globalization;
-using RabbitEyeBankLibrary;
 using RabbitEyeBankLibrary.Money;
+using RabbitEyeBankLibrary.Services;
 using Spectre.Console;
 
 namespace RabbitEyeBankConsole.UI.Windows;
 
-public class CurrencyWindow : AdminHeader
+public class ManageCurrencyWindow : AdminHeader
 {
     /// <inheritdoc />
     public override void Show()
@@ -24,10 +24,14 @@ public class CurrencyWindow : AdminHeader
                     new TableColumn("Symbol"),
                     new TableColumn("USD $ Value")
                 );
-            List<Currency> currencyList = CurrencyService.CurrencyList.ToList();
-            List<CurrencyISO> isoList = CurrencyService.CurrencyISOList.ToList();
+            List<Currency> currencies = CurrencyService.CurrencyList.ToList();
+            currencies.Remove(CurrencyService.Dollar);
 
-            foreach (var currency in currencyList)
+            List<CurrencyISO> currencyIsos =
+                (List<CurrencyISO>)CurrencyService.CurrencyISOList.ToList();
+            currencyIsos.Remove(CurrencyISO.USD);
+
+            foreach (var currency in currencies)
             {
                 currencyExchangeTable.AddRow(
                     new Markup(currency.CurrencyISO.ToString()),
@@ -51,12 +55,12 @@ public class CurrencyWindow : AdminHeader
                     .InstructionsText(
                         "[green](Press <space> to toggle a currency, " + "<enter> to accept)[/]"
                     )
-                    .AddChoices(currencyList)
+                    .AddChoices(currencies)
                     .HighlightStyle(Style.Parse("green"))
                     .UseConverter(
                         Prompts.SelectionConverter(
-                            currencyList,
-                            isoList.Select(iso => iso.ToString())
+                            currencies,
+                            currencyIsos.Select(iso => iso.ToString())
                         )
                     )
             );
