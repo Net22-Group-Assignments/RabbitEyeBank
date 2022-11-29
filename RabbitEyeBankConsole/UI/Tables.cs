@@ -4,7 +4,7 @@ using Spectre.Console;
 
 namespace RabbitEyeBankConsole.UI;
 
-public static class Widgets
+public static class Tables
 {
     public static Table AccountOverViewTable(IEnumerable<BankAccount> bankAccounts)
     {
@@ -22,11 +22,7 @@ public static class Widgets
                 new Markup(bankAccount.AccountNumber),
                 new Markup(bankAccount.Name),
                 new Markup(
-                    string.Format(
-                        "{0} {1}",
-                        bankAccount.Balance.ToString(CultureInfo.InvariantCulture),
-                        bankAccount.Currency.Symbol
-                    )
+                    string.Format("{0:F2} {1}", bankAccount.Balance, bankAccount.Currency.Symbol)
                 )
             );
         }
@@ -59,7 +55,7 @@ public static class Widgets
         {
             table.AddRow(
                 new Markup(account.Name),
-                new Markup(account.Balance.ToString(CultureInfo.InvariantCulture)),
+                new Markup(account.Balance.ToString("F2")),
                 new Markup(account.Currency.ToString())
             );
         }
@@ -85,7 +81,7 @@ public static class Widgets
                 Markup.FromInterpolated($"{transfer.TimeOfRegistration}"),
                 new Markup(transfer.FromAccount.AccountNumber),
                 new Markup(transfer.ToAccount.AccountNumber),
-                Markup.FromInterpolated($"{transfer.Amount} {transfer.FromCurrency}"),
+                Markup.FromInterpolated($"{transfer.Amount:F2} {transfer.FromCurrency}"),
                 Markup.FromInterpolated($"{transfer.Status}")
             );
         }

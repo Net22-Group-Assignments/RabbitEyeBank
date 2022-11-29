@@ -14,7 +14,7 @@ public class BankAccountWindow : CustomerHeader
         base.Show();
         bankAccounts = AccountService.BankAccountsByCustomer(UserService.LoggedInCustomer);
 
-        AnsiConsole.Write(Widgets.AccountOverViewTable(bankAccounts));
+        AnsiConsole.Write(Tables.AccountOverViewTable(bankAccounts));
 
         List<WindowName> windowChoices = new List<WindowName>();
         List<string> menuItems = new List<string>();

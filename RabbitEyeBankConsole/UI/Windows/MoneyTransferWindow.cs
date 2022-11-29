@@ -24,7 +24,7 @@ public class MoneyTransferWindow : CustomerHeader
             base.Show();
             bankAccounts = AccountService.BankAccountsByCustomer(currentCustomer);
             transfers = MoneyTransferService.TransfersByCustomer(currentCustomer);
-            AnsiConsole.Write(Widgets.TransferTable(transfers));
+            AnsiConsole.Write(Tables.TransferTable(transfers));
 
             var menuSelect = new SelectionPrompt<MenuChoice>().Title("What do you want to do?");
             if (bankAccounts.Count > 1)

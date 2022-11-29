@@ -26,9 +26,9 @@ public class BankAccountDetailsWindow : CustomerHeader
             {
                 Account = accounts.FirstOrDefault();
             }
-            AnsiConsole.Write(Widgets.SingleAccountTable(Account));
+            AnsiConsole.Write(Tables.SingleAccountTable(Account));
             AnsiConsole.Write(
-                Widgets.TransferTable(
+                Tables.TransferTable(
                     Account is not null
                         ? MoneyTransferService.TransfersByAccount(Account)
                         : new List<MoneyTransfer>()
@@ -67,6 +67,11 @@ public class BankAccountDetailsWindow : CustomerHeader
                 case MenuChoice.SwitchCurrency:
                     Currency newCurrency = AnsiConsole.Prompt(
                         Prompts.CurrencySelector(CurrencyService.CurrencyList)
+                    );
+                    Account.Balance = CurrencyService.ConvertCurrency(
+                        Account.Currency,
+                        newCurrency,
+                        Account.Balance
                     );
                     Account.Currency = newCurrency;
                     break;
