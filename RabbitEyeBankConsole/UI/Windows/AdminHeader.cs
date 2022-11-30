@@ -8,7 +8,8 @@ namespace RabbitEyeBankConsole.UI.Windows
         /// <inheritdoc />
         public virtual void Show()
         {
-            AnsiConsole.Profile.Width = 70;
+            AnsiConsole.Profile.Width = 80;
+            AnsiConsole.Profile.Height = 40;
             AnsiConsole.Clear();
 
 #if DEVMODE
@@ -17,11 +18,10 @@ namespace RabbitEyeBankConsole.UI.Windows
                 AnsiConsole.WriteLine($"Level {Level}");
             }
 #endif
-            int width = AnsiConsole.Profile.Width;
             var image = new CanvasImage(
                 $"Assets{Path.AltDirectorySeparatorChar}Greenbunny blue eye.png"
             );
-            image.MaxWidth(70);
+            image.MaxWidth(80);
             image.PixelWidth(1);
             image.Mutate(ctx => ctx.Contrast(1.5f));
             AnsiConsole.Write(image);

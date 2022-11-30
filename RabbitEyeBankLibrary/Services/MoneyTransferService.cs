@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using System.Dynamic;
 using RabbitEyeBankLibrary.Money;
 using RabbitEyeBankLibrary.Users;
 using Serilog;
@@ -15,7 +16,9 @@ public class MoneyTransferService
     private readonly AccountService accountService;
     private readonly CurrencyService currencyService;
     private readonly List<MoneyTransfer> transferLog = new();
-    private readonly ConcurrentQueue<MoneyTransfer> TransferQueue = new();
+    private readonly ConcurrentQueue<MoneyTransfer> transferQueue = new();
+
+    public TimeSpan TransferTimeSpan { get; set; } = TimeSpan.FromMinutes(15);
 
     public MoneyTransferService(
         UserService userService,
@@ -159,7 +162,7 @@ public class MoneyTransferService
     public void RegisterTransfer(MoneyTransfer transfer)
     {
         transfer.Register();
-        TransferQueue.Enqueue(transfer);
+        transferQueue.Enqueue(transfer);
         transferLog.Add(transfer);
         Log.Debug(
             "Transfer from {FromAccount} to {ToAccount} in queue",
@@ -177,7 +180,7 @@ public class MoneyTransferService
     public void CompleteTransfer()
     {
         MoneyTransfer transfer;
-        if (TransferQueue.TryDequeue(out transfer))
+        if (transferQueue.TryDequeue(out transfer))
         {
             if (transfer.Status == TransferStatus.Pending)
             {
@@ -211,9 +214,29 @@ public class MoneyTransferService
         );
     }
 
+    public bool TransferReady()
+    {
+        if (!transferQueue.IsEmpty && transferQueue.TryPeek(out MoneyTransfer? transfer))
+        {
+            if (transfer.Status != TransferStatus.Pending)
+            {
+                return true;
+            }
+
+            if (DateTime.Now - TransferTimeSpan >= transfer.TimeOfRegistration)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void TransferMoney(MoneyTransfer moneyTransfer)
     {
         RegisterTransfer(moneyTransfer);
-        CompleteTransfer();
+        if (TransferTimeSpan <= TimeSpan.Zero)
+        {
+            CompleteTransfer();
+        }
     }
 }

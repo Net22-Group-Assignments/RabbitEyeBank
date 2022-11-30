@@ -11,14 +11,12 @@ namespace RabbitEyeBankConsole.UI.Windows
             AnsiConsole.Profile.Width = 80;
             AnsiConsole.Profile.Height = 40;
             AnsiConsole.Clear();
-
 #if DEVMODE
             {
                 showWindowStack();
                 AnsiConsole.WriteLine($"Level {Level}");
             }
 #endif
-
             int width = AnsiConsole.Profile.Width;
             var image = new CanvasImage($"Assets{Path.AltDirectorySeparatorChar}bluebunny2xW.png");
             image.MaxWidth(80);

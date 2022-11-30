@@ -1,5 +1,4 @@
-﻿using RabbitEyeBankLibrary.Money;
-using RabbitEyeBankLibrary.Services;
+﻿using RabbitEyeBankLibrary.Services;
 
 namespace RabbitEyeBankLibraryTests;
 
@@ -24,6 +23,7 @@ public class MoneyTransferTests : IClassFixture<Fixture>
             accountService,
             currencyService
         );
+        transferService.TransferTimeSpan = TimeSpan.Zero;
         var b1 = fixture.BankAccount1();
         var b2 = fixture.BankAccount2();
         accountService.AddBankAccount(b1);
@@ -48,6 +48,7 @@ public class MoneyTransferTests : IClassFixture<Fixture>
             accountService,
             currencyService
         );
+        transferService.TransferTimeSpan = TimeSpan.Zero;
         var b1 = fixture.BankAccount1();
         var b3 = fixture.BankAccount3();
         accountService.AddBankAccount(b1);

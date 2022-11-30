@@ -34,18 +34,32 @@
         {
             TimeOfRegistration = DateTime.Now;
             Status = TransferStatus.Pending;
+            FromAccount.TransfersInQueue++;
+            ToAccount.TransfersInQueue++;
         }
 
         public void Complete()
         {
             TimeOfCompletion = DateTime.Now;
             Status = TransferStatus.Completed;
+            FromAccount.TransfersInQueue--;
+            ToAccount.TransfersInQueue--;
         }
 
         public void Reject()
         {
             TimeOfCompletion = DateTime.Now;
             Status = TransferStatus.Rejected;
+            FromAccount.TransfersInQueue--;
+            ToAccount.TransfersInQueue--;
+        }
+
+        public void Abort()
+        {
+            TimeOfCompletion = DateTime.Now;
+            Status = TransferStatus.Aborted;
+            FromAccount.TransfersInQueue--;
+            ToAccount.TransfersInQueue--;
         }
 
         protected bool Equals(MoneyTransfer other)
@@ -91,6 +105,7 @@
         New,
         Pending,
         Completed,
+        Aborted,
         Rejected
     }
 }

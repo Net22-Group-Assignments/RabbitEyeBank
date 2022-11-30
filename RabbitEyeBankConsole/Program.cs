@@ -11,4 +11,6 @@ using var log = new LoggerConfiguration().MinimumLevel
 Log.Logger = log;
 Log.Information("Bank console starting.");
 BogusSetup.InitData(5, 5);
-new Application().Run();
+var appTask = Application.AppTask();
+var transactionTask = Application.TransactionTask();
+Task.WaitAll(appTask, transactionTask);

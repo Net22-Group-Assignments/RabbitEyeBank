@@ -65,6 +65,13 @@ public class BankAccountDetailsWindow : CustomerHeader
                     }
                     break;
                 case MenuChoice.SwitchCurrency:
+                    if (Account.TransfersInQueue > 0)
+                    {
+                        AnsiConsole.WriteLine("Unavailable. This account has pending transfers");
+                        AnsiConsole.WriteLine("Press a key to continue");
+                        Console.ReadKey();
+                        break;
+                    }
                     Currency newCurrency = AnsiConsole.Prompt(
                         Prompts.CurrencySelector(CurrencyService.CurrencyList)
                     );

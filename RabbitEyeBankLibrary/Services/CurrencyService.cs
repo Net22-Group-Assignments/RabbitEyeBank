@@ -83,10 +83,10 @@ public class CurrencyService
     }
 
     private decimal FromDollar(Currency toCurrency, decimal value) =>
-        Math.Round(value / toCurrency.DollarValue, MidpointRounding.ToEven);
+        Math.Round(value / toCurrency.DollarValue, 2, MidpointRounding.ToEven);
 
     private decimal ToDollar(Currency fromCurrency, decimal value) =>
-        Math.Round(value * fromCurrency.DollarValue, MidpointRounding.ToEven);
+        Math.Round(value * fromCurrency.DollarValue, 2, MidpointRounding.ToEven);
 }
 
 public enum CurrencyISO

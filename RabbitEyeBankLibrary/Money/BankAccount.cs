@@ -7,12 +7,19 @@ namespace RabbitEyeBankLibrary.Money
     /// </summary>
     public class BankAccount
     {
+        private int transfersInQueue;
+
         public string? AccountNumber { get; init; }
         public string Name { get; set; }
         public decimal Balance { get; set; }
         public Currency Currency { get; set; }
 
         public Customer Owner { get; init; }
+        public int TransfersInQueue
+        {
+            get => transfersInQueue;
+            set => transfersInQueue = value < 0 ? 0 : value;
+        }
 
         public BankAccount(
             string? accountNumber,
